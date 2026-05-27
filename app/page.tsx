@@ -1,76 +1,124 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { ChevronRight, Play, Pause } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import OrchestratorDemo from "@/components/OrchestratorDemo";
+import OnePromptDemo from "@/components/OnePromptDemo";
+import StatsBar from "@/components/StatsBar";
+import WorksWith from "@/components/WorksWith";
+import NotificationCard from "@/components/NotificationCard";
 
-
-
-// Simple interactive orchestration visualizer
-function OrchestrationVisualizer() {
-  const [activeTasks, setActiveTasks] = useState<string[]>([]);
-
-  const tasks = [
-    { id: "research", label: "Research pricing models", system: "Faculty" },
-    { id: "write", label: "Draft competitive memo", system: "Faculty" },
-    { id: "organize", label: "Organize findings into Board", system: "Board" },
-    { id: "verify", label: "Verify data accuracy", system: "Conductor" },
-  ];
-
-  const toggleTask = (id: string) => {
-    setActiveTasks(prev => 
-      prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]
-    );
+// Memory visualization — deterministic grid of glowing dots
+function MemoryViz() {
+  const ROWS = 7;
+  const COLS = 12;
+  const getGlow = (r: number, c: number) => {
+    const v = (r * 13 + c * 7 + r * c) % 10;
+    return v > 6 ? "bright" : v > 3 ? "medium" : "dim";
   };
+  const getDelay = (r: number, c: number) => ((r * 3 + c * 5) % 20) * 0.15;
 
   return (
-    <div className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-3xl p-9">
-      <div className="mb-8">
-        <div className="text-sm tracking-[1.5px] text-[var(--text-muted)] mb-2">TRY IT</div>
-        <div className="text-3xl tracking-tight">Watch the orchestrator work.</div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {tasks.map(task => {
-          const isActive = activeTasks.includes(task.id);
+    <div className="rounded-2xl border border-[var(--border)] bg-[#0D0D0D] p-7 overflow-hidden">
+      <div
+        className="grid gap-2"
+        style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)` }}
+        aria-hidden="true"
+      >
+        {Array.from({ length: ROWS * COLS }).map((_, i) => {
+          const r = Math.floor(i / COLS);
+          const c = i % COLS;
+          const glow = getGlow(r, c);
           return (
-            <button
-              key={task.id}
-              onClick={() => toggleTask(task.id)}
-              className={`text-left p-6 rounded-2xl border transition-all flex justify-between items-start ${
-                isActive 
-                  ? "border-[#111111] bg-[#111111] text-[#F9F7F3]" 
-                  : "border-[var(--border)] hover:border-[#111111]/40"
-              }`}
-            >
-              <div>
-                <div className="font-medium tracking-tight">{task.label}</div>
-                <div className={`text-sm mt-1 ${isActive ? "text-[#F9F7F3]/70" : "text-[var(--text-muted)]"}`}>
-                  → {task.system}
-                </div>
-              </div>
-              <div className={`mt-1 transition-transform ${isActive ? "rotate-45" : ""}`}>
-                <ChevronRight size={18} />
-              </div>
-            </button>
+            <div
+              key={i}
+              className="w-1.5 h-1.5 rounded-full"
+              style={{
+                backgroundColor:
+                  glow === "bright"
+                    ? "var(--accent)"
+                    : glow === "medium"
+                    ? "#3a3a3a"
+                    : "#1e1e1e",
+                animation:
+                  glow !== "dim"
+                    ? `pulse-dot ${2 + getDelay(r, c)}s ease-in-out ${getDelay(r, c)}s infinite`
+                    : undefined,
+              }}
+            />
           );
         })}
       </div>
+    </div>
+  );
+}
 
-      <div className="mt-8 text-sm text-[var(--text-muted)]">
-        {activeTasks.length > 0 
-          ? `${activeTasks.length} task${activeTasks.length > 1 ? "s" : ""} delegated. The orchestrator is coordinating.` 
-          : "Click tasks above. Watch how the orchestrator distributes work."}
-      </div>
+// Focus animation — two-state compression visualization
+function FocusAnimation() {
+  const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    const id = setInterval(() => setCollapsed((p) => !p), 3000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div
+      className="rounded-2xl border border-[var(--border)] bg-[#0D0D0D] p-7 overflow-hidden min-h-[180px] flex flex-col justify-center"
+      aria-hidden="true"
+    >
+      <AnimatePresence mode="wait">
+        {!collapsed ? (
+          <motion.div
+            key="expanded"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="space-y-1.5"
+          >
+            {[82, 95, 73, 88, 60, 91, 76, 84].map((w, i) => (
+              <div
+                key={i}
+                className="h-1.5 rounded-full bg-white/15"
+                style={{ width: `${w}%`, filter: "blur(0.5px)" }}
+              />
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div
+            key="collapsed"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="space-y-3"
+          >
+            <div className="h-2 rounded-full bg-white/90" style={{ width: "78%" }} />
+            <div className="h-2 rounded-full bg-white/65" style={{ width: "60%" }} />
+            <div className="h-2 rounded-full bg-white/40" style={{ width: "42%" }} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
 export default function GCAPLabs() {
   const [submitted, setSubmitted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const scrollTo = (id: string) => {
+    setMobileMenuOpen(false);
+    setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 50);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    window.open(
+      "mailto:waitlist@gcap.online?subject=Headmaster Early Access Request",
+      "_blank"
+    );
     setSubmitted(true);
   };
 
@@ -80,64 +128,155 @@ export default function GCAPLabs() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/95 backdrop-blur-xl border-b border-[var(--border)]">
         <div className="max-w-6xl mx-auto px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/images/logo.jpg" alt="GCAP Labs" className="h-8 w-auto" />
+            <img
+              src="/images/logo.svg"
+              alt="GCAP Labs"
+              className="h-8 w-auto"
+              width={32}
+              height={32}
+            />
             <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
           </div>
 
+          {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-9 text-[15px]">
-            <a href="#headmaster" className="hover:text-[var(--text-muted)] transition-colors">Headmaster</a>
-            <a href="#interfaces" className="hover:text-[var(--text-muted)] transition-colors">Hermes & Paperclip</a>
-            <a href="#orchestrator" className="hover:text-[var(--text-muted)] transition-colors">The Orchestrator</a>
-            <a href="#memento" className="hover:text-[var(--text-muted)] transition-colors">Memento</a>
-            <button 
-              onClick={() => document.getElementById('early-access')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-6 py-[10px] rounded-full bg-[#111111] text-[#F9F7F3] text-sm hover:bg-black transition-colors"
+            <a
+              href="#headmaster"
+              className="hover:text-[var(--text-muted)] transition-colors"
             >
-              Get early access
+              Headmaster
+            </a>
+            <a
+              href="#orchestrator"
+              className="hover:text-[var(--text-muted)] transition-colors"
+            >
+              How It Works
+            </a>
+            <a
+              href="#memory"
+              className="hover:text-[var(--text-muted)] transition-colors"
+            >
+              Memory
+            </a>
+            <a
+              href="#focus"
+              className="hover:text-[var(--text-muted)] transition-colors"
+            >
+              Focus
+            </a>
+            <button
+              onClick={() => scrollTo("waitlist")}
+              className="px-6 py-[10px] rounded-full bg-[#111111] text-[#F9F7F3] text-sm hover:bg-black transition-colors"
+              aria-label="Join the waitlist"
+            >
+              Join the waitlist
             </button>
           </div>
 
-          <button 
-            onClick={() => document.getElementById('early-access')?.scrollIntoView({ behavior: 'smooth' })}
-            className="md:hidden text-sm px-4 py-2 rounded-full bg-[#111111] text-[#F9F7F3]"
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMobileMenuOpen((p) => !p)}
+            className="md:hidden z-50 relative flex flex-col gap-[5px] p-2"
+            aria-label="Toggle navigation menu"
+            aria-expanded={mobileMenuOpen}
           >
-            Early access
+            <span
+              className={`block w-5 h-[1.5px] bg-[var(--text)] transition-all duration-200 ${
+                mobileMenuOpen ? "rotate-45 translate-y-[6.5px]" : ""
+              }`}
+            />
+            <span
+              className={`block w-5 h-[1.5px] bg-[var(--text)] transition-all duration-200 ${
+                mobileMenuOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`block w-5 h-[1.5px] bg-[var(--text)] transition-all duration-200 ${
+                mobileMenuOpen ? "-rotate-45 -translate-y-[6.5px]" : ""
+              }`}
+            />
           </button>
         </div>
       </nav>
 
-      {/* Hero - Full cinematic Palantir-style video */}
+      {/* Mobile menu overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-[var(--bg)] pt-24 px-8 flex flex-col"
+          >
+            <nav className="flex flex-col gap-7" aria-label="Mobile navigation">
+              {[
+                { href: "#headmaster", label: "Headmaster" },
+                { href: "#orchestrator", label: "How It Works" },
+                { href: "#memory", label: "Memory" },
+                { href: "#focus", label: "Focus" },
+              ].map(({ href, label }) => (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-3xl tracking-tight font-medium hover:text-[var(--text-muted)] transition-colors"
+                >
+                  {label}
+                </a>
+              ))}
+            </nav>
+            <button
+              onClick={() => scrollTo("waitlist")}
+              className="mt-10 w-full py-4 rounded-full bg-[#111111] text-[#F9F7F3] text-lg font-medium"
+            >
+              Join the waitlist
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Hero */}
       <section className="relative h-[100dvh] min-h-[720px] flex items-center justify-center overflow-hidden bg-black">
         <video
           autoPlay
           muted
           loop
           playsInline
+          poster="/images/hero-poster.jpg"
           className="absolute inset-0 w-full h-full object-cover"
-          src="/images/generated/hero-gcap-products.mp4"
-        />
+          src="/videos/hero.mp4"
+          aria-hidden="true"
+        >
+          {/* Fallback gradient if video fails */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] to-[#1a1a1a]" />
+        </video>
 
-        {/* Strong cinematic gradient for text legibility, very Palantir */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-8 text-center text-white">
-          <h1 className="text-[72px] md:text-[92px] leading-[0.9] tracking-[-5.5px] font-semibold mb-6 drop-shadow-2xl">
-            Most assistants answer,<br />then stop.
+          <h1 className="text-[68px] md:text-[92px] leading-[0.88] tracking-[-5px] font-semibold mb-6 drop-shadow-2xl">
+            One prompt.
+            <br />
+            Headmaster handles the rest.
           </h1>
-          <p className="text-3xl md:text-[42px] tracking-[-1.2px] mb-14 text-white/90 drop-shadow-xl">
-            Headmaster keeps working.
+          <p className="text-2xl md:text-[34px] tracking-[-1px] mb-14 text-white/85 drop-shadow-xl max-w-2xl mx-auto leading-tight">
+            Research. Code. Emails. Decisions.
+            <br />
+            Your entire workforce — inside your laptop.
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button 
-              onClick={() => document.getElementById('early-access')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-14 py-4 rounded-full bg-white text-black text-xl font-medium hover:bg-white/90 active:scale-[0.985] transition-all shadow-xl"
+            <a
+              href="mailto:waitlist@gcap.online?subject=Headmaster Early Access Request"
+              className="px-14 py-4 rounded-full bg-white text-black text-xl font-medium hover:bg-white/90 active:scale-[0.985] transition-all shadow-xl text-center"
+              aria-label="Join the Headmaster waitlist"
             >
-              Get early access
-            </button>
-            <a 
-              href="#orchestrator" 
-              className="px-14 py-4 rounded-full border-2 border-white/80 text-xl hover:bg-white/10 transition-all"
+              Join the waitlist
+            </a>
+            <a
+              href="#orchestrator"
+              className="px-14 py-4 rounded-full border-2 border-white/80 text-xl hover:bg-white/10 transition-all text-center"
             >
               See it in action
             </a>
@@ -145,285 +284,328 @@ export default function GCAPLabs() {
         </div>
       </section>
 
-      {/* Brand Section — Dedicated logo reveal right under the hero */}
-      <section className="border-y border-[var(--border)] bg-[var(--bg-elevated)] py-16">
-        <div className="max-w-5xl mx-auto px-8 flex justify-center">
-          <img 
-            src="/images/logo.jpg" 
-            alt="GCAP Labs" 
-            className="h-14 w-auto" 
-          />
-        </div>
-      </section>
+      {/* Stats Bar */}
+      <StatsBar />
 
       {/* Headmaster */}
-      <section id="headmaster" className="max-w-5xl mx-auto px-8 pt-16 pb-16">
+      <section id="headmaster" className="max-w-5xl mx-auto px-8 pt-20 pb-16">
         <div className="max-w-3xl">
-          <div className="uppercase tracking-[3px] text-xs mb-4 text-[var(--text-muted)]">THE FLAGSHIP PRODUCT</div>
-          <h2 className="text-[64px] tracking-[-2.8px] leading-none font-medium mb-8">Headmaster</h2>
-          <p className="text-2xl text-[var(--text-muted)] leading-tight">
-            An agent that continues after you leave. It plans, delegates, remembers, and reports back — with the intelligence of a true orchestrator.
+          <div className="uppercase tracking-[3px] text-xs mb-4 text-[var(--text-muted)]">
+            THE PRODUCT
+          </div>
+          <h2 className="text-[64px] tracking-[-2.8px] leading-none font-medium mb-8">
+            An agent that keeps working
+            <br />
+            after you close the laptop.
+          </h2>
+          <p className="text-[22px] text-[var(--text-muted)] leading-snug mb-5">
+            Headmaster doesn&apos;t answer questions.
+            It executes outcomes. It plans, delegates to specialist agents, tracks progress,
+            and reports back — fully autonomously, from a single prompt.
+          </p>
+          <p className="text-[22px] text-[var(--text-muted)] leading-snug">
+            You describe the work. Headmaster builds the team,
+            runs the operation, and hands you the result.
           </p>
         </div>
       </section>
 
-      {/* Hermes & Paperclip — The Interfaces */}
-      <section id="interfaces" className="max-w-6xl mx-auto px-8 py-20 border-b border-[var(--border)]">
-        <div className="text-center mb-12">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-[#111111] text-[#F9F7F3] text-xs tracking-[2px] mb-4">THE EXPERIENCE</div>
-          <h3 className="text-5xl md:text-[56px] tracking-[-2px] font-medium mb-4">Hermes & Paperclip.</h3>
-          <p className="text-2xl text-[var(--text-muted)] max-w-2xl mx-auto">
-            The command layer and the executive layer. Raw agent power meets beautiful oversight.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Hermes */}
-          <div className="group bg-[var(--bg-elevated)] border border-[var(--border)] rounded-3xl overflow-hidden">
-            <div className="relative">
-              <img 
-                src="/images/references/hermes.png" 
-                alt="Hermes Agent terminal interface — powerful CLI with 80+ tools and skills" 
-                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.015]" 
-              />
-              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/75 to-transparent" />
-            </div>
-            <div className="p-9">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="text-[11px] tracking-[2px] text-[#EAB308] font-medium">THE COMMAND LAYER</div>
-              </div>
-              <div className="text-3xl tracking-[-1.2px] font-medium mb-4">Hermes</div>
-              <p className="text-[var(--text-muted)] text-[15px] leading-relaxed mb-6">
-                A terminal-first agent that gives you everything: browser control, code execution, file ops, delegation, cron, MCP, and 79+ skills out of the box. 
-                The caduceus for a reason — it moves fast between worlds.
-              </p>
-              <div className="text-xs text-[var(--text-muted)]">CLI • Local-first • 80+ tools • Subagent orchestration • Works with Headmaster</div>
-            </div>
+      {/* One Prompt Demo */}
+      <section className="max-w-5xl mx-auto px-8 pb-20 border-b border-[var(--border)]">
+        <div className="mb-12">
+          <div className="uppercase tracking-[3px] text-xs mb-4 text-[var(--text-muted)]">
+            ONE PROMPT
           </div>
-
-          {/* Paperclip */}
-          <div className="group bg-[var(--bg-elevated)] border border-[var(--border)] rounded-3xl overflow-hidden">
-            <div className="relative">
-              <img 
-                src="/images/references/paperclip.png" 
-                alt="Paperclip dashboard — CEO agent view with orchestration, charts, and task management" 
-                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.015]" 
-              />
-              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/75 to-transparent" />
-            </div>
-            <div className="p-9">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="text-[11px] tracking-[2px] text-[#22C55E] font-medium">THE EXECUTIVE LAYER</div>
-              </div>
-              <div className="text-3xl tracking-[-1.2px] font-medium mb-4">Paperclip</div>
-              <p className="text-[var(--text-muted)] text-[15px] leading-relaxed mb-6">
-                The CEO dashboard for your agent workforce. Assign tasks, watch real-time runs, see priority charts, success rates, and the living heartbeat of work across your entire fleet. 
-                One view for the orchestrator above the orchestrator.
-              </p>
-              <div className="text-xs text-[var(--text-muted)]">SaaS dashboard • Agent heartbeats • Issue tracking • Works with Hermes + Headmaster</div>
-            </div>
-          </div>
+          <h2 className="text-[46px] tracking-[-1.8px] leading-tight font-medium">
+            Type once.
+            <br />
+            Wake up to results.
+          </h2>
         </div>
-
-        <p className="text-center text-sm text-[var(--text-muted)] mt-8 max-w-md mx-auto">
-          Both interfaces are designed for serious work — one for depth and power, one for oversight and command.
-        </p>
+        <OnePromptDemo />
       </section>
 
-      {/* The Orchestrator */}
-      <section id="orchestrator" className="border-y border-[var(--border)] bg-[var(--bg-elevated)] py-16">
+      {/* Orchestrator section */}
+      <section
+        id="orchestrator"
+        className="border-y border-[var(--border)] bg-[var(--bg-elevated)] py-16"
+      >
         <div className="max-w-5xl mx-auto px-8">
           <div className="text-center mb-10">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-[#111111] text-[#F9F7F3] text-xs tracking-widest mb-4">THE CORE</div>
-            <h3 className="text-5xl tracking-[-1.8px] font-medium">One system. Real coordination.</h3>
-            <p className="mt-4 text-xl text-[var(--text-muted)] max-w-2xl mx-auto">
-              Headmaster doesn't just answer — it orchestrates. It decomposes work, delegates intelligently, and keeps moving until the job is done.
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center">
-            <div className="text-center max-w-md">
-              <p className="text-[17px] text-[var(--text-muted)]">
-                The live demo below shows how tasks get assigned across specialists in real time.
-              </p>
+            <div className="inline-block px-4 py-1.5 rounded-full bg-[#111111] text-[#F9F7F3] text-xs tracking-[2px] mb-4">
+              HOW IT WORKS
             </div>
+            <h3 className="text-5xl tracking-[-1.8px] font-medium leading-tight">
+              One instruction.
+              <br />
+              A hundred agents.
+              <br />
+              Zero overhead.
+            </h3>
+            <p className="mt-6 text-xl text-[var(--text-muted)] max-w-2xl mx-auto leading-snug">
+              Headmaster decomposes your task into subtasks, assigns each to the right
+              specialist, verifies the work, and coordinates until completion.
+              You never manage the process. You just get the outcome.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Systems + Interactive Orchestration */}
+      {/* Orchestrator Demo */}
       <section className="max-w-5xl mx-auto px-8 py-20">
-        <div className="mb-12">
-          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">HOW IT THINKS</div>
-          <h3 className="text-[46px] tracking-[-1.8px] font-medium">The orchestrator in action.</h3>
-          <div className="inline-block mt-3 px-3 py-1 text-xs tracking-widest bg-[#111111] text-[#F9F7F3] rounded-full">LIVE DEMO — CLICK THE TASKS</div>
+        <div className="mb-10">
+          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">
+            LIVE DEMO
+          </div>
+          <h3 className="text-[42px] tracking-[-1.5px] font-medium mb-2">
+            Watch Headmaster think.
+          </h3>
+          <p className="text-[var(--text-muted)] text-[17px]">
+            Click a task. Watch how it gets broken down and assigned in real time.
+          </p>
         </div>
 
-        <OrchestrationVisualizer />
+        <OrchestratorDemo />
 
-        <div className="grid md:grid-cols-3 gap-5 mt-8">
+        {/* Agent monogram cards */}
+        <div className="grid md:grid-cols-3 gap-5 mt-10">
           {[
-            { name: "Conductor", role: "Decides what to do and when to ask for help.", img: "mockups/82.jpg" },
-            { name: "Faculty", role: "Calls in the right specialist agents for the job.", img: "mockups/84.jpg" },
-            { name: "Board", role: "Turns chaos into clear, trackable work.", img: "mockups/79.jpg" },
-          ].map((s, i) => (
-            <motion.div 
-              key={i} 
-              className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-3xl overflow-hidden group"
-              initial={{ opacity: 0, y: 30 }}
+            { letter: "A", name: "ANALYST", role: "Searches, scrapes, and synthesizes information from across the web." },
+            { letter: "W", name: "WRITER", role: "Drafts, edits, and structures documents with the right context." },
+            { letter: "V", name: "VERIFIER", role: "Cross-checks facts, sources, and data before they reach you." },
+          ].map((agent, i) => (
+            <motion.div
+              key={i}
+              className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-3xl p-8 group"
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
+              transition={{ delay: i * 0.07 }}
             >
-              <img 
-                src={`/images/generated/${s.img}`} 
-                alt={s.name} 
-                className="w-full h-[210px] object-cover transition-transform duration-700 group-hover:scale-[1.03]" 
-              />
-              <div className="p-8">
-                <div className="font-medium text-2xl tracking-tight mb-3">{s.name}</div>
-                <p className="text-[var(--text-muted)] leading-snug">{s.role}</p>
+              <div
+                className="w-16 h-16 rounded-xl bg-[#111111] flex items-center justify-center text-[#F9F7F3] text-[28px] font-bold mb-5"
+                aria-hidden="true"
+              >
+                {agent.letter}
               </div>
+              <div className="font-medium text-xl tracking-tight mb-2">{agent.name}</div>
+              <p className="text-[var(--text-muted)] leading-snug text-sm">{agent.role}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* Fleet Visualizer */}
-      <section className="max-w-5xl mx-auto px-8 py-16">
+      <section className="max-w-5xl mx-auto px-8 py-16 border-t border-[var(--border)]">
         <div className="mb-8">
-          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">THE FLEET</div>
-          <h3 className="text-[46px] tracking-[-1.8px] font-medium">See the orchestrator at scale.</h3>
-        </div>
-        
-        <div className="grid md:grid-cols-5 gap-4">
-          <motion.div 
-            className="md:col-span-3 rounded-3xl overflow-hidden border border-[var(--border)] bg-black"
-            initial={{ opacity: 0, scale: 0.985 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <video 
-              src="/images/generated/palantir-style-fleet-visualizer.mp4" 
-              autoPlay 
-              muted 
-              loop 
-              playsInline
-              className="w-full"
-            />
-          </motion.div>
-          <div className="md:col-span-2">
-            <img 
-              src="/images/generated/mockups/84.jpg" 
-              alt="Headmaster Orchestration on MacBook" 
-              className="rounded-3xl w-full h-full object-cover border border-[var(--border)]" 
-            />
+          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">
+            THE FLEET
           </div>
+          <h3 className="text-[42px] tracking-[-1.6px] font-medium">
+            Orchestration at scale.
+          </h3>
         </div>
-        <p className="text-center text-sm text-[var(--text-muted)] mt-4">Multiple orchestrators coordinating specialized agents across complex work.</p>
+
+        <motion.div
+          className="rounded-3xl overflow-hidden border border-[var(--border)] bg-black relative"
+          initial={{ opacity: 0, scale: 0.99 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <video
+            src="/videos/fleet.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            className="w-full"
+            aria-label="Headmaster fleet orchestration visualization"
+          />
+          {/* Fallback gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#111] to-[#0a0a0a] -z-10" />
+        </motion.div>
+
+        <p className="text-center text-sm text-[var(--text-muted)] mt-4">
+          Multiple specialist agents coordinating across complex work.
+        </p>
       </section>
 
-      {/* Memento */}
-      <section id="memento" className="bg-[var(--bg-elevated)] border-y border-[var(--border)] py-20">
+      {/* Memory */}
+      <section id="memory" className="bg-[var(--bg-elevated)] border-y border-[var(--border)] py-20">
         <div className="max-w-4xl mx-auto px-8 grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-4">THE MEMORY LAYER</div>
-            <h3 className="text-[52px] tracking-[-2px] font-medium mb-6">Memento</h3>
-            <p className="text-2xl text-[var(--text-muted)] leading-tight mb-8">
-              Memory that actually persists. Headmaster (and other tools) can finally remember what happened yesterday, last week, or three projects ago.
+            <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-4">
+              PERSISTENT MEMORY
+            </div>
+            <h3 className="text-[52px] tracking-[-2px] font-medium mb-6 leading-none">
+              Headmaster remembers
+              <br />
+              everything.
+            </h3>
+            <p className="text-[21px] text-[var(--text-muted)] leading-snug mb-4">
+              Not just this session. Last week. Last month.
+              Three projects ago. Headmaster builds a living memory of your work,
+              your preferences, and your decisions — and uses it every time.
             </p>
-            <div className="text-sm text-[var(--text-muted)]">Works with Headmaster, Claude Code, Codex, Kimi Code, and more coming soon.</div>
+            <div className="text-sm text-[var(--text-muted)]">
+              Works with Headmaster, Claude Code, Codex, Kimi Code, and more.
+            </div>
           </div>
-          <div>
-            <img src="/images/generated/mockups/85.jpg" alt="Memento memory layer mockup" className="rounded-3xl w-full" />
-          </div>
+          <MemoryViz />
         </div>
       </section>
 
-      {/* Lens */}
-      <section className="max-w-5xl mx-auto px-8 py-16">
+      {/* Focus */}
+      <section id="focus" className="max-w-5xl mx-auto px-8 py-20">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">THE FOCUS LAYER</div>
-            <h3 className="text-[44px] tracking-[-1.6px] font-medium mb-5">Lens</h3>
-            <p className="text-[21px] text-[var(--text-muted)] leading-tight">
-              Cuts through noise. Tool outputs, logs, and long context are intelligently compressed before they reach the model — so the orchestrator stays sharp.
+            <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">
+              INTELLIGENT CONTEXT
+            </div>
+            <h3 className="text-[44px] tracking-[-1.6px] font-medium mb-5 leading-none">
+              Stays sharp.
+              <br />
+              No matter how complex the work.
+            </h3>
+            <p className="text-[21px] text-[var(--text-muted)] leading-snug">
+              Long outputs, deep logs, sprawling context — Headmaster compresses what
+              doesn&apos;t matter and surfaces what does.
+              The orchestrator never loses the thread.
             </p>
           </div>
-          <img src="/images/generated/mockups/86.jpg" alt="Lens focus layer mockup" className="rounded-3xl w-full" />
+          <FocusAnimation />
         </div>
       </section>
 
-
-
-      {/* GCAP Labs */}
+      {/* Company */}
       <section className="border-y border-[var(--border)] py-16 bg-[var(--bg-elevated)]">
-        <div className="max-w-5xl mx-auto px-8 grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="text-sm tracking-[2px] text-[var(--text-muted)] mb-3">THE COMPANY</div>
-            <h3 className="text-5xl tracking-[-1.8px] font-medium mb-6">GCAP Labs</h3>
-            <p className="max-w-2xl text-[19px] text-[var(--text-muted)] leading-tight">
-              We build the infrastructure for agents that can actually be trusted with real work. 
-              Headmaster is our first major product.
+        <div className="max-w-5xl mx-auto px-8">
+          <div className="max-w-2xl">
+            <div className="text-sm tracking-[2px] text-[var(--text-muted)] mb-3">
+              THE COMPANY
+            </div>
+            <h3 className="text-5xl tracking-[-1.8px] font-medium mb-6 leading-tight">
+              We build agents
+              <br />
+              you can actually trust.
+            </h3>
+            <p className="text-[20px] text-[var(--text-muted)] leading-snug">
+              GCAP Labs makes infrastructure for AI agents that do real work.
+              Not demos. Not prototypes.
+              Production-grade autonomy for the things that matter.
             </p>
           </div>
-          <img src="/images/generated/mockups/83.jpg" alt="Headmaster on MacBook Pro" className="rounded-3xl w-full" />
         </div>
       </section>
 
       {/* While You Were Away */}
       <section className="max-w-5xl mx-auto px-8 py-20">
         <div className="text-center mb-12">
-          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">THE PROMISE</div>
-          <h3 className="text-[48px] tracking-[-1.8px] font-medium">While you were away.</h3>
+          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">
+            THE PROMISE
+          </div>
+          <h3 className="text-[48px] tracking-[-1.8px] font-medium">
+            While you were away.
+          </h3>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-3xl p-9">
-            <div className="text-2xl tracking-tight font-medium mb-4">You closed your laptop at 6pm.</div>
+            <div className="text-2xl tracking-tight font-medium mb-5 leading-snug">
+              You closed your laptop at 6pm
+              with three complex tasks unfinished.
+            </div>
+            <p className="text-[var(--text-muted)] leading-relaxed mb-5">
+              By 8am, they were done. Summarized.
+              Waiting in your inbox. With sources,
+              next actions, and zero loose ends.
+            </p>
             <p className="text-[var(--text-muted)] leading-relaxed">
-              By morning, three complex research tasks were completed, summarized, and waiting in your preferred channel — with full provenance and next actions clearly laid out.
+              You didn&apos;t manage it.
+              You didn&apos;t babysit it.
+              You just asked — and Headmaster handled it.
             </p>
           </div>
-          <div className="space-y-4">
-            <img src="/images/generated/mockups/82.jpg" alt="Headmaster on MacBook Pro" className="rounded-3xl w-full object-cover" />
-            <img src="/images/generated/mockups/86.jpg" alt="Headmaster interface on laptop" className="rounded-3xl w-full object-cover" />
+          <div className="flex flex-col justify-center">
+            <NotificationCard />
           </div>
         </div>
       </section>
 
-      {/* Early Access */}
-      <section id="early-access" className="max-w-2xl mx-auto px-8 py-20 border-t border-[var(--border)]">
+      {/* Works With */}
+      <WorksWith />
+
+      {/* Waitlist */}
+      <section
+        id="waitlist"
+        className="max-w-2xl mx-auto px-8 py-20 border-t border-[var(--border)]"
+      >
         <div className="text-center mb-10">
-          <h3 className="text-[42px] tracking-[-1.5px] font-medium mb-4">Ready when you are.</h3>
-          <p className="text-[var(--text-muted)]">Limited spots for the first cohort of teams using Headmaster in production.</p>
+          <h3 className="text-[42px] tracking-[-1.5px] font-medium mb-4 leading-tight">
+            You shouldn&apos;t need a team
+            <br />
+            to get team-level work done.
+          </h3>
+          <p className="text-[var(--text-muted)] text-lg">
+            Headmaster is in early access.
+            <br />
+            Limited spots. We review every application.
+          </p>
         </div>
 
         {!submitted ? (
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input type="text" placeholder="Full name" className="w-full rounded-2xl border border-[var(--border)] bg-white px-6 py-4 text-lg placeholder:text-[var(--text-muted)] focus:outline-none" required />
-              <input type="email" placeholder="Work email" className="w-full rounded-2xl border border-[var(--border)] bg-white px-6 py-4 text-lg placeholder:text-[var(--text-muted)] focus:outline-none" required />
+              <input
+                type="text"
+                name="name"
+                placeholder="Full name"
+                className="w-full rounded-2xl border border-[var(--border)] bg-white px-6 py-4 text-lg placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#111111]/40 transition-colors"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Work email"
+                className="w-full rounded-2xl border border-[var(--border)] bg-white px-6 py-4 text-lg placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#111111]/40 transition-colors"
+                required
+              />
             </div>
-            <input type="text" placeholder="Company or team" className="w-full rounded-2xl border border-[var(--border)] bg-white px-6 py-4 text-lg placeholder:text-[var(--text-muted)] focus:outline-none" />
-            <textarea placeholder="What are you hoping to achieve with autonomous agents?" rows={4} className="w-full rounded-3xl border border-[var(--border)] bg-white px-6 py-4 text-lg placeholder:text-[var(--text-muted)] focus:outline-none resize-y" required></textarea>
-            
-            <button type="submit" className="w-full mt-2 py-4 rounded-2xl bg-[#111111] text-[#F9F7F3] text-lg font-medium hover:bg-black transition-all">
-              Request early access
+            <input
+              type="text"
+              name="company"
+              placeholder="Company or team"
+              className="w-full rounded-2xl border border-[var(--border)] bg-white px-6 py-4 text-lg placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#111111]/40 transition-colors"
+            />
+            <textarea
+              name="message"
+              placeholder="What are you hoping to achieve with autonomous agents?"
+              rows={4}
+              className="w-full rounded-3xl border border-[var(--border)] bg-white px-6 py-4 text-lg placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#111111]/40 transition-colors resize-y"
+              required
+            />
+            <button
+              type="submit"
+              className="w-full mt-2 py-4 rounded-2xl bg-[#111111] text-[#F9F7F3] text-lg font-medium hover:bg-black transition-all"
+              aria-label="Join the Headmaster waitlist"
+            >
+              Join the waitlist →
             </button>
           </form>
         ) : (
           <div className="text-center py-12">
             <div className="mx-auto w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-6">
-              <span className="text-green-600 text-3xl">✓</span>
+              <span className="text-green-600 text-3xl" aria-hidden="true">✓</span>
             </div>
             <h4 className="text-3xl tracking-tight font-medium mb-3">Application received.</h4>
             <p className="text-[var(--text-muted)] max-w-md mx-auto">
-              Thank you. Our team will review your application and reach out within 48 hours if there's a fit for this cohort.
+              Thank you. Our team will review your application and reach out within 48 hours
+              if there&apos;s a fit for this cohort.
             </p>
-            <button 
-              onClick={() => setSubmitted(false)} 
+            <button
+              onClick={() => setSubmitted(false)}
               className="mt-8 text-sm underline text-[var(--text-muted)] hover:text-[#111111]"
             >
               Submit another application
@@ -431,14 +613,32 @@ export default function GCAPLabs() {
           </div>
         )}
 
-        <p className="text-center text-xs text-[var(--text-muted)] mt-6 tracking-tight">We review every application personally.</p>
+        <p className="text-center text-xs text-[var(--text-muted)] mt-6 tracking-tight">
+          We review every application personally.
+        </p>
       </section>
 
       <footer className="border-t border-[var(--border)] py-9 text-xs text-[var(--text-muted)] px-8 flex flex-col md:flex-row gap-y-2 md:items-center justify-between max-w-6xl mx-auto">
         <div>© {new Date().getFullYear()} GCAP Labs.</div>
         <div className="flex gap-6">
-          <a href="https://x.com" target="_blank" className="hover:text-[#111111]">X</a>
-          <a href="https://linkedin.com" target="_blank" className="hover:text-[#111111]">LinkedIn</a>
+          <a
+            href="https://x.com/gcaplabs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[#111111] transition-colors"
+            aria-label="GCAP Labs on X (Twitter)"
+          >
+            X
+          </a>
+          <a
+            href="https://linkedin.com/company/gcaplabs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[#111111] transition-colors"
+            aria-label="GCAP Labs on LinkedIn"
+          >
+            LinkedIn
+          </a>
         </div>
       </footer>
     </div>
