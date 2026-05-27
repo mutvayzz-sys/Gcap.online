@@ -255,7 +255,7 @@ export default function GCAPLabs() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-8 text-center text-white">
-          <h1 className="text-[68px] md:text-[92px] leading-[0.88] tracking-[-5px] font-semibold mb-6 drop-shadow-2xl">
+          <h1 className="text-[44px] sm:text-[60px] md:text-[92px] leading-[0.88] tracking-[-3px] md:tracking-[-5px] font-semibold mb-6 drop-shadow-2xl">
             One prompt.
             <br />
             Headmaster handles the rest.
@@ -293,7 +293,7 @@ export default function GCAPLabs() {
           <div className="uppercase tracking-[3px] text-xs mb-4 text-[var(--text-muted)]">
             THE PRODUCT
           </div>
-          <h2 className="text-[64px] tracking-[-2.8px] leading-none font-medium mb-8">
+          <h2 className="text-[40px] md:text-[64px] tracking-[-2px] md:tracking-[-2.8px] leading-none font-medium mb-8">
             An agent that keeps working
             <br />
             after you close the laptop.
@@ -316,7 +316,7 @@ export default function GCAPLabs() {
           <div className="uppercase tracking-[3px] text-xs mb-4 text-[var(--text-muted)]">
             ONE PROMPT
           </div>
-          <h2 className="text-[46px] tracking-[-1.8px] leading-tight font-medium">
+          <h2 className="text-[34px] md:text-[46px] tracking-[-1.5px] md:tracking-[-1.8px] leading-tight font-medium">
             Type once.
             <br />
             Wake up to results.
@@ -335,7 +335,7 @@ export default function GCAPLabs() {
             <div className="inline-block px-4 py-1.5 rounded-full bg-[#111111] text-[#F9F7F3] text-xs tracking-[2px] mb-4">
               HOW IT WORKS
             </div>
-            <h3 className="text-5xl tracking-[-1.8px] font-medium leading-tight">
+            <h3 className="text-[34px] md:text-5xl tracking-[-1.5px] md:tracking-[-1.8px] font-medium leading-tight">
               One instruction.
               <br />
               A hundred agents.
@@ -357,7 +357,7 @@ export default function GCAPLabs() {
           <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">
             LIVE DEMO
           </div>
-          <h3 className="text-[42px] tracking-[-1.5px] font-medium mb-2">
+          <h3 className="text-[30px] md:text-[42px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium mb-2">
             Watch Headmaster think.
           </h3>
           <p className="text-[var(--text-muted)] text-[17px]">
@@ -401,7 +401,7 @@ export default function GCAPLabs() {
           <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">
             THE FLEET
           </div>
-          <h3 className="text-[42px] tracking-[-1.6px] font-medium">
+          <h3 className="text-[30px] md:text-[42px] tracking-[-1.2px] md:tracking-[-1.6px] font-medium">
             Orchestration at scale.
           </h3>
         </div>
@@ -439,7 +439,7 @@ export default function GCAPLabs() {
             <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-4">
               PERSISTENT MEMORY
             </div>
-            <h3 className="text-[52px] tracking-[-2px] font-medium mb-6 leading-none">
+            <h3 className="text-[36px] md:text-[52px] tracking-[-1.5px] md:tracking-[-2px] font-medium mb-6 leading-none">
               Headmaster remembers
               <br />
               everything.
@@ -464,7 +464,7 @@ export default function GCAPLabs() {
             <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">
               INTELLIGENT CONTEXT
             </div>
-            <h3 className="text-[44px] tracking-[-1.6px] font-medium mb-5 leading-none">
+            <h3 className="text-[32px] md:text-[44px] tracking-[-1.2px] md:tracking-[-1.6px] font-medium mb-5 leading-none">
               Stays sharp.
               <br />
               No matter how complex the work.
@@ -486,7 +486,7 @@ export default function GCAPLabs() {
             <div className="text-sm tracking-[2px] text-[var(--text-muted)] mb-3">
               THE COMPANY
             </div>
-            <h3 className="text-5xl tracking-[-1.8px] font-medium mb-6 leading-tight">
+            <h3 className="text-[34px] md:text-5xl tracking-[-1.4px] md:tracking-[-1.8px] font-medium mb-6 leading-tight">
               We build agents
               <br />
               you can actually trust.
@@ -506,7 +506,7 @@ export default function GCAPLabs() {
           <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">
             THE PROMISE
           </div>
-          <h3 className="text-[48px] tracking-[-1.8px] font-medium">
+          <h3 className="text-[34px] md:text-[48px] tracking-[-1.4px] md:tracking-[-1.8px] font-medium">
             While you were away.
           </h3>
         </div>
@@ -543,7 +543,7 @@ export default function GCAPLabs() {
         className="max-w-2xl mx-auto px-8 py-20 border-t border-[var(--border)]"
       >
         <div className="text-center mb-10">
-          <h3 className="text-[42px] tracking-[-1.5px] font-medium mb-4 leading-tight">
+          <h3 className="text-[30px] md:text-[42px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium mb-4 leading-tight">
             You shouldn&apos;t need a team
             <br />
             to get team-level work done.
