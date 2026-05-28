@@ -5,53 +5,55 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 
 const TASKS = [
   {
-    id: "research",
-    label: "Research competitor pricing models",
+    id: "gather",
+    label: "Gather Grade 8 results across all subjects",
     agent: "ANALYST",
     logLines: [
-      "Initializing browser agent...",
-      "Scanning 12 competitor domains...",
-      "Extracting pricing data...",
-      "Cross-referencing market positioning...",
-      "Generating summary report...",
-      "✓ Complete — report ready in /outputs",
+      "Connecting to grade management system...",
+      "Fetching results: Math, Science, English, History...",
+      "Cross-referencing 28 student records...",
+      "Validating attendance and assessment data...",
+      "Collating results into structured dataset...",
+      "✓ Complete — 28 student records ready",
     ],
   },
   {
-    id: "draft",
-    label: "Draft competitive positioning memo",
+    id: "write",
+    label: "Write personalised report comments",
     agent: "WRITER",
     logLines: [
-      "Loading research context...",
-      "Analyzing tone requirements...",
-      "Drafting executive summary...",
-      "Structuring key arguments...",
-      "Applying brand voice guidelines...",
-      "✓ Complete — memo ready for review",
+      "Loading student performance data...",
+      "Analysing individual progress patterns...",
+      "Drafting personalised comment — student 1/28...",
+      "Applying tone and school style guidelines...",
+      "Completing remaining 27 student comments...",
+      "✓ Complete — 28 personalised comments written",
     ],
   },
   {
     id: "verify",
-    label: "Verify all data sources",
+    label: "Verify every grade against source",
     agent: "VERIFIER",
     logLines: [
-      "Cross-checking 47 data points...",
-      "Validating source credibility...",
-      "Flagging 2 outdated references...",
-      "Auto-correcting with latest data...",
-      "✓ Complete — all sources verified",
+      "Loading grade dataset and source records...",
+      "Cross-checking 112 grade entries...",
+      "Comparing against assessment submissions...",
+      "Flagging 3 discrepancies for review...",
+      "Corrections applied, all figures verified...",
+      "✓ Complete — 112 grades verified",
     ],
   },
   {
-    id: "compile",
-    label: "Compile final board report",
+    id: "assemble",
+    label: "Assemble the final reports",
     agent: "COMPILER",
     logLines: [
-      "Pulling all task outputs...",
-      "Structuring report sections...",
-      "Generating executive summary...",
-      "Formatting for presentation...",
-      "✓ Complete — board report delivered",
+      "Pulling verified grades and comments...",
+      "Mapping data to report template...",
+      "Generating individual report — student 1/28...",
+      "Applying school branding and formatting...",
+      "Completing remaining 27 reports...",
+      "✓ Complete — 28 reports ready to send",
     ],
   },
 ] as const;
@@ -97,7 +99,6 @@ export default function OrchestratorDemo() {
           const done = setTimeout(() => {
             setStatuses((prev) => ({ ...prev, [task.id]: "complete" }));
             setBusy(false);
-            // Auto-advance to next task after 1200ms
             const next = setTimeout(() => {
               const nextIdx = (idx + 1) % TASKS.length;
               runTask(nextIdx);
@@ -171,7 +172,7 @@ export default function OrchestratorDemo() {
               {status === "complete" ? (
                 <span className="text-[var(--accent)] text-base mt-0.5 flex-shrink-0">✓</span>
               ) : isActive && status === "running" ? (
-                <div className="w-1.5 h-1.5 rounded-full bg-[#F9F7F3]/60 mt-1.5 flex-shrink-0 animate-pulse" />
+                <div className="w-1.5 h-1.5 rounded-full bg-[#F9F7F3]/60 mt-2 flex-shrink-0 animate-pulse" />
               ) : null}
             </motion.button>
           );
