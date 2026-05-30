@@ -24,9 +24,9 @@ export default function OnePromptDemo() {
         i++;
       } else {
         clearInterval(interval);
-        setTimeout(() => setShowResult(true), 1500);
+        setTimeout(() => setShowResult(true), 2500);
       }
-    }, 28);
+    }, 42);
 
     return () => clearInterval(interval);
   }, [inView]);
@@ -67,7 +67,7 @@ export default function OnePromptDemo() {
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={showResult ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
         className="bg-[#111111] text-[#F9F7F3] rounded-3xl overflow-hidden"
       >
         <div className="border-b border-white/10 px-6 py-3.5 flex items-center justify-between">
@@ -91,7 +91,7 @@ export default function OnePromptDemo() {
                 key={i}
                 initial={{ opacity: 0, x: -8 }}
                 animate={showResult ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: 0.3 + i * 0.15, ease: "easeOut" }}
+                transition={{ delay: 0.4 + i * 0.22, ease: [0.16, 1, 0.3, 1] }}
                 className="flex items-center gap-3"
               >
                 <span className="text-green-400 text-sm">✓</span>

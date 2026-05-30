@@ -36,7 +36,7 @@ export default function HowItWorksFlow() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.08 }}
+            transition={{ delay: i * 0.13, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-2xl p-7 flex flex-col"
           >
             <div className="text-[42px] font-semibold tracking-[-2px] text-[var(--border)] leading-none mb-4">
