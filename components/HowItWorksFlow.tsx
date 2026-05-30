@@ -16,8 +16,8 @@ const STEPS = [
   },
   {
     num: "03",
-    label: "THE AGENTS EXECUTE",
-    body: "Specialist agents work in parallel — one gathers the grades, one writes the comments, one checks every figure against source. They hand work to each other automatically.",
+    label: "THE SPECIALISTS WORK",
+    body: "Specialist agents work in parallel — one gathers the grades, one writes personalised comments, one cross-checks every figure against source. They hand work to each other automatically.",
   },
   {
     num: "04",

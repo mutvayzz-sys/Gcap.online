@@ -7,6 +7,9 @@ const ROWS = [
   { chatbot: "Tells you the steps", headmaster: "Does the steps" },
   { chatbot: "Waits for your next message", headmaster: "Keeps working while you’re away" },
   { chatbot: "Gives you a draft", headmaster: "Hands you a finished result" },
+  { chatbot: "Limited to your conversation window", headmaster: "Persists memory across weeks and projects" },
+  { chatbot: "Works with 1 AI model", headmaster: "Orchestrates 20+ AI providers simultaneously" },
+  { chatbot: "You manage the process", headmaster: "Headmaster manages it for you" },
 ];
 
 export default function ChatbotComparison() {

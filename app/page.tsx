@@ -11,6 +11,10 @@ import HowItWorksFlow from "@/components/HowItWorksFlow";
 import ChatbotComparison from "@/components/ChatbotComparison";
 import UseCases from "@/components/UseCases";
 import FAQ from "@/components/FAQ";
+import TayX from "@/components/TayX";
+import SpecialistFleet from "@/components/SpecialistFleet";
+import CapabilitiesGrid from "@/components/CapabilitiesGrid";
+import AgencyOrchestration from "@/components/AgencyOrchestration";
 
 // Memory visualization — deterministic grid of glowing dots
 function MemoryViz() {
@@ -114,7 +118,13 @@ export default function GCAPLabs() {
 
   const scrollTo = (id: string) => {
     setMobileMenuOpen(false);
-    setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 50);
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const lenis = (window as any).__lenis;
+      if (lenis) lenis.scrollTo(el, { offset: 0 });
+      else el.scrollIntoView({ behavior: "smooth" });
+    }, 50);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -147,7 +157,7 @@ export default function GCAPLabs() {
             <a href="#headmaster" className="hover:text-[var(--text-muted)] transition-colors">Headmaster</a>
             <a href="#orchestrator" className="hover:text-[var(--text-muted)] transition-colors">How It Works</a>
             <a href="#memory" className="hover:text-[var(--text-muted)] transition-colors">Memory</a>
-            <a href="#focus" className="hover:text-[var(--text-muted)] transition-colors">Focus</a>
+            <a href="#tayx" className="hover:text-[var(--text-muted)] transition-colors">TayX</a>
             <button
               onClick={() => scrollTo("waitlist")}
               className="px-6 py-[10px] rounded-full bg-[#111111] text-[#F9F7F3] text-sm hover:bg-black transition-colors"
@@ -185,7 +195,7 @@ export default function GCAPLabs() {
                 { href: "#headmaster", label: "Headmaster" },
                 { href: "#orchestrator", label: "How It Works" },
                 { href: "#memory", label: "Memory" },
-                { href: "#focus", label: "Focus" },
+                { href: "#tayx", label: "TayX" },
               ].map(({ href, label }) => (
                 <a
                   key={href}
@@ -208,7 +218,12 @@ export default function GCAPLabs() {
       </AnimatePresence>
 
       {/* ─── Hero ────────────────────────────────────────────────────────── */}
-      <section className="relative h-[100dvh] min-h-[720px] flex items-center justify-center overflow-hidden bg-black">
+      <section
+        data-chapter="top"
+        data-label="Start"
+        data-theme="dark"
+        className="relative h-[100dvh] min-h-[720px] flex items-center justify-center overflow-hidden bg-black"
+      >
         <video
           autoPlay muted loop playsInline
           poster="/images/hero-poster.jpg"
@@ -220,8 +235,8 @@ export default function GCAPLabs() {
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-8 text-center text-white">
-          <h1 className="text-[44px] sm:text-[60px] md:text-[92px] leading-[0.88] tracking-[-3px] md:tracking-[-5px] font-semibold mb-6 drop-shadow-2xl">
+        <div data-hero-copy className="relative z-10 max-w-6xl mx-auto px-8 text-center text-white">
+          <h1 className="text-[44px] sm:text-[60px] md:text-[clamp(60px,10vw,132px)] leading-[0.88] tracking-[-3px] md:tracking-[-5px] font-semibold mb-6 drop-shadow-2xl">
             One prompt.
             <br />
             Headmaster handles the rest.
@@ -232,13 +247,14 @@ export default function GCAPLabs() {
             Your entire workforce — inside your laptop.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a
-              href="mailto:waitlist@gcap.online?subject=Headmaster Early Access Request"
+            <button
+              onClick={() => scrollTo("waitlist")}
               className="px-14 py-4 rounded-full bg-white text-black text-xl font-medium hover:bg-white/90 active:scale-[0.985] transition-all shadow-xl text-center"
               aria-label="Join the Headmaster waitlist"
+              data-magnet
             >
               Join the waitlist
-            </a>
+            </button>
             <a
               href="#orchestrator"
               className="px-14 py-4 rounded-full border-2 border-white/80 text-xl hover:bg-white/10 transition-all text-center"
@@ -247,14 +263,23 @@ export default function GCAPLabs() {
             </a>
           </div>
         </div>
+
+        <div className="absolute bottom-7 left-1/2 -translate-x-1/2 text-white/50 text-[11px] tracking-[0.24em] uppercase z-10">
+          Scroll
+        </div>
       </section>
 
       {/* ─── Stats Bar ───────────────────────────────────────────────────── */}
       <StatsBar />
 
       {/* ─── Headmaster ──────────────────────────────────────────────────── */}
-      <section id="headmaster" className="max-w-5xl mx-auto px-8 pt-20 pb-10">
-        <div className="max-w-3xl">
+      <section
+        id="headmaster"
+        data-chapter="headmaster"
+        data-label="Headmaster"
+        className="max-w-5xl mx-auto px-8 pt-20 pb-10"
+      >
+        <div className="max-w-3xl" data-reveal>
           <div className="uppercase tracking-[3px] text-xs mb-4 text-[var(--text-muted)]">THE PRODUCT</div>
           <h2 className="text-[40px] md:text-[64px] tracking-[-2px] md:tracking-[-2.8px] leading-none font-medium mb-8">
             An agent that keeps working
@@ -275,7 +300,7 @@ export default function GCAPLabs() {
 
       {/* ─── Chatbot Comparison ──────────────────────────────────────────── */}
       <section className="max-w-5xl mx-auto px-8 pb-20 border-b border-[var(--border)]">
-        <div className="mb-8">
+        <div className="mb-8" data-reveal>
           <h3 className="text-[28px] md:text-[38px] tracking-[-1px] md:tracking-[-1.4px] font-medium mb-2">
             This isn&apos;t a smarter chatbot.
           </h3>
@@ -286,7 +311,7 @@ export default function GCAPLabs() {
 
       {/* ─── One Prompt Demo ─────────────────────────────────────────────── */}
       <section className="max-w-5xl mx-auto px-8 py-20 border-b border-[var(--border)]">
-        <div className="mb-12">
+        <div className="mb-12" data-reveal>
           <div className="uppercase tracking-[3px] text-xs mb-4 text-[var(--text-muted)]">ONE PROMPT</div>
           <h2 className="text-[34px] md:text-[46px] tracking-[-1.5px] md:tracking-[-1.8px] leading-tight font-medium">
             Type once.
@@ -298,9 +323,14 @@ export default function GCAPLabs() {
       </section>
 
       {/* ─── Orchestrator Hook ───────────────────────────────────────────── */}
-      <section id="orchestrator" className="border-y border-[var(--border)] bg-[var(--bg-elevated)] py-16">
+      <section
+        id="orchestrator"
+        data-chapter="how"
+        data-label="How it works"
+        className="border-y border-[var(--border)] bg-[var(--bg-elevated)] py-16"
+      >
         <div className="max-w-5xl mx-auto px-8">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10" data-reveal>
             <div className="inline-block px-4 py-1.5 rounded-full bg-[#111111] text-[#F9F7F3] text-xs tracking-[2px] mb-4">
               HOW IT WORKS
             </div>
@@ -322,7 +352,7 @@ export default function GCAPLabs() {
 
       {/* ─── How It Actually Works (4-step flow) ─────────────────────────── */}
       <section className="max-w-5xl mx-auto px-8 py-16 border-b border-[var(--border)]">
-        <div className="mb-10">
+        <div className="mb-10" data-reveal>
           <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">STEP BY STEP</div>
           <h3 className="text-[30px] md:text-[40px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium">
             From one sentence to done.
@@ -332,8 +362,8 @@ export default function GCAPLabs() {
       </section>
 
       {/* ─── Orchestrator Demo ───────────────────────────────────────────── */}
-      <section className="max-w-5xl mx-auto px-8 py-20">
-        <div className="mb-10">
+      <section className="max-w-5xl mx-auto px-8 py-20 border-b border-[var(--border)]">
+        <div className="mb-10" data-reveal>
           <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">LIVE DEMO</div>
           <h3 className="text-[30px] md:text-[42px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium mb-2">
             Watch Headmaster think.
@@ -346,20 +376,17 @@ export default function GCAPLabs() {
         <OrchestratorDemo />
 
         {/* 4 agent monogram cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10" data-reveal-group>
           {[
             { letter: "A", name: "ANALYST",  role: "Searches, gathers, and structures information." },
             { letter: "W", name: "WRITER",   role: "Drafts and edits with the right context and voice." },
             { letter: "V", name: "VERIFIER", role: "Cross-checks every fact and figure before it reaches you." },
             { letter: "C", name: "COMPILER", role: "Assembles all outputs into a clean, finished deliverable." },
           ].map((agent, i) => (
-            <motion.div
+            <div
               key={i}
+              data-reveal-item
               className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-3xl p-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.07 }}
             >
               <div
                 className="w-14 h-14 rounded-xl bg-[#111111] flex items-center justify-center text-[#F9F7F3] text-[24px] font-bold mb-4"
@@ -369,15 +396,79 @@ export default function GCAPLabs() {
               </div>
               <div className="font-medium text-base tracking-tight mb-1.5">{agent.name}</div>
               <p className="text-[var(--text-muted)] text-xs leading-relaxed">{agent.role}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* ─── Real Use Cases (repurposed fleet slot) ──────────────────────── */}
-      <section className="border-t border-[var(--border)] bg-[var(--bg-elevated)] py-20">
+      {/* ─── Specialist Fleet ────────────────────────────────────────────── */}
+      <section
+        id="fleet"
+        data-chapter="fleet"
+        data-label="Specialists"
+        className="max-w-5xl mx-auto px-8 py-20 border-b border-[var(--border)]"
+      >
+        <div className="mb-10" data-reveal>
+          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">THE SPECIALISTS</div>
+          <h3 className="text-[30px] md:text-[40px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium mb-3">
+            Every role, covered.
+          </h3>
+          <p className="text-[var(--text-muted)] text-[17px] max-w-xl">
+            Headmaster deploys the right specialist for every part of the work.
+            They&apos;re always available, always ready, and always coordinated.
+          </p>
+        </div>
+        <SpecialistFleet />
+      </section>
+
+      {/* ─── Agency Orchestration ────────────────────────────────────────── */}
+      <section
+        data-chapter="agency"
+        data-label="In action"
+        className="border-t border-[var(--border)] bg-[var(--bg-elevated)] py-20"
+      >
         <div className="max-w-5xl mx-auto px-8">
-          <div className="mb-10">
+          <div className="mb-10" data-reveal>
+            <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">AGENCY ORCHESTRATION</div>
+            <h3 className="text-[30px] md:text-[40px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium mb-3">
+              Five departments.
+              <br />
+              One prompt.
+            </h3>
+            <p className="text-[var(--text-muted)] text-[17px] max-w-xl">
+              Watch Headmaster spin up a full cross-functional operation from a single instruction.
+            </p>
+          </div>
+          <AgencyOrchestration />
+        </div>
+      </section>
+
+      {/* ─── Capabilities Grid ───────────────────────────────────────────── */}
+      <section
+        data-chapter="capabilities"
+        data-label="Capabilities"
+        className="max-w-5xl mx-auto px-8 py-20 border-b border-[var(--border)]"
+      >
+        <div className="mb-10" data-reveal>
+          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">WHAT IT CAN DO</div>
+          <h3 className="text-[30px] md:text-[40px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium mb-3">
+            Real capabilities.
+          </h3>
+          <p className="text-[var(--text-muted)] text-[17px] max-w-xl">
+            Click any card to see how it works in practice.
+          </p>
+        </div>
+        <CapabilitiesGrid />
+      </section>
+
+      {/* ─── Real Use Cases ──────────────────────────────────────────────── */}
+      <section
+        data-chapter="usecases"
+        data-label="Real work"
+        className="border-t border-[var(--border)] bg-[var(--bg-elevated)] py-20"
+      >
+        <div className="max-w-5xl mx-auto px-8">
+          <div className="mb-10" data-reveal>
             <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">REAL WORK</div>
             <h3 className="text-[30px] md:text-[40px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium">
               Built for real work.
@@ -388,9 +479,14 @@ export default function GCAPLabs() {
       </section>
 
       {/* ─── Memory ──────────────────────────────────────────────────────── */}
-      <section id="memory" className="bg-[var(--bg)] border-y border-[var(--border)] py-20">
+      <section
+        id="memory"
+        data-chapter="memory"
+        data-label="Memory"
+        className="bg-[var(--bg)] border-y border-[var(--border)] py-20"
+      >
         <div className="max-w-4xl mx-auto px-8 grid md:grid-cols-2 gap-12 items-start">
-          <div>
+          <div data-reveal>
             <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-4">PERSISTENT MEMORY</div>
             <h3 className="text-[36px] md:text-[52px] tracking-[-1.5px] md:tracking-[-2px] font-medium mb-6 leading-none">
               Headmaster remembers
@@ -415,19 +511,22 @@ export default function GCAPLabs() {
               </p>
             </div>
             <div className="text-sm text-[var(--text-muted)]">
-              Works with Headmaster, Claude Code, Codex, Kimi Code, and more.
+              Works with Claude, GPT-4, Gemini, Kimi Code, and 20+ other providers.
             </div>
           </div>
-          <div className="md:pt-16">
+          <div className="md:pt-16" data-reveal>
             <MemoryViz />
           </div>
         </div>
       </section>
 
       {/* ─── Focus ───────────────────────────────────────────────────────── */}
-      <section id="focus" className="max-w-5xl mx-auto px-8 py-20">
+      <section
+        id="focus"
+        className="max-w-5xl mx-auto px-8 py-20 border-b border-[var(--border)]"
+      >
         <div className="grid md:grid-cols-2 gap-12 items-start">
-          <div>
+          <div data-reveal>
             <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">INTELLIGENT CONTEXT</div>
             <h3 className="text-[32px] md:text-[44px] tracking-[-1.2px] md:tracking-[-1.6px] font-medium mb-5 leading-none">
               Stays sharp.
@@ -450,16 +549,19 @@ export default function GCAPLabs() {
               </p>
             </div>
           </div>
-          <div className="md:pt-16">
+          <div className="md:pt-16" data-reveal>
             <FocusAnimation />
           </div>
         </div>
       </section>
 
+      {/* ─── TayX ────────────────────────────────────────────────────────── */}
+      <TayX onWaitlist={() => scrollTo("waitlist")} />
+
       {/* ─── Company ─────────────────────────────────────────────────────── */}
       <section className="border-y border-[var(--border)] py-16 bg-[var(--bg-elevated)]">
         <div className="max-w-5xl mx-auto px-8">
-          <div className="max-w-2xl">
+          <div className="max-w-2xl" data-reveal>
             <div className="text-sm tracking-[2px] text-[var(--text-muted)] mb-3">THE COMPANY</div>
             <h3 className="text-[34px] md:text-5xl tracking-[-1.4px] md:tracking-[-1.8px] font-medium mb-6 leading-tight">
               We build agents
@@ -476,15 +578,15 @@ export default function GCAPLabs() {
       </section>
 
       {/* ─── While You Were Away ─────────────────────────────────────────── */}
-      <section className="max-w-5xl mx-auto px-8 py-20">
-        <div className="text-center mb-12">
+      <section className="max-w-5xl mx-auto px-8 py-20 border-b border-[var(--border)]">
+        <div className="text-center mb-12" data-reveal>
           <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">THE PROMISE</div>
           <h3 className="text-[34px] md:text-[48px] tracking-[-1.4px] md:tracking-[-1.8px] font-medium">
             While you were away.
           </h3>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-3xl p-9">
+          <div className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-3xl p-9" data-reveal>
             <div className="text-2xl tracking-tight font-medium mb-5 leading-snug">
               You closed your laptop at 6pm
               with three complex tasks unfinished.
@@ -498,7 +600,7 @@ export default function GCAPLabs() {
               You just asked — and Headmaster handled it.
             </p>
           </div>
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center" data-reveal>
             <NotificationCard />
           </div>
         </div>
@@ -509,7 +611,7 @@ export default function GCAPLabs() {
 
       {/* ─── FAQ ─────────────────────────────────────────────────────────── */}
       <section className="max-w-5xl mx-auto px-8 py-20 border-t border-[var(--border)]">
-        <div className="mb-12">
+        <div className="mb-12" data-reveal>
           <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">FAQ</div>
           <h3 className="text-[30px] md:text-[40px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium">
             The honest answers.
@@ -519,8 +621,13 @@ export default function GCAPLabs() {
       </section>
 
       {/* ─── Waitlist ────────────────────────────────────────────────────── */}
-      <section id="waitlist" className="max-w-2xl mx-auto px-8 py-20 border-t border-[var(--border)]">
-        <div className="text-center mb-10">
+      <section
+        id="waitlist"
+        data-chapter="waitlist"
+        data-label="Join"
+        className="max-w-2xl mx-auto px-8 py-20 border-t border-[var(--border)]"
+      >
+        <div className="text-center mb-10" data-reveal>
           <h3 className="text-[30px] md:text-[42px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium mb-4 leading-tight">
             You shouldn&apos;t need a team
             <br />
@@ -548,7 +655,7 @@ export default function GCAPLabs() {
               />
             </div>
             <input
-              type="text" name="company" placeholder="Company or team"
+              type="text" name="company" placeholder="School, company, or team"
               className="w-full rounded-2xl border border-[var(--border)] bg-white px-6 py-4 text-lg placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#111111]/40 transition-colors"
             />
             <textarea
@@ -559,6 +666,7 @@ export default function GCAPLabs() {
             />
             <button
               type="submit"
+              data-magnet
               className="w-full mt-2 py-4 rounded-2xl bg-[#111111] text-[#F9F7F3] text-lg font-medium hover:bg-black transition-all"
               aria-label="Join the Headmaster waitlist"
             >
@@ -592,9 +700,11 @@ export default function GCAPLabs() {
       {/* ─── Footer ──────────────────────────────────────────────────────── */}
       <footer className="border-t border-[var(--border)] py-9 text-xs text-[var(--text-muted)] px-8 flex flex-col md:flex-row gap-y-2 md:items-center justify-between max-w-6xl mx-auto">
         <div>© {new Date().getFullYear()} GCAP Labs.</div>
-        <div className="flex gap-6">
+        <div className="flex gap-6 flex-wrap">
           <a href="https://x.com/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[#111111] transition-colors" aria-label="GCAP Labs on X (Twitter)">X</a>
           <a href="https://linkedin.com/company/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[#111111] transition-colors" aria-label="GCAP Labs on LinkedIn">LinkedIn</a>
+          <a href="/privacy" className="hover:text-[#111111] transition-colors">Privacy</a>
+          <a href="/terms" className="hover:text-[#111111] transition-colors">Terms</a>
         </div>
       </footer>
 

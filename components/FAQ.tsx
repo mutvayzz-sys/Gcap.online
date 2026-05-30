@@ -21,6 +21,10 @@ const QAS = [
     a: "Headmaster is real and in early access today. Specialist agents, persistent memory, and autonomous execution are working now — that’s what the waitlist is for.",
   },
   {
+    q: "Which AI models does Headmaster use?",
+    a: "Headmaster orchestrates 20+ AI providers simultaneously — Claude, GPT-4, Gemini, Llama, Mistral, Kimi, Qwen, DeepSeek, and more. It routes each subtask to the model best suited for that type of work: reasoning, coding, writing, or verification. You don't manage model selection; Headmaster does.",
+  },
+  {
     q: "What can it actually do?",
     a: "Research, writing, data compilation, reports, email drafting, document work, web tasks, and more — coordinated across a whole task, not one step at a time.",
   },

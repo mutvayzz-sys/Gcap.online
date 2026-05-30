@@ -4,15 +4,15 @@ export default function NotificationCard() {
       <div className="space-y-3 text-[15px] leading-relaxed">
         <div className="flex items-center gap-3">
           <span className="text-green-400">✓</span>
-          <span>Research task — complete</span>
+          <span>Grade 8 reports — complete</span>
         </div>
         <div className="flex items-center gap-3">
           <span className="text-green-400">✓</span>
-          <span>Competitive memo — delivered</span>
+          <span>Parent letters — drafted</span>
         </div>
         <div className="flex items-center gap-3">
           <span className="text-green-400">✓</span>
-          <span>Board report — ready</span>
+          <span>Term summary — ready</span>
         </div>
       </div>
       <div className="mt-5 pt-4 border-t border-white/10 text-xs text-white/40 tracking-wide">
