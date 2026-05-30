@@ -1,40 +1,45 @@
 "use client";
 
+import Image from "next/image";
 import {
   SiSlack, SiGmail, SiGithub, SiNotion, SiZoom,
   SiLinear, SiGoogledrive, SiGooglecalendar, SiConfluence,
-  SiOpenai, SiGoogle, SiMeta,
+  SiOpenai, SiGoogle, SiMeta, SiClaude, SiGooglemeet,
 } from "react-icons/si";
 import type { IconType } from "react-icons";
 
 interface Tool {
   name: string;
   Icon?: IconType;
+  img?: string;
 }
 
 const TOOLS: Tool[] = [
-  { name: "Claude", Icon: undefined },
-  { name: "OpenAI", Icon: SiOpenai },
-  { name: "Gemini", Icon: SiGoogle },
-  { name: "Llama", Icon: SiMeta },
-  { name: "Mistral", Icon: undefined },
-  { name: "Kimi", Icon: undefined },
-  { name: "DeepSeek", Icon: undefined },
-  { name: "Qwen", Icon: undefined },
-  { name: "Slack", Icon: SiSlack },
-  { name: "Gmail", Icon: SiGmail },
-  { name: "Google Drive", Icon: SiGoogledrive },
-  { name: "Google Calendar", Icon: SiGooglecalendar },
-  { name: "Notion", Icon: SiNotion },
-  { name: "GitHub", Icon: SiGithub },
-  { name: "Linear", Icon: SiLinear },
-  { name: "Teams", Icon: undefined },
-  { name: "Zoom", Icon: SiZoom },
-  { name: "Confluence", Icon: SiConfluence },
-  { name: "VS Code", Icon: undefined },
-  { name: "Browserbase", Icon: undefined },
-  { name: "Firecrawl", Icon: undefined },
-  { name: "OpenRouter", Icon: undefined },
+  { name: "Claude",           Icon: SiClaude },
+  { name: "OpenAI",           Icon: SiOpenai },
+  { name: "Gemini",           Icon: SiGoogle },
+  { name: "Llama",            Icon: SiMeta },
+  { name: "Mistral",          img: "/icons/integrations/mistral.svg" },
+  { name: "Kimi",             img: "/icons/integrations/kimi.svg" },
+  { name: "DeepSeek",         img: "/icons/integrations/deepseek.svg" },
+  { name: "Qwen",             img: "/icons/integrations/qwen.svg" },
+  { name: "MiniMax",          img: "/icons/integrations/minimax.svg" },
+  { name: "OpenRouter",       img: "/icons/integrations/openrouter.svg" },
+  { name: "Slack",            Icon: SiSlack },
+  { name: "Gmail",            Icon: SiGmail },
+  { name: "Google Drive",     Icon: SiGoogledrive },
+  { name: "Google Calendar",  Icon: SiGooglecalendar },
+  { name: "Google Meet",      Icon: SiGooglemeet },
+  { name: "Notion",           Icon: SiNotion },
+  { name: "GitHub",           Icon: SiGithub },
+  { name: "Linear",           Icon: SiLinear },
+  { name: "Teams",            img: "/icons/integrations/teams.svg" },
+  { name: "Zoom",             Icon: SiZoom },
+  { name: "Confluence",       Icon: SiConfluence },
+  { name: "VS Code",          img: "/icons/integrations/vscode.svg" },
+  { name: "Cursor",           img: "/icons/integrations/cursor.svg" },
+  { name: "Browserbase",      img: "/icons/integrations/browserbase.svg" },
+  { name: "Firecrawl",        img: "/icons/integrations/firecrawl.svg" },
 ];
 
 const doubled = [...TOOLS, ...TOOLS];
@@ -48,20 +53,22 @@ export default function WorksWith() {
       <div className="relative">
         <div
           className="flex items-center gap-10 whitespace-nowrap"
-          style={{ animation: "marquee 32s linear infinite", width: "max-content" }}
+          style={{ animation: "marquee 40s linear infinite", width: "max-content" }}
         >
           {doubled.map((tool, i) => (
             <div key={i} className="flex items-center gap-2 text-[var(--text-muted)]">
               {tool.Icon ? (
                 <tool.Icon size={14} aria-hidden="true" />
-              ) : (
-                <span
-                  className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-sm text-[9px] font-bold bg-[var(--border)] text-[var(--text-muted)]"
+              ) : tool.img ? (
+                <Image
+                  src={tool.img}
+                  alt=""
+                  width={14}
+                  height={14}
+                  className="opacity-60 rounded-[2px]"
                   aria-hidden="true"
-                >
-                  {tool.name[0]}
-                </span>
-              )}
+                />
+              ) : null}
               <span className="text-sm font-medium">{tool.name}</span>
             </div>
           ))}
