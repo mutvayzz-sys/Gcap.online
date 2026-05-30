@@ -36,7 +36,7 @@ export default function TayX({ onWaitlist }: TayXProps) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="flex items-center gap-4 mb-6"
         >
           <span className="text-[11px] font-semibold tracking-[2px] bg-[#F9F7F3] text-[#0D0D0D] px-3 py-1.5 rounded-full">
@@ -51,7 +51,7 @@ export default function TayX({ onWaitlist }: TayXProps) {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.0, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="text-[clamp(46px,9vw,118px)] leading-[0.9] tracking-[-0.05em] font-semibold mb-6"
         >
           TayX{" "}
@@ -62,7 +62,7 @@ export default function TayX({ onWaitlist }: TayXProps) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="text-[clamp(22px,2.6vw,32px)] tracking-[-0.02em] leading-[1.12] text-white/85 max-w-2xl mb-5"
         >
           A million tokens of context.
@@ -74,7 +74,7 @@ export default function TayX({ onWaitlist }: TayXProps) {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.85, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="text-[17px] text-white/50 leading-relaxed max-w-2xl mb-12"
         >
           A sparse Mixture-of-Experts model engineered as the reasoning core for Headmaster.
@@ -86,7 +86,7 @@ export default function TayX({ onWaitlist }: TayXProps) {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.85, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="grid grid-cols-2 md:grid-cols-4 rounded-2xl overflow-hidden border border-white/[0.08] mb-4"
           style={{ background: "rgba(255,255,255,.08)", gap: "1px" }}
         >
@@ -107,7 +107,7 @@ export default function TayX({ onWaitlist }: TayXProps) {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="grid grid-cols-3 md:grid-cols-6 rounded-2xl overflow-hidden border border-white/[0.08] mb-10"
           style={{ background: "rgba(255,255,255,.08)", gap: "1px" }}
         >
@@ -125,7 +125,7 @@ export default function TayX({ onWaitlist }: TayXProps) {
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.75, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="flex items-center gap-5 flex-wrap"
         >
           <button

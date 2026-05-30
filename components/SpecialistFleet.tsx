@@ -62,7 +62,7 @@ export default function SpecialistFleet() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: i * 0.06, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: i * 0.09, duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-2xl p-6 flex flex-col"
         >
           <div

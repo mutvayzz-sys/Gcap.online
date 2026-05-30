@@ -102,12 +102,12 @@ export default function OrchestratorDemo() {
             const next = setTimeout(() => {
               const nextIdx = (idx + 1) % TASKS.length;
               runTask(nextIdx);
-            }, 1200);
+            }, 2200);
             timers.current.push(next);
-          }, 500);
+          }, 700);
           timers.current.push(done);
         }
-      }, 700 + i * 200);
+      }, 1100 + i * 340);
       timers.current.push(t);
     });
   };
@@ -115,7 +115,7 @@ export default function OrchestratorDemo() {
   useEffect(() => {
     if (inView && !autoStarted.current) {
       autoStarted.current = true;
-      const t = setTimeout(() => runTask(0), 600);
+      const t = setTimeout(() => runTask(0), 900);
       timers.current.push(t);
     }
   }, [inView]);
@@ -148,7 +148,7 @@ export default function OrchestratorDemo() {
                   : "border-[var(--border)] bg-[var(--bg-elevated)]"
               } ${busy && !isActive ? "opacity-40 cursor-not-allowed" : "cursor-pointer hover:border-[#111111]/30"}`}
               animate={isActive && status === "running" ? { x: [-3, 0] } : { x: 0 }}
-              transition={{ duration: 0.25 }}
+              transition={{ duration: 0.35 }}
               aria-label={`Run task: ${task.label}`}
             >
               <div className="flex-1 min-w-0">
@@ -265,7 +265,7 @@ export default function OrchestratorDemo() {
                     key={i}
                     initial={{ opacity: 0, y: 3 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.15 }}
+                    transition={{ duration: 0.22 }}
                     className={line.startsWith("✓") ? "text-green-400" : "text-white/55"}
                   >
                     {line}

@@ -72,7 +72,7 @@ export default function CapabilitiesGrid() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: i * 0.04, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: i * 0.07, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
         >
           <button
             className={`w-full text-left rounded-2xl border transition-all duration-200 p-5 ${
@@ -108,7 +108,7 @@ export default function CapabilitiesGrid() {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.22, ease: "easeInOut" }}
+                  transition={{ duration: 0.28, ease: "easeInOut" }}
                   className="overflow-hidden"
                 >
                   <p className="text-[13px] text-white/65 leading-relaxed mt-4 pt-4 border-t border-white/10">

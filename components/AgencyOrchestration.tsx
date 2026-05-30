@@ -92,7 +92,7 @@ export default function AgencyOrchestration() {
         timers.current.push(endT);
       }, cumulativeDelay);
       timers.current.push(startT);
-      cumulativeDelay += dept.duration + 300;
+      cumulativeDelay += dept.duration + 700;
     });
   };
 
@@ -101,7 +101,7 @@ export default function AgencyOrchestration() {
       (entries) => {
         if (entries[0].isIntersecting && !autoStarted.current) {
           autoStarted.current = true;
-          const t = setTimeout(runSequence, 600);
+          const t = setTimeout(runSequence, 1200);
           timers.current.push(t);
         }
       },
@@ -160,7 +160,7 @@ export default function AgencyOrchestration() {
         <motion.div
           className="h-full rounded-full bg-[#111111]"
           animate={{ width: `${(totalCompleted / DEPARTMENTS.length) * 100}%` }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         />
       </div>
 
@@ -248,7 +248,7 @@ export default function AgencyOrchestration() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.6 }}
             className="mt-6 bg-[#111111] text-[#F9F7F3] rounded-2xl p-6 flex items-start gap-4"
           >
             <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">

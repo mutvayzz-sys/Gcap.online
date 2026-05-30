@@ -170,7 +170,7 @@ export default function CinematicLayer() {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const el = entry.target as HTMLElement;
-          el.style.transition = "opacity 1s cubic-bezier(0.16,1,0.30,1), transform 1s cubic-bezier(0.16,1,0.30,1)";
+          el.style.transition = "opacity 1.3s cubic-bezier(0.16,1,0.30,1), transform 1.3s cubic-bezier(0.16,1,0.30,1)";
           el.style.opacity = "1";
           el.style.transform = "translateY(0)";
           el.style.willChange = "auto";
@@ -185,10 +185,10 @@ export default function CinematicLayer() {
           const items = group.querySelectorAll("[data-reveal-item]") as NodeListOf<HTMLElement>;
           items.forEach((item, i) => {
             setTimeout(() => {
-              item.style.transition = "opacity 0.95s cubic-bezier(0.16,1,0.30,1), transform 0.95s cubic-bezier(0.16,1,0.30,1)";
+              item.style.transition = "opacity 1.2s cubic-bezier(0.16,1,0.30,1), transform 1.2s cubic-bezier(0.16,1,0.30,1)";
               item.style.opacity = "1";
               item.style.transform = "translateY(0)";
-            }, i * 70);
+            }, i * 110);
           });
           groupIo.unobserve(group);
         });
