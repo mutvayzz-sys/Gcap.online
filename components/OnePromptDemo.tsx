@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const TYPED_MESSAGE =
-  "Research our top 3 competitors, draft a positioning memo, and have it in my inbox by morning.";
+  "Prepare progress reports for my Grade 8 class.";
 
 export default function OnePromptDemo() {
   const [typedText, setTypedText] = useState("");
@@ -46,7 +46,7 @@ export default function OnePromptDemo() {
           </div>
           <div className="mt-4 pt-4 border-t border-[var(--border)] flex items-center justify-between">
             <span className="text-xs text-[var(--text-muted)] font-mono">
-              Sent to Headmaster · 11:43pm
+              Sent to Headmaster · 9:47pm
             </span>
             <div className="w-7 h-7 rounded-full bg-[#111111] flex items-center justify-center flex-shrink-0">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -75,17 +75,17 @@ export default function OnePromptDemo() {
             <div className="w-2 h-2 rounded-full bg-green-400" />
             <span className="text-xs text-white/50 font-mono">headmaster · complete</span>
           </div>
-          <span className="text-xs text-white/40 font-mono">8:07am</span>
+          <span className="text-xs text-white/40 font-mono">7:53am</span>
         </div>
         <div className="p-6">
           <div className="text-xs text-white/40 mb-5 font-mono tracking-wide">
-            3 tasks completed · 4h 22m · Ready in your inbox
+            3 tasks completed · 3h 58m · Ready for review
           </div>
           <div className="space-y-3.5">
             {[
-              "Competitor research — complete",
-              "Positioning memo — delivered",
-              "Inbox summary — ready",
+              "Grades compiled — complete",
+              "Personalised comments — drafted",
+              "Figures verified — ready",
             ].map((item, i) => (
               <motion.div
                 key={i}

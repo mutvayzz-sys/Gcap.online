@@ -1,7 +1,7 @@
 const STATS = [
-  { value: "79+", label: "tools" },
-  { value: "Fully autonomous", label: "execution" },
-  { value: "Persistent memory", label: "across sessions" },
+  { value: "20+", label: "tools" },
+  { value: "Runs overnight", label: "while you sleep" },
+  { value: "Persistent memory", label: "across every session" },
 ];
 
 export default function StatsBar() {

@@ -4,13 +4,44 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  /* Premium light cinematic palette — warm off-white, Apple-sleek */
+  /* Premium light cinematic palette — warm off-white */
   --bg: #F8F7F4;
   --bg-elevated: #FFFFFF;
   --text: #111111;
+  --ink: #111111;
   --text-muted: #5C5C5A;
   --border: #E8E7E2;
+  --border-strong: #C8C7C2;
   --accent: #3b82f6;
+  --success: #16a34a;
+  --on-dark: #F9F7F3;
+
+  /* Motion durations */
+  --dur-instant: 100ms;
+  --dur-fast: 200ms;
+  --dur-base: 360ms;
+  --dur-leave: 360ms;
+  --dur-considered: 480ms;
+  --dur-slow: 600ms;
+  --dur-cinematic: 1400ms;
+
+  /* Easings */
+  --ease-default: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-confident: cubic-bezier(0.16, 1, 0.30, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-playful: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Radii */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* Shadows */
+  --shadow-subtle: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.06);
+  --shadow-card: 0 4px 24px rgba(0,0,0,.08);
+  --shadow-elevated: 0 12px 48px rgba(0,0,0,.12);
 }
 
 @theme inline {
@@ -20,17 +51,133 @@
   --font-mono: var(--font-geist-mono);
 }
 
+*, *::before, *::after { box-sizing: border-box; }
+
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-geist-sans);
+  -webkit-font-smoothing: antialiased;
 }
+
+::selection { background: #111; color: #fff; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
 
 h1, h2, h3 {
   font-feature-settings: "tnum" 1;
   letter-spacing: -0.02em;
 }
 
+/* ---- Layout ---- */
+.wrap { max-width: 1024px; margin: 0 auto; padding: 0 32px; }
+.wrap-wide { max-width: 1152px; margin: 0 auto; padding: 0 32px; }
+
+/* ---- Sections ---- */
+.section { padding: 80px 0; }
+.hairline { border-top: 1px solid var(--border); }
+.band { background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+/* ---- Cards ---- */
+.card { background: #fff; border: 1px solid var(--border); border-radius: 24px; }
+.card-dark { background: #111; color: var(--on-dark); border: 1px solid rgba(255,255,255,.1); border-radius: 24px; }
+
+/* ---- Eyebrow ---- */
+.eyebrow { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
+.chip { display: inline-block; padding: 6px 16px; border-radius: 9999px; background: #111; color: var(--on-dark); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: none; cursor: pointer; border-radius: 9999px; font-weight: 500;
+  transition: background var(--dur-leave) var(--ease-confident), transform var(--dur-leave) var(--ease-confident);
+}
+.btn:hover { transition-duration: var(--dur-fast); }
+.btn:active { transform: scale(.97); }
+.btn-dark { background: #111; color: var(--on-dark); padding: 10px 24px; font-size: 14px; }
+.btn-dark:hover { background: #000; }
+.btn-white { background: #fff; color: #000; padding: 15px 44px; font-size: 19px; box-shadow: 0 24px 60px rgba(0,0,0,.30); }
+.btn-white:hover { background: rgba(255,255,255,.88); }
+.btn-ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.8); padding: 13px 42px; font-size: 19px; }
+.btn-ghost:hover { background: rgba(255,255,255,.10); }
+
+/* ---- Form fields ---- */
+.field {
+  width: 100%; border: 1px solid var(--border); background: #fff; border-radius: 16px;
+  padding: 15px 22px; font-size: 17px; font-family: var(--font-geist-sans); color: var(--ink);
+  transition: border-color .2s;
+}
+.field::placeholder { color: var(--text-muted); }
+.field:focus { outline: none; border-color: rgba(17,17,17,.4); }
+
+/* ---- Nav ---- */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  background: rgba(248,247,244,.95); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner { height: 74px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { display: flex; align-items: center; gap: 11px; }
+.nav-mark { width: 34px; height: 34px; border-radius: 8px; background: #111; color: var(--on-dark);
+  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; letter-spacing: -.5px; }
+.nav-word { font-size: 21px; font-weight: 500; letter-spacing: -.8px; }
+.nav-links { display: flex; align-items: center; gap: 34px; font-size: 15px; }
+.nav-links a { transition: color .2s; }
+.nav-links a:hover { color: var(--text-muted); }
+
+/* ---- Terminal ---- */
+.term { border-radius: 16px; border: 1px solid var(--border); background: #0D0D0D; overflow: hidden; }
+.term-bar { border-bottom: 1px solid rgba(255,255,255,.06); padding: 10px 16px; display: flex; align-items: center; gap: 7px; }
+.tdot { width: 10px; height: 10px; border-radius: 50%; }
+
+/* ---- Cinematic cursor ---- */
+.cursor-ring {
+  position: fixed; top: 0; left: 0; width: 34px; height: 34px;
+  border: 1.5px solid rgba(17,17,17,.45); border-radius: 50%;
+  pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
+  mix-blend-mode: difference; will-change: transform;
+  transition: width var(--dur-fast) var(--ease-confident),
+              height var(--dur-fast) var(--ease-confident),
+              border-color var(--dur-fast) var(--ease-confident);
+}
+.cursor-ring.is-magnet { width: 54px; height: 54px; border-color: rgba(255,255,255,.9); }
+.cursor-dot {
+  position: fixed; top: 0; left: 0; width: 5px; height: 5px;
+  background: #111; border-radius: 50%; pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%); will-change: transform;
+}
+body.has-cursor, body.has-cursor * { cursor: none !important; }
+
+/* ---- Film grain ---- */
+.grain { position: fixed; inset: 0; z-index: 9000; pointer-events: none; opacity: .045; mix-blend-mode: multiply; }
+
+/* ---- Chapter nav ---- */
+.chapters {
+  position: fixed; right: 26px; top: 50%; transform: translateY(-50%);
+  z-index: 60; display: flex; flex-direction: column; gap: 18px; align-items: flex-end;
+}
+.chapter { display: flex; align-items: center; gap: 10px; cursor: pointer; background: none; border: none; padding: 0; }
+.chapter-label {
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--text-muted);
+  opacity: 0; transform: translateX(6px);
+  transition: opacity var(--dur-fast), transform var(--dur-fast); white-space: nowrap;
+}
+.chapter:hover .chapter-label { opacity: 1; transform: translateX(0); }
+.chapter-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong);
+  transition: transform var(--dur-considered) var(--ease-playful), background var(--dur-considered) var(--ease-confident);
+}
+.chapter.active .chapter-dot { background: var(--ink); transform: scale(1.55); }
+.chapter.active .chapter-label { opacity: 1; transform: translateX(0); color: var(--ink); }
+.chapters.on-dark .chapter-dot { background: rgba(255,255,255,.3); }
+.chapters.on-dark .chapter.active .chapter-dot { background: #fff; }
+.chapters.on-dark .chapter-label { color: rgba(255,255,255,.6); }
+.chapters.on-dark .chapter.active .chapter-label { color: #fff; }
+
+/* ---- Scroll progress bar ---- */
+.scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--ink); z-index: 55; width: 0%; }
+
+/* ---- Animations ---- */
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -39,4 +186,26 @@ h1, h2, h3 {
 @keyframes pulse-dot {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Reduced motion ---- */
+@media (max-width: 880px) { .chapters { display: none; } }
+@media (hover: none), (pointer: coarse) {
+  .cursor-ring, .cursor-dot { display: none; }
+  body.has-cursor, body.has-cursor * { cursor: auto !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .grain, .cursor-ring, .cursor-dot { display: none !important; }
+  body.has-cursor, body.has-cursor * { cursor: auto !important; }
+  * { scroll-behavior: auto !important; }
 }
