@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
+import { useRef, useState } from 'react'
 import LanguageSwitcher from './LanguageSwitcher'
 import { useLanguage } from './LanguageProvider'
 
@@ -16,18 +15,6 @@ export default function Navigation() {
     { label: translation.nav.business, href: '#business' },
     { label: translation.nav.contact, href: '#footer' },
   ]
-
-  // Nav is permanently visible (language button always accessible)
-  useEffect(() => {
-    if (navRef.current) {
-      gsap.to(navRef.current, {
-        opacity: 1,
-        duration: 0.4,
-        ease: 'power2.out',
-        pointerEvents: 'auto',
-      })
-    }
-  }, [])
 
   const scrollTo = (href: string) => {
     setMenuOpen(false)
