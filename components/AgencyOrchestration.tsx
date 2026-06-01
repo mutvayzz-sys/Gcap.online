@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const DEPARTMENTS = [
@@ -62,12 +62,12 @@ export default function AgencyOrchestration() {
   const containerRef = useRef<HTMLDivElement>(null);
   const autoStarted = useRef(false);
 
-  const clearTimers = () => {
+  const clearTimers = useCallback(() => {
     timers.current.forEach(clearTimeout);
     timers.current = [];
-  };
+  }, []);
 
-  const runSequence = () => {
+  const runSequence = useCallback(() => {
     clearTimers();
     setStatuses({});
     setActiveIdx(-1);
@@ -94,7 +94,7 @@ export default function AgencyOrchestration() {
       timers.current.push(startT);
       cumulativeDelay += dept.duration + 700;
     });
-  };
+  }, [clearTimers]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -112,7 +112,7 @@ export default function AgencyOrchestration() {
       observer.disconnect();
       clearTimers();
     };
-  }, []);
+  }, [clearTimers, runSequence]);
 
   const totalCompleted = Object.values(statuses).filter((s) => s === "complete").length;
 

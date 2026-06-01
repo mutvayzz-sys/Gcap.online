@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import OrchestratorDemo from "@/components/OrchestratorDemo";
 import OnePromptDemo from "@/components/OnePromptDemo";
@@ -76,7 +77,7 @@ export default function GCAPLabs() {
     setTimeout(() => {
       const el = document.getElementById(id);
       if (!el) return;
-      const lenis = (window as any).__lenis;
+      const lenis = window.__lenis;
       if (lenis) lenis.scrollTo(el, { offset: 0 });
       else el.scrollIntoView({ behavior: "smooth" });
     }, 50);
@@ -95,7 +96,7 @@ export default function GCAPLabs() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/95 backdrop-blur-xl border-b border-[var(--border)]">
         <div className="max-w-6xl mx-auto px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} />
+            <Image src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} />
             <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
           </div>
           <div className="hidden md:flex items-center gap-9 text-[15px]">

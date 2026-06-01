@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 
 const TASKS = [
@@ -77,13 +77,14 @@ export default function OrchestratorDemo() {
   const containerRef = useRef<HTMLDivElement>(null);
   const inView = useInView(containerRef, { once: true, margin: "-80px" });
   const autoStarted = useRef(false);
+  const runTaskRef = useRef<(idx: number) => void>(() => {});
 
-  const clearTimers = () => {
+  const clearTimers = useCallback(() => {
     timers.current.forEach(clearTimeout);
     timers.current = [];
-  };
+  }, []);
 
-  const runTask = (idx: number) => {
+  const runTask = useCallback((idx: number) => {
     if (busy) return;
     clearTimers();
     const task = TASKS[idx];
@@ -101,7 +102,7 @@ export default function OrchestratorDemo() {
             setBusy(false);
             const next = setTimeout(() => {
               const nextIdx = (idx + 1) % TASKS.length;
-              runTask(nextIdx);
+              runTaskRef.current(nextIdx);
             }, 2200);
             timers.current.push(next);
           }, 700);
@@ -110,7 +111,11 @@ export default function OrchestratorDemo() {
       }, 1100 + i * 340);
       timers.current.push(t);
     });
-  };
+  }, [busy, clearTimers]);
+
+  useEffect(() => {
+    runTaskRef.current = runTask;
+  }, [runTask]);
 
   useEffect(() => {
     if (inView && !autoStarted.current) {
@@ -118,13 +123,13 @@ export default function OrchestratorDemo() {
       const t = setTimeout(() => runTask(0), 900);
       timers.current.push(t);
     }
-  }, [inView]);
+  }, [inView, runTask]);
 
   useEffect(() => {
     if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight;
   }, [logLines]);
 
-  useEffect(() => () => clearTimers(), []);
+  useEffect(() => () => clearTimers(), [clearTimers]);
 
   const activeTask = activeIdx !== null ? TASKS[activeIdx] : null;
   const activeStatus = activeTask ? statuses[activeTask.id] ?? "idle" : null;
