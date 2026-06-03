@@ -61,32 +61,32 @@ export default function FinalCTA() {
         <form onSubmit={handleSubmit} className="max-w-[720px] mx-auto space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs tracking-widest uppercase text-[var(--text-muted)] mb-1.5">Name</label>
-              <input type="text" name="name" className="field" required />
+              <label htmlFor="cta-name" className="block text-xs tracking-widest uppercase text-[var(--text-muted)] mb-1.5">Name</label>
+              <input id="cta-name" type="text" name="name" className="field" required aria-required="true" />
             </div>
             <div>
-              <label className="block text-xs tracking-widest uppercase text-[var(--text-muted)] mb-1.5">Organization</label>
-              <input type="text" name="org" className="field" required />
+              <label htmlFor="cta-org" className="block text-xs tracking-widest uppercase text-[var(--text-muted)] mb-1.5">Organization</label>
+              <input id="cta-org" type="text" name="org" className="field" required aria-required="true" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs tracking-widest uppercase text-[var(--text-muted)] mb-1.5">Work email</label>
-            <input type="email" name="email" className="field" required />
+            <label htmlFor="cta-email" className="block text-xs tracking-widest uppercase text-[var(--text-muted)] mb-1.5">Work email</label>
+            <input id="cta-email" type="email" name="email" className="field" required aria-required="true" />
           </div>
 
           <div>
-            <label className="block text-xs tracking-widest uppercase text-[var(--text-muted)] mb-1.5">Workflow you want to start with</label>
-            <input type="text" name="workflow" className="field" placeholder="e.g. Weekly client reports, Grade 8 progress reports" required />
+            <label htmlFor="cta-workflow" className="block text-xs tracking-widest uppercase text-[var(--text-muted)] mb-1.5">Workflow you want to start with</label>
+            <input id="cta-workflow" type="text" name="workflow" className="field" placeholder="e.g. Weekly client reports, Grade 8 progress reports" required aria-required="true" />
           </div>
 
           <div>
-            <label className="block text-xs tracking-widest uppercase text-[var(--text-muted)] mb-1.5">Notes (optional)</label>
-            <textarea name="notes" rows={3} className="field resize-y" placeholder="Tools, team size, specific requirements..." />
+            <label htmlFor="cta-notes" className="block text-xs tracking-widest uppercase text-[var(--text-muted)] mb-1.5">Notes (optional)</label>
+            <textarea id="cta-notes" name="notes" rows={3} className="field resize-y" placeholder="Tools, team size, specific requirements..." />
           </div>
 
           {error && (
-            <div className="text-sm text-red-600 bg-red-50 rounded-xl px-4 py-3">
+            <div role="alert" aria-live="polite" className="text-sm text-red-700 bg-red-50 border border-red-100 rounded-xl px-4 py-3" id="form-error">
               {error}
             </div>
           )}
@@ -95,6 +95,7 @@ export default function FinalCTA() {
             <button
               type="submit"
               disabled={loading}
+              aria-describedby={error ? "form-error" : undefined}
               data-magnet
               className="flex-1 py-4 rounded-2xl bg-[#111111] text-[#F9F7F3] text-[15px] font-medium hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >

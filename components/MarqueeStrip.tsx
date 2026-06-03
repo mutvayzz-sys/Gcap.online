@@ -59,9 +59,9 @@ const CATEGORY_LABELS: Record<MarqueeItem["category"], string> = {
 };
 
 const CATEGORY_COLORS: Record<MarqueeItem["category"], string> = {
-  model: "bg-violet-50 text-violet-700 border-violet-100",
-  channel: "bg-blue-50 text-blue-700 border-blue-100",
-  connector: "bg-amber-50 text-amber-700 border-amber-100",
+  model: "bg-[var(--bg)] text-[var(--text-muted)] border-[var(--border)]",
+  channel: "bg-[var(--bg)] text-[var(--text-muted)] border-[var(--border)]",
+  connector: "bg-[var(--bg)] text-[var(--text-muted)] border-[var(--border)]",
 };
 
 interface TooltipState {
@@ -118,7 +118,7 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
     // Render the set twice; translate -50% lands exactly on the second copy → seamless.
     const seq = [...set, ...set];
     return (
-      <div className="flex w-max" style={{ animation: `${reverse ? "marquee-reverse" : "marquee"} ${dur}s linear infinite` }} aria-hidden="true">
+      <div className="flex w-max" style={{ animation: `${reverse ? "marquee-reverse" : "marquee"} ${dur}s linear infinite` }}>
         {seq.map((item, i) => (
           <button
             key={i}
@@ -186,7 +186,7 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
               </div>
               <div>
                 <div className="text-[13px] font-medium tracking-tight leading-tight">{tooltip.item.name}</div>
-                <div className={`inline-block text-[10px] px-2 py-0.5 rounded-full border font-medium mt-0.5 ${CATEGORY_COLORS[tooltip.item.category]}`}>
+                <div className={`inline-block text-[10px] px-2 py-0.5 border font-medium mt-0.5 ${CATEGORY_COLORS[tooltip.item.category]}`}>
                   {CATEGORY_LABELS[tooltip.item.category]}
                 </div>
               </div>

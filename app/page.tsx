@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import HeroSection from "@/components/HeroSection";
 import ProductPillars from "@/components/ProductPillars";
-import GuidedDemo from "@/components/GuidedDemo";
 import ChatSection from "@/components/ChatSection";
 import MemorySection from "@/components/MemorySection";
 import SkillsSection from "@/components/SkillsSection";
@@ -53,7 +52,7 @@ export default function GCAPLabs() {
       {/* Fixed Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/95 backdrop-blur-xl border-b border-[var(--border)]">
         <div className="max-w-[1280px] mx-auto px-8 h-20 flex items-center justify-between">
-          <a href="#top" className="flex items-center gap-3" aria-label="GCAP home">
+          <a href="#top" className="flex items-center gap-3">
             <Image src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} priority />
             <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
           </a>
@@ -110,6 +109,7 @@ export default function GCAPLabs() {
             <button
               onClick={() => scrollTo("contact")}
               className="mt-10 w-full py-4 rounded-full bg-[#111111] text-[#F9F7F3] text-lg font-medium"
+              aria-label="Book a demo"
             >
               Book a Demo
             </button>
@@ -122,9 +122,6 @@ export default function GCAPLabs() {
 
       {/* PRODUCT PILLARS — what Headmaster is built on */}
       <ProductPillars />
-
-      {/* GUIDED DEMO — show it working, early */}
-      <GuidedDemo />
 
       {/* CHAT — ask → work */}
       <ChatSection />

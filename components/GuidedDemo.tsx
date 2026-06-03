@@ -131,7 +131,7 @@ export default function GuidedDemo() {
           <button
             key={tab}
             onClick={() => handleTabChange(tab)}
-            className={`px-5 py-2 text-[14px] font-medium rounded-full border transition-all ${
+            className={`px-5 py-2 text-[14px] font-medium rounded-lg border transition-all ${
               activeTab === tab
                 ? "bg-[#111111] text-[#F9F7F3] border-[#111111]"
                 : "border-[var(--border)] text-[var(--text)] hover:bg-white hover:border-[var(--border-strong)]"
