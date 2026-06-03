@@ -138,11 +138,10 @@ h1, h2, h3 {
   border: 1.5px solid rgba(17,17,17,.45); border-radius: 50%;
   pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
   mix-blend-mode: difference; will-change: transform;
-  transition: width var(--dur-fast) var(--ease-confident),
-              height var(--dur-fast) var(--ease-confident),
+  transition: transform var(--dur-fast) var(--ease-confident),
               border-color var(--dur-fast) var(--ease-confident);
 }
-.cursor-ring.is-magnet { width: 54px; height: 54px; border-color: rgba(255,255,255,.9); }
+.cursor-ring.is-magnet { transform: translate(-50%,-50%) scale(1.6); border-color: rgba(255,255,255,.9); }
 .cursor-dot {
   position: fixed; top: 0; left: 0; width: 5px; height: 5px;
   background: #111; border-radius: 50%; pointer-events: none; z-index: 9999;

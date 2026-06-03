@@ -46,7 +46,7 @@ export default function DeploymentSection() {
                   <div className="text-xs uppercase tracking-[2px] text-white/40">Private Deployment</div>
                   <div className="text-xl font-medium tracking-tight mt-1">Acme School District — Prod</div>
                 </div>
-                <div className="text-xs px-3 py-1 rounded-full border border-white/20 text-white/70">Isolated</div>
+                <div className="text-xs px-3 py-1 border border-white/20 text-white/70">Isolated</div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">

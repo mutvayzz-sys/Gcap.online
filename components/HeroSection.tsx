@@ -26,7 +26,7 @@ export default function HeroSection() {
         <div>
           <motion.div
             {...t(0)}
-            className="inline-flex items-center rounded-full border border-[var(--border)] bg-white px-4 py-1 text-xs tracking-[2px] uppercase text-[var(--text-muted)] mb-6"
+            className="inline-flex items-center border border-[var(--border-strong)] px-3 py-1.5 text-[11px] tracking-[0.14em] uppercase text-[var(--text-muted)] mb-6"
           >
             Headmaster by GCAP Labs
           </motion.div>

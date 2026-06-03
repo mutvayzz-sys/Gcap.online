@@ -16,7 +16,7 @@ export default function FeatureMatrix() {
           body="The visible interface is only the front door. The product layer underneath gives organizations memory, permissions, automation, tool access, and reviewable agent work."
           inverse
         />
-        <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-3 shadow-[0_40px_120px_rgba(0,0,0,0.25)]" data-reveal>
+        <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-3 shadow-xl" data-reveal>
           <div className="grid gap-3">
             {features.map((feature, idx) => (
               <div

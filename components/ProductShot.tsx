@@ -19,7 +19,7 @@ export default function ProductShot({
 }: ProductShotProps) {
   return (
     <div
-      className={`relative overflow-hidden rounded-[24px] border border-[rgba(17,17,17,0.08)] bg-white shadow-[0_24px_80px_rgba(17,17,17,0.10)] ${aspect} ${className}`}
+      className={`relative overflow-hidden rounded-[24px] border border-[rgba(17,17,17,0.08)] bg-white shadow-lg ${aspect} ${className}`}
     >
       <Image
         src={src}
