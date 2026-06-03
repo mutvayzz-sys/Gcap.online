@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import CinematicLayer from "@/components/CinematicLayer";
 
@@ -44,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className={`h-full antialiased ${GeistSans.variable}`}>
       <body className="min-h-screen flex flex-col">
         <CinematicLayer />
         {children}
