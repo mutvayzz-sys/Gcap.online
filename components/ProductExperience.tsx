@@ -112,7 +112,7 @@ function ProductRow({
 
 export default function ProductExperience() {
   return (
-    <main id="product" className="max-w-[1180px] mx-auto px-6 sm:px-8">
+    <section id="product-console" className="max-w-[1180px] mx-auto px-6 sm:px-8">
       <section className="py-20 md:py-24 text-center">
         <div className="eyebrow mb-4">The Headmaster System</div>
         <h2 className="text-[38px] md:text-[60px] leading-[0.96] tracking-[-2px] md:tracking-[-3px] font-medium mb-6">
@@ -255,6 +255,6 @@ export default function ProductExperience() {
         shot="models"
         reverse
       />
-    </main>
+    </section>
   );
 }
