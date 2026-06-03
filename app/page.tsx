@@ -1,543 +1,586 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import OrchestratorDemo from "@/components/OrchestratorDemo";
-import OnePromptDemo from "@/components/OnePromptDemo";
-import StatsBar from "@/components/StatsBar";
-import WorksWith from "@/components/WorksWith";
-import NotificationCard from "@/components/NotificationCard";
-import HowItWorksFlow from "@/components/HowItWorksFlow";
-import ChatbotComparison from "@/components/ChatbotComparison";
-import UseCases from "@/components/UseCases";
-import FAQ from "@/components/FAQ";
-import TayX from "@/components/TayX";
-import SpecialistFleet from "@/components/SpecialistFleet";
-import CapabilitiesGrid from "@/components/CapabilitiesGrid";
-import AgencyOrchestration from "@/components/AgencyOrchestration";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  ArrowRight,
+  Bot,
+  CalendarClock,
+  CheckCircle2,
+  Clock3,
+  DatabaseZap,
+  FileCheck2,
+  Layers3,
+  Menu,
+  Network,
+  ShieldCheck,
+  Sparkles,
+  Workflow,
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu";
+import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 
-function MemoryViz() {
-  const ROWS = 7, COLS = 12;
-  const getGlow = (r: number, c: number) => {
-    const v = (r * 13 + c * 7 + r * c) % 10;
-    return v > 6 ? "bright" : v > 3 ? "medium" : "dim";
-  };
-  const getDelay = (r: number, c: number) => ((r * 3 + c * 5) % 20) * 0.15;
+const blobBase = "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com";
+
+const shots = {
+  dashboard: {
+    src: `${blobBase}/01-dashboard-command-center.png`,
+    alt: "Headmaster dashboard showing active runs, approvals, memory updates, automations, and system status.",
+  },
+  chat: {
+    src: `${blobBase}/02-chat-ask-headmaster.png`,
+    alt: "Headmaster chat view generating a product launch plan from workspace context.",
+  },
+  runs: {
+    src: `${blobBase}/03-runs-execution-history.png`,
+    alt: "Runs page showing workflow execution history, agents, statuses, and durations.",
+  },
+  approvals: {
+    src: `${blobBase}/04-approvals-queue.png`,
+    alt: "Approvals queue showing product launch documents awaiting human review.",
+  },
+  documents: {
+    src: `${blobBase}/05-documents-knowledge-base.png`,
+    alt: "Documents page showing approved workspace files and knowledge sources.",
+  },
+  memory: {
+    src: `${blobBase}/06-memory-providers.png`,
+    alt: "Memory page showing agent memory, user profile, providers, and persona tabs.",
+  },
+  automations: {
+    src: `${blobBase}/07-automations-schedules.png`,
+    alt: "Automations page showing scheduled workflows and recurring tasks.",
+  },
+  workflows: {
+    src: `${blobBase}/08-workflows-skills-library.png`,
+    alt: "Workflows page showing reusable skills and workflow playbooks.",
+  },
+  agents: {
+    src: `${blobBase}/09-agents-profiles.png`,
+    alt: "Agents page showing specialist agent profiles with models, memory, skills, and tools.",
+  },
+  integrations: {
+    src: `${blobBase}/10-integrations-channels-mcp.png`,
+    alt: "Integrations page showing channels, tools, connectors, MCP servers, webhooks, and API keys.",
+  },
+  models: {
+    src: `${blobBase}/11-model-stack-providers-tayx.png`,
+    alt: "Model stack page showing TayX, cloud models, coding models, local models, and enterprise endpoints.",
+  },
+  guided: {
+    src: `${blobBase}/12-guided-workflow-run.png`,
+    alt: "Guided workflow run showing steps, context, tools, output preview, and approval checkpoint.",
+  },
+};
+
+const navItems = ["Products", "Solutions", "Resources", "Company", "Pricing"];
+
+const proofPoints = [
+  { label: "Persistent context", icon: DatabaseZap },
+  { label: "Human approvals", icon: ShieldCheck },
+  { label: "Reusable workflows", icon: Workflow },
+  { label: "Model routing", icon: Network },
+];
+
+const operatingLayer = [
+  "Memory",
+  "Workflows",
+  "Approvals",
+  "Tools",
+  "Channels",
+  "Automations",
+  "Agents",
+  "Documents",
+  "Model routing",
+];
+
+function ProductShot({
+  src,
+  alt,
+  label,
+  priority = false,
+  className,
+}: {
+  src: string;
+  alt: string;
+  label?: string;
+  priority?: boolean;
+  className?: string;
+}) {
   return (
-    <div className="rounded-2xl border border-[var(--border)] bg-[#0D0D0D] p-7 overflow-hidden">
-      <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)` }} aria-hidden="true">
-        {Array.from({ length: ROWS * COLS }).map((_, i) => {
-          const r = Math.floor(i / COLS), c = i % COLS, glow = getGlow(r, c);
-          return (
-            <div key={i} className="w-1.5 h-1.5 rounded-full" style={{
-              backgroundColor: glow === "bright" ? "var(--accent)" : glow === "medium" ? "#3a3a3a" : "#1e1e1e",
-              animation: glow !== "dim" ? `pulse-dot ${2 + getDelay(r, c)}s ease-in-out ${getDelay(r, c)}s infinite` : undefined,
-            }} />
-          );
-        })}
-      </div>
+    <Card className={cn("overflow-hidden rounded-3xl border bg-card shadow-xl shadow-foreground/5", className)}>
+      {label ? (
+        <CardHeader className="border-b bg-secondary/50 px-5 py-4">
+          <CardTitle className="text-sm font-medium text-foreground">{label}</CardTitle>
+          <CardDescription>Approved Headmaster interface image</CardDescription>
+        </CardHeader>
+      ) : null}
+      <CardContent className="p-0">
+        <Image
+          src={src}
+          alt={alt}
+          width={1792}
+          height={1024}
+          priority={priority}
+          className="h-auto w-full"
+        />
+      </CardContent>
+      <CardFooter className="border-t bg-secondary/30 px-5 py-3 text-xs text-muted-foreground">
+        Product proof, not concept art
+      </CardFooter>
+    </Card>
+  );
+}
+
+function SectionHeading({
+  eyebrow,
+  title,
+  copy,
+  align = "left",
+}: {
+  eyebrow: string;
+  title: string;
+  copy: string;
+  align?: "left" | "center";
+}) {
+  return (
+    <div className={cn("flex max-w-3xl flex-col gap-4", align === "center" && "mx-auto items-center text-center")}>
+      <Badge variant="outline" className="rounded-full bg-background px-3 py-1 text-muted-foreground">
+        {eyebrow}
+      </Badge>
+      <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-5xl">{title}</h2>
+      <p className="text-lg leading-8 text-muted-foreground">{copy}</p>
     </div>
   );
 }
 
-function FocusAnimation() {
-  const [collapsed, setCollapsed] = useState(false);
-  useEffect(() => {
-    const id = setInterval(() => setCollapsed((p) => !p), 5000);
-    return () => clearInterval(id);
-  }, []);
+function FeatureCard({
+  icon: Icon,
+  title,
+  copy,
+}: {
+  icon: typeof Bot;
+  title: string;
+  copy: string;
+}) {
   return (
-    <div className="rounded-2xl border border-[var(--border)] bg-[#0D0D0D] p-7 overflow-hidden min-h-[180px] flex flex-col justify-center" aria-hidden="true">
-      <AnimatePresence mode="wait">
-        {!collapsed ? (
-          <motion.div key="expanded" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.7 }} className="space-y-1.5">
-            {[82, 95, 73, 88, 60, 91, 76, 84].map((w, i) => (
-              <div key={i} className="h-1.5 rounded-full bg-white/15" style={{ width: `${w}%`, filter: "blur(0.5px)" }} />
+    <Card className="rounded-2xl bg-card/80 shadow-sm">
+      <CardHeader>
+        <div className="flex size-10 items-center justify-center rounded-xl bg-accent text-accent-foreground">
+          <Icon aria-hidden="true" />
+        </div>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{copy}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Separator />
+      </CardContent>
+      <CardFooter className="text-sm text-muted-foreground">Built for repeatable organization work.</CardFooter>
+    </Card>
+  );
+}
+
+function NavBar() {
+  return (
+    <header className="sticky top-0 border-b bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8">
+        <Link href="/" className="flex items-center gap-3" aria-label="GCAP home">
+          <Image src="/images/logo.svg" alt="GCAP logo" width={34} height={34} className="size-9 rounded-md" />
+          <span className="text-xl font-semibold tracking-tight">GCAP</span>
+        </Link>
+
+        <NavigationMenu className="hidden lg:flex">
+          <NavigationMenuList>
+            {navItems.map((item) => (
+              <NavigationMenuItem key={item}>
+                <NavigationMenuLink href={`#${item.toLowerCase()}`}>{item}</NavigationMenuLink>
+              </NavigationMenuItem>
             ))}
-          </motion.div>
-        ) : (
-          <motion.div key="collapsed" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.7 }} className="space-y-3">
-            <div className="h-2 rounded-full bg-white/90" style={{ width: "78%" }} />
-            <div className="h-2 rounded-full bg-white/65" style={{ width: "60%" }} />
-            <div className="h-2 rounded-full bg-white/40" style={{ width: "42%" }} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+          </NavigationMenuList>
+        </NavigationMenu>
+
+        <div className="hidden items-center gap-3 lg:flex">
+          <Button variant="outline" asChild>
+            <a href="mailto:waitlist@gcap.online?subject=Book%20a%20GCAP%20Headmaster%20Demo">Book a Demo</a>
+          </Button>
+          <Button asChild>
+            <a href="mailto:waitlist@gcap.online?subject=Try%20Headmaster">Try Headmaster</a>
+          </Button>
+        </div>
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon" className="lg:hidden" aria-label="Open navigation menu">
+              <Menu data-icon="inline-start" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>GCAP navigation</SheetTitle>
+            </SheetHeader>
+            <div className="mt-8 flex flex-col gap-4">
+              {navItems.map((item) => (
+                <a key={item} href={`#${item.toLowerCase()}`} className="rounded-md px-2 py-2 text-lg font-medium text-foreground">
+                  {item}
+                </a>
+              ))}
+              <Separator />
+              <Button variant="outline" asChild>
+                <a href="mailto:waitlist@gcap.online?subject=Book%20a%20GCAP%20Headmaster%20Demo">Book a Demo</a>
+              </Button>
+              <Button asChild>
+                <a href="mailto:waitlist@gcap.online?subject=Try%20Headmaster">Try Headmaster</a>
+              </Button>
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
+    </header>
   );
 }
 
-export default function GCAPLabs() {
-  const [submitted, setSubmitted] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const scrollTo = (id: string) => {
-    setMobileMenuOpen(false);
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const lenis = (window as any).__lenis;
-      if (lenis) lenis.scrollTo(el, { offset: 0 });
-      else el.scrollIntoView({ behavior: "smooth" });
-    }, 50);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    window.open("mailto:waitlist@gcap.online?subject=Headmaster Early Access Request", "_blank");
-    setSubmitted(true);
-  };
-
+function SplitSection({
+  eyebrow,
+  title,
+  copy,
+  points,
+  shot,
+  reverse = false,
+}: {
+  eyebrow: string;
+  title: string;
+  copy: string;
+  points?: string[];
+  shot: (typeof shots)[keyof typeof shots];
+  reverse?: boolean;
+}) {
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] selection:bg-[#111111] selection:text-white">
-
-      {/* ─── Nav ─────────────────────────────────────────────────────────── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/95 backdrop-blur-xl border-b border-[var(--border)]">
-        <div className="max-w-6xl mx-auto px-8 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} />
-            <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
-          </div>
-          <div className="hidden md:flex items-center gap-9 text-[15px]">
-            <a href="#headmaster" className="hover:text-[var(--text-muted)] transition-colors">Headmaster</a>
-            <a href="#orchestrator" className="hover:text-[var(--text-muted)] transition-colors">How It Works</a>
-            <a href="#memory" className="hover:text-[var(--text-muted)] transition-colors">Memory</a>
-            <a href="#tayx" className="hover:text-[var(--text-muted)] transition-colors">TayX</a>
-            <button onClick={() => scrollTo("waitlist")} className="px-6 py-[10px] rounded-full bg-[#111111] text-[#F9F7F3] text-sm hover:bg-black transition-colors" aria-label="Join the waitlist">
-              Join the waitlist
-            </button>
-          </div>
-          <button onClick={() => setMobileMenuOpen((p) => !p)} className="md:hidden z-50 relative flex flex-col gap-[5px] p-2" aria-label="Toggle navigation menu" aria-expanded={mobileMenuOpen}>
-            <span className={`block w-5 h-[1.5px] bg-[var(--text)] transition-all duration-200 ${mobileMenuOpen ? "rotate-45 translate-y-[6.5px]" : ""}`} />
-            <span className={`block w-5 h-[1.5px] bg-[var(--text)] transition-all duration-200 ${mobileMenuOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-5 h-[1.5px] bg-[var(--text)] transition-all duration-200 ${mobileMenuOpen ? "-rotate-45 -translate-y-[6.5px]" : ""}`} />
-          </button>
-        </div>
-      </nav>
-
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }} className="fixed inset-0 z-40 bg-[var(--bg)] pt-24 px-8 flex flex-col">
-            <nav className="flex flex-col gap-7" aria-label="Mobile navigation">
-              {[{ href: "#headmaster", label: "Headmaster" }, { href: "#orchestrator", label: "How It Works" }, { href: "#memory", label: "Memory" }, { href: "#tayx", label: "TayX" }].map(({ href, label }) => (
-                <a key={href} href={href} onClick={() => setMobileMenuOpen(false)} className="text-3xl tracking-tight font-medium hover:text-[var(--text-muted)] transition-colors">{label}</a>
+    <section className="px-5 py-16 md:px-8 md:py-24">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className={cn("flex flex-col gap-6", reverse && "lg:order-2")}>
+          <SectionHeading eyebrow={eyebrow} title={title} copy={copy} />
+          {points ? (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {points.map((point) => (
+                <Badge key={point} variant="secondary" className="justify-start rounded-full px-3 py-2 text-sm">
+                  <CheckCircle2 aria-hidden="true" />
+                  {point}
+                </Badge>
               ))}
-            </nav>
-            <button onClick={() => scrollTo("waitlist")} className="mt-10 w-full py-4 rounded-full bg-[#111111] text-[#F9F7F3] text-lg font-medium">
-              Join the waitlist
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ═══════════════════════════════════════════════════════════════════
-          ACT I — GCAP LABS
-          The company. Who we are, what we believe.
-      ═══════════════════════════════════════════════════════════════════ */}
-
-      {/* ─── Hero ────────────────────────────────────────────────────────── */}
-      <section data-chapter="top" data-label="Start" data-theme="dark" className="relative h-[100dvh] min-h-[720px] flex items-center justify-center overflow-hidden bg-black">
-        <video autoPlay muted loop playsInline poster="/images/hero-poster.jpg" className="absolute inset-0 w-full h-full object-cover" src="/videos/hero.mp4" aria-hidden="true">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] to-[#1a1a1a]" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/82" />
-        <div data-hero-copy className="relative z-10 max-w-6xl mx-auto px-8 text-center text-white">
-          <h1 className="text-[44px] sm:text-[60px] md:text-[clamp(60px,10vw,132px)] leading-[0.88] tracking-[-3px] md:tracking-[-5px] font-semibold mb-6 drop-shadow-2xl">
-            One prompt.
-            <br />
-            Headmaster handles the rest.
-          </h1>
-          <p className="text-2xl md:text-[34px] tracking-[-1px] mb-14 text-white/85 drop-shadow-xl max-w-2xl mx-auto leading-tight">
-            Research. Code. Emails. Decisions.
-            <br />
-            Your entire workforce — inside your laptop.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button onClick={() => scrollTo("waitlist")} className="px-14 py-4 rounded-full bg-white text-black text-xl font-medium hover:bg-white/90 active:scale-[0.985] transition-all shadow-xl text-center" data-magnet>
-              Join the waitlist
-            </button>
-            <a href="#how-it-works" className="px-14 py-4 rounded-full border-2 border-white/80 text-xl hover:bg-white/10 transition-all text-center">
-              See it in action
-            </a>
-          </div>
+            </div>
+          ) : null}
         </div>
-        <div className="absolute bottom-7 left-1/2 -translate-x-1/2 text-white/50 text-[11px] tracking-[0.24em] uppercase z-10">Scroll</div>
-      </section>
+        <ProductShot src={shot.src} alt={shot.alt} label={eyebrow} className={cn(reverse && "lg:order-1")} />
+      </div>
+    </section>
+  );
+}
 
-      {/* ─── Integrations marquee — social proof, right after hero ───────── */}
-      <WorksWith />
+export default function ShadcnHeadmasterVariant() {
+  return (
+    <main className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+      <NavBar />
 
-      {/* ─── Stats bar ───────────────────────────────────────────────────── */}
-      <StatsBar />
-
-      {/* ─── GCAP Labs — the company ─────────────────────────────────────── */}
-      <section
-        data-chapter="gcap"
-        data-label="GCAP Labs"
-        className="border-b border-[var(--border)] py-20 bg-[var(--bg-elevated)]"
-      >
-        <div className="max-w-5xl mx-auto px-8">
-          <div className="max-w-2xl" data-reveal>
-            <div className="text-sm tracking-[2px] text-[var(--text-muted)] mb-4 uppercase">The Company</div>
-            <h2 className="text-[36px] md:text-[56px] tracking-[-1.5px] md:tracking-[-2.2px] font-medium mb-7 leading-tight">
-              We build agents
-              <br />
-              you can actually trust.
-            </h2>
-            <p className="text-[20px] text-[var(--text-muted)] leading-snug mb-5">
-              GCAP Labs makes infrastructure for AI agents that do real work.
-              Not demos. Not prototypes.
-              Production-grade autonomy for the things that matter.
-            </p>
-            <p className="text-[18px] text-[var(--text-muted)] leading-snug">
-              Headmaster is our first product. TayX is the model underneath it.
-              Both ship from the same conviction: agents should be reliable enough
-              to trust with the work that actually matters.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════════════════
-          ACT II — HEADMASTER
-          The product. What it is, how it works, what it can do.
-      ═══════════════════════════════════════════════════════════════════ */}
-
-      {/* ─── Headmaster intro ────────────────────────────────────────────── */}
-      <section id="headmaster" data-chapter="headmaster" data-label="Headmaster" className="max-w-5xl mx-auto px-8 pt-24 pb-12">
-        <div className="max-w-3xl" data-reveal>
-          <div className="uppercase tracking-[3px] text-xs mb-4 text-[var(--text-muted)]">The Product</div>
-          <h2 className="text-[40px] md:text-[64px] tracking-[-2px] md:tracking-[-2.8px] leading-none font-medium mb-8">
-            An agent that keeps working
-            <br />
-            after you close the laptop.
-          </h2>
-          <p className="text-[22px] text-[var(--text-muted)] leading-snug mb-5">
-            Headmaster doesn&apos;t answer questions. It executes outcomes. It plans, delegates to
-            specialist agents, tracks progress, and reports back — fully autonomously, from a
-            single prompt.
-          </p>
-          <p className="text-[22px] text-[var(--text-muted)] leading-snug">
-            You describe the work. Headmaster builds the team, runs the operation, and hands
-            you the result.
-          </p>
-        </div>
-      </section>
-
-      {/* ─── Not a chatbot ───────────────────────────────────────────────── */}
-      <section className="max-w-5xl mx-auto px-8 pb-24 border-b border-[var(--border)]">
-        <div className="mb-8" data-reveal>
-          <h3 className="text-[28px] md:text-[38px] tracking-[-1px] md:tracking-[-1.4px] font-medium mb-2">
-            This isn&apos;t a smarter chatbot.
-          </h3>
-          <p className="text-xl text-[var(--text-muted)]">Chatbots talk. Headmaster does.</p>
-        </div>
-        <ChatbotComparison />
-      </section>
-
-      {/* ─── One Prompt Demo ─────────────────────────────────────────────── */}
-      <section className="max-w-5xl mx-auto px-8 py-24 border-b border-[var(--border)]">
-        <div className="mb-14" data-reveal>
-          <div className="uppercase tracking-[3px] text-xs mb-4 text-[var(--text-muted)]">One Prompt</div>
-          <h2 className="text-[34px] md:text-[46px] tracking-[-1.5px] md:tracking-[-1.8px] leading-tight font-medium">
-            Type once.
-            <br />
-            Wake up to results.
-          </h2>
-        </div>
-        <OnePromptDemo />
-      </section>
-
-      {/* ─── How It Works — hook ─────────────────────────────────────────── */}
-      <section id="orchestrator" data-chapter="how" data-label="How it works" className="border-y border-[var(--border)] bg-[var(--bg-elevated)] py-20">
-        <div className="max-w-5xl mx-auto px-8 text-center" data-reveal>
-          <div className="inline-block px-4 py-1.5 rounded-full bg-[#111111] text-[#F9F7F3] text-xs tracking-[2px] mb-6">HOW IT WORKS</div>
-          <h3 className="text-[34px] md:text-5xl tracking-[-1.5px] md:tracking-[-1.8px] font-medium leading-tight">
-            One instruction.
-            <br />
-            A hundred agents.
-            <br />
-            Zero overhead.
-          </h3>
-          <p className="mt-7 text-xl text-[var(--text-muted)] max-w-2xl mx-auto leading-snug">
-            Headmaster decomposes your task into subtasks, assigns each to the right
-            specialist, verifies the work, and coordinates until completion.
-            You never manage the process. You just get the outcome.
-          </p>
-        </div>
-      </section>
-
-      {/* ─── 4-step flow ─────────────────────────────────────────────────── */}
-      <section id="how-it-works" className="max-w-5xl mx-auto px-8 py-20 border-b border-[var(--border)]">
-        <div className="mb-12" data-reveal>
-          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">Step by Step</div>
-          <h3 className="text-[30px] md:text-[40px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium">
-            From one sentence to done.
-          </h3>
-        </div>
-        <HowItWorksFlow />
-      </section>
-
-      {/* ─── Live Orchestrator Demo ──────────────────────────────────────── */}
-      <section className="max-w-5xl mx-auto px-8 py-20 border-b border-[var(--border)]">
-        <div className="mb-12" data-reveal>
-          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">Live Demo</div>
-          <h3 className="text-[30px] md:text-[42px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium mb-2">
-            Watch Headmaster think.
-          </h3>
-          <p className="text-[var(--text-muted)] text-[17px]">
-            Click a task. Watch how it gets broken down and assigned in real time.
-          </p>
-        </div>
-        <OrchestratorDemo />
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12" data-reveal-group>
-          {[
-            { letter: "A", name: "ANALYST",  role: "Searches, gathers, and structures information." },
-            { letter: "W", name: "WRITER",   role: "Drafts and edits with the right context and voice." },
-            { letter: "V", name: "VERIFIER", role: "Cross-checks every fact and figure before it reaches you." },
-            { letter: "C", name: "COMPILER", role: "Assembles all outputs into a clean, finished deliverable." },
-          ].map((agent, i) => (
-            <div key={i} data-reveal-item className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-3xl p-6">
-              <div className="w-14 h-14 rounded-xl bg-[#111111] flex items-center justify-center text-[#F9F7F3] text-[24px] font-bold mb-4" aria-hidden="true">
-                {agent.letter}
+      <section id="products" className="overflow-hidden px-5 pb-16 pt-16 md:px-8 md:pb-24 md:pt-24">
+        <div className="mx-auto flex max-w-7xl flex-col gap-10">
+          <div className="grid items-end gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="flex flex-col gap-7">
+              <div className="flex flex-wrap gap-3">
+                <Badge variant="secondary" className="rounded-full px-3 py-1">
+                  <Sparkles aria-hidden="true" />
+                  Headmaster by GCAP
+                </Badge>
+                <Badge variant="outline" className="rounded-full bg-card px-3 py-1 text-muted-foreground">
+                  Separate shadcn variant
+                </Badge>
               </div>
-              <div className="font-medium text-base tracking-tight mb-1.5">{agent.name}</div>
-              <p className="text-[var(--text-muted)] text-xs leading-relaxed">{agent.role}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ─── Specialist Fleet ────────────────────────────────────────────── */}
-      <section id="fleet" data-chapter="fleet" data-label="Specialists" className="max-w-5xl mx-auto px-8 py-20 border-b border-[var(--border)]">
-        <div className="mb-12" data-reveal>
-          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">The Specialists</div>
-          <h3 className="text-[30px] md:text-[40px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium mb-3">
-            Every role, covered.
-          </h3>
-          <p className="text-[var(--text-muted)] text-[17px] max-w-xl">
-            Headmaster deploys the right specialist for every part of the work.
-            Always available, always ready, always coordinated.
-          </p>
-        </div>
-        <SpecialistFleet />
-      </section>
-
-      {/* ─── Agency Orchestration ────────────────────────────────────────── */}
-      <section data-chapter="agency" data-label="In action" className="border-t border-[var(--border)] bg-[var(--bg-elevated)] py-20">
-        <div className="max-w-5xl mx-auto px-8">
-          <div className="mb-12" data-reveal>
-            <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">Agency Orchestration</div>
-            <h3 className="text-[30px] md:text-[40px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium mb-3">
-              Five departments.
-              <br />
-              One prompt.
-            </h3>
-            <p className="text-[var(--text-muted)] text-[17px] max-w-xl">
-              Watch Headmaster spin up a full cross-functional operation from a single instruction.
-            </p>
-          </div>
-          <AgencyOrchestration />
-        </div>
-      </section>
-
-      {/* ─── Capabilities Grid ───────────────────────────────────────────── */}
-      <section data-chapter="capabilities" data-label="Capabilities" className="max-w-5xl mx-auto px-8 py-20 border-b border-[var(--border)]">
-        <div className="mb-12" data-reveal>
-          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">What It Can Do</div>
-          <h3 className="text-[30px] md:text-[40px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium mb-3">
-            Real capabilities.
-          </h3>
-          <p className="text-[var(--text-muted)] text-[17px] max-w-xl">
-            Click any card to see how it works in practice.
-          </p>
-        </div>
-        <CapabilitiesGrid />
-      </section>
-
-      {/* ─── Real Use Cases ──────────────────────────────────────────────── */}
-      <section data-chapter="usecases" data-label="Real work" className="border-t border-[var(--border)] bg-[var(--bg-elevated)] py-20">
-        <div className="max-w-5xl mx-auto px-8">
-          <div className="mb-12" data-reveal>
-            <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">Real Work</div>
-            <h3 className="text-[30px] md:text-[40px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium">
-              Built for real work.
-            </h3>
-          </div>
-          <UseCases />
-        </div>
-      </section>
-
-      {/* ─── Memory ──────────────────────────────────────────────────────── */}
-      <section id="memory" data-chapter="memory" data-label="Memory" className="bg-[var(--bg)] border-y border-[var(--border)] py-24">
-        <div className="max-w-4xl mx-auto px-8 grid md:grid-cols-2 gap-14 items-start">
-          <div data-reveal>
-            <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-4">Persistent Memory</div>
-            <h3 className="text-[36px] md:text-[52px] tracking-[-1.5px] md:tracking-[-2px] font-medium mb-6 leading-none">
-              Headmaster remembers
-              <br />
-              everything.
-            </h3>
-            <p className="text-[21px] text-[var(--text-muted)] leading-snug mb-6">
-              Not just this session. Last week. Last month. Three projects ago. Headmaster builds
-              a living memory of your work, your preferences, and your decisions — and uses it
-              every time.
-            </p>
-            <div className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-2xl p-6 mb-5">
-              <p className="text-[15px] text-[var(--text-muted)] leading-relaxed mb-3">
-                Tell Headmaster your reporting format once, and it uses that format every term.
-                Mention a student needs extra support, and it remembers next time.
-                It builds a working memory of how <em>you</em> work — so you&apos;re never starting from zero.
+              <h1 className="max-w-5xl text-balance text-5xl font-semibold tracking-tight text-foreground md:text-7xl">
+                Persistent AI agents for organizations that run on repeat work.
+              </h1>
+              <p className="max-w-3xl text-xl leading-9 text-muted-foreground">
+                Headmaster remembers context, learns workflows, connects to tools, schedules recurring work, and routes sensitive actions through human approval.
               </p>
-              <p className="text-[15px] text-[var(--text-muted)] leading-relaxed">
-                Your memory stays yours. You control what it keeps.
-              </p>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Button size="lg" asChild>
+                  <a href="mailto:waitlist@gcap.online?subject=Book%20a%20GCAP%20Headmaster%20Demo">
+                    Book a Demo
+                    <ArrowRight data-icon="inline-end" />
+                  </a>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <a href="#system">Explore the System</a>
+                </Button>
+              </div>
             </div>
-            <div className="text-sm text-[var(--text-muted)]">
-              Works with Claude, GPT-4, Gemini, Kimi, and 20+ other providers.
+
+            <div className="grid gap-4 rounded-3xl border bg-card p-5 shadow-xl shadow-foreground/5">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-col gap-1">
+                  <p className="text-sm font-medium">Agent operating layer</p>
+                  <p className="text-sm text-muted-foreground">Work console, memory, tools, approvals.</p>
+                </div>
+                <Badge variant="secondary">Warm light theme</Badge>
+              </div>
+              <Separator />
+              <div className="grid gap-3 sm:grid-cols-2">
+                {proofPoints.map(({ label, icon: Icon }) => (
+                  <Card key={label} className="rounded-2xl bg-secondary/40 shadow-none">
+                    <CardHeader className="p-4">
+                      <div className="flex items-center gap-3">
+                        <div className="flex size-9 items-center justify-center rounded-lg bg-accent text-accent-foreground">
+                          <Icon aria-hidden="true" />
+                        </div>
+                        <CardTitle className="text-sm">{label}</CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="px-4 pb-4 pt-0">
+                      <CardDescription>Practical controls for real work.</CardDescription>
+                    </CardContent>
+                    <CardFooter className="hidden" />
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="md:pt-16" data-reveal>
-            <MemoryViz />
+
+          <ProductShot src={shots.dashboard.src} alt={shots.dashboard.alt} priority label="Dashboard / Command Center" />
+        </div>
+      </section>
+
+      <Separator />
+
+      <SplitSection
+        eyebrow="More than a chat box"
+        title="Ask Headmaster. Get work moving."
+        copy="Start with a request, attach context, and let Headmaster turn it into a plan, workflow, draft, or approval-ready output."
+        points={["Attach context", "Use approved tools", "Generate plans, drafts, and docs", "Route for review when needed"]}
+        shot={shots.chat}
+      />
+
+      <section id="solutions" className="bg-secondary/40 px-5 py-16 md:px-8 md:py-24">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+          <ProductShot src={shots.workflows.src} alt={shots.workflows.alt} label="Workflows / Skills Library" />
+          <div className="flex flex-col gap-6">
+            <SectionHeading
+              eyebrow="Reusable workflows"
+              title="Reusable workflows, not one-off prompts."
+              copy="Headmaster can turn repeated work into reusable workflow skills: launch plans, research briefs, email campaigns, client reports, progress updates, and more."
+            />
+            <Card className="rounded-2xl bg-card/90">
+              <CardHeader>
+                <CardTitle>Workflows are the public surface.</CardTitle>
+                <CardDescription>Skills are the reusable engine underneath: the saved steps, context, tool permissions, checks, and approval checkpoints that make repeated work reliable.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {operatingLayer.map((item) => (
+                    <Badge key={item} variant="secondary" className="rounded-full">
+                      {item}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+              <CardFooter className="text-sm text-muted-foreground">Built to become an operating rhythm, not a prompt archive.</CardFooter>
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* ─── Focus ───────────────────────────────────────────────────────── */}
-      <section id="focus" className="max-w-5xl mx-auto px-8 py-24 border-b border-[var(--border)]">
-        <div className="grid md:grid-cols-2 gap-14 items-start">
-          <div data-reveal>
-            <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">Intelligent Context</div>
-            <h3 className="text-[32px] md:text-[44px] tracking-[-1.2px] md:tracking-[-1.6px] font-medium mb-5 leading-none">
-              Stays sharp.
-              <br />
-              No matter how complex the work.
-            </h3>
-            <p className="text-[21px] text-[var(--text-muted)] leading-snug mb-6">
-              Long outputs, deep logs, sprawling context — Headmaster compresses what doesn&apos;t
-              matter and surfaces what does. The orchestrator never loses the thread.
-            </p>
-            <div className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-2xl p-6">
-              <p className="text-[15px] text-[var(--text-muted)] leading-relaxed mb-3">
-                Real work is messy — long documents, scattered data, dozens of sources. Headmaster
-                reads all of it, holds onto what matters, and quietly sets aside the noise.
-                On a 200-page data dump or a 3-week project thread, it doesn&apos;t lose the plot.
-              </p>
-              <p className="text-[15px] text-[var(--text-muted)] leading-relaxed">
-                The result: the orchestrator stays accurate even when the work gets big.
-              </p>
-            </div>
-          </div>
-          <div className="md:pt-16" data-reveal>
-            <FocusAnimation />
+      <section id="system" className="px-5 py-16 md:px-8 md:py-24">
+        <div className="mx-auto flex max-w-7xl flex-col gap-10">
+          <SectionHeading
+            eyebrow="Guided workflow theater"
+            title="See a workflow run from start to approval."
+            copy="Headmaster loads context, uses approved tools, drafts outputs, tracks progress, and pauses for review when human approval is required."
+            align="center"
+          />
+          <ProductShot src={shots.guided.src} alt={shots.guided.alt} label="Guided Workflow Run" />
+          <div className="grid gap-4 md:grid-cols-3">
+            <FeatureCard icon={Layers3} title="Loads the right context" copy="Workspace memory, documents, and saved workflow instructions come forward before work begins." />
+            <FeatureCard icon={Workflow} title="Runs with approved tools" copy="Agents can follow the workflow, use connected tools, and keep the run visible." />
+            <FeatureCard icon={FileCheck2} title="Pauses at approvals" copy="Sensitive actions wait for human review, edits, approval, rejection, or requested changes." />
           </div>
         </div>
       </section>
 
-      {/* ─── The Promise — While You Were Away ───────────────────────────── */}
-      <section className="max-w-5xl mx-auto px-8 py-24 border-b border-[var(--border)]">
-        <div className="text-center mb-14" data-reveal>
-          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">The Promise</div>
-          <h3 className="text-[34px] md:text-[48px] tracking-[-1.4px] md:tracking-[-1.8px] font-medium">
-            While you were away.
-          </h3>
+      <section className="bg-secondary/40 px-5 py-16 md:px-8 md:py-24">
+        <div className="mx-auto flex max-w-7xl flex-col gap-10">
+          <SectionHeading
+            eyebrow="Memory + Documents"
+            title="Context that stays with the workspace."
+            copy="Headmaster can remember useful context and use approved documents so workflows do not start from zero every time."
+          />
+          <Tabs defaultValue="memory" className="gap-6">
+            <TabsList className="w-full max-w-md justify-start">
+              <TabsTrigger value="memory">Memory</TabsTrigger>
+              <TabsTrigger value="documents">Documents</TabsTrigger>
+            </TabsList>
+            <TabsContent value="memory">
+              <div className="grid items-center gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+                <Card className="rounded-2xl bg-card/90">
+                  <CardHeader>
+                    <CardTitle>Built-in memory, user profiles, providers, and persona controls.</CardTitle>
+                    <CardDescription>These controls help preserve how work should be done, which preferences matter, and what context can be reused.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Separator />
+                  </CardContent>
+                  <CardFooter className="text-sm text-muted-foreground">Memory remains workspace-oriented and reviewable.</CardFooter>
+                </Card>
+                <ProductShot src={shots.memory.src} alt={shots.memory.alt} label="Memory Providers" />
+              </div>
+            </TabsContent>
+            <TabsContent value="documents">
+              <div className="grid items-center gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+                <Card className="rounded-2xl bg-card/90">
+                  <CardHeader>
+                    <CardTitle>Approved files become workflow context.</CardTitle>
+                    <CardDescription>Policies, templates, reports, briefs, spreadsheets, and working files become approved context for workflows.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Separator />
+                  </CardContent>
+                  <CardFooter className="text-sm text-muted-foreground">Useful context can follow repeated work without starting over.</CardFooter>
+                </Card>
+                <ProductShot src={shots.documents.src} alt={shots.documents.alt} label="Documents / Knowledge Base" />
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-3xl p-9" data-reveal>
-            <div className="text-2xl tracking-tight font-medium mb-5 leading-snug">
-              You closed your laptop at 6pm with three complex tasks unfinished.
-            </div>
-            <p className="text-[var(--text-muted)] leading-relaxed mb-5">
-              By 8am, they were done. Summarised. Waiting in your inbox. With sources,
-              next actions, and zero loose ends.
-            </p>
-            <p className="text-[var(--text-muted)] leading-relaxed">
-              You didn&apos;t manage it. You didn&apos;t babysit it.
-              You just asked — and Headmaster handled it.
-            </p>
+      </section>
+
+      <SplitSection
+        eyebrow="Integrations / Channels / MCP"
+        title="Connect the systems work already lives in."
+        copy="Headmaster can connect communication channels, approved tools, connectors, webhooks, APIs, and MCP servers so workflows can reach the systems your team already uses."
+        points={["Channels", "Tools", "Connectors", "MCP Servers", "Webhooks", "API Keys"]}
+        shot={shots.integrations}
+      />
+
+      <SplitSection
+        eyebrow="Specialist agents"
+        title="Specialist agents with their own workspace."
+        copy="Each agent can have its own model, memory, skills, tools, and role. Researchers, strategists, copywriters, analysts, admins, and code agents can work as focused helpers."
+        shot={shots.agents}
+        reverse
+      />
+
+      <section id="resources" className="bg-secondary/40 px-5 py-16 md:px-8 md:py-24">
+        <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-1">
+            <SectionHeading
+              eyebrow="Operations"
+              title="Work runs, waits, and records what happened."
+              copy="Scheduled work, approvals, and execution history keep Headmaster practical for teams that need control."
+            />
           </div>
-          <div className="flex flex-col justify-center" data-reveal>
-            <NotificationCard />
+          <div className="grid gap-6 lg:col-span-2">
+            <Card className="overflow-hidden rounded-3xl">
+              <CardHeader>
+                <Badge variant="secondary" className="w-fit rounded-full"><CalendarClock aria-hidden="true" /> Scheduled work</Badge>
+                <CardTitle className="text-2xl">Work that wakes up on schedule.</CardTitle>
+                <CardDescription>Recurring workflows can prepare reports, summaries, reminders, follow-ups, and approvals before anyone asks. Sensitive actions can still wait for review.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ProductShot src={shots.automations.src} alt={shots.automations.alt} label="Automations / Schedules" />
+              </CardContent>
+              <CardFooter className="text-sm text-muted-foreground">Recurring work without removing human control.</CardFooter>
+            </Card>
+            <div className="grid gap-6 md:grid-cols-2">
+              <Card className="rounded-3xl">
+                <CardHeader>
+                  <Badge variant="outline" className="w-fit rounded-full bg-background"><ShieldCheck aria-hidden="true" /> Approvals</Badge>
+                  <CardTitle>Control stays with people.</CardTitle>
+                  <CardDescription>Headmaster can prepare work, but sensitive actions can pause for approval. Review, approve, reject, or request changes before anything important leaves the workspace.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ProductShot src={shots.approvals.src} alt={shots.approvals.alt} label="Approvals Queue" />
+                </CardContent>
+                <CardFooter className="text-sm text-muted-foreground">Approval checkpoints protect important actions.</CardFooter>
+              </Card>
+              <Card className="rounded-3xl">
+                <CardHeader>
+                  <Badge variant="outline" className="w-fit rounded-full bg-background"><Clock3 aria-hidden="true" /> Runs</Badge>
+                  <CardTitle>Every run leaves a trail.</CardTitle>
+                  <CardDescription>Track what ran, which agent handled it, what status it reached, how long it took, and what needs attention.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ProductShot src={shots.runs.src} alt={shots.runs.alt} label="Runs / Execution History" />
+                </CardContent>
+                <CardFooter className="text-sm text-muted-foreground">Operational history makes work inspectable.</CardFooter>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          ACT III — TAYX
-          The model. What's underneath it all. What's coming next.
-      ═══════════════════════════════════════════════════════════════════ */}
-
-      <TayX onWaitlist={() => scrollTo("waitlist")} />
-
-      {/* ─── FAQ ─────────────────────────────────────────────────────────── */}
-      <section className="max-w-5xl mx-auto px-8 py-24 border-t border-[var(--border)]">
-        <div className="mb-14" data-reveal>
-          <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">FAQ</div>
-          <h3 className="text-[30px] md:text-[40px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium">
-            The honest answers.
-          </h3>
-        </div>
-        <FAQ />
-      </section>
-
-      {/* ─── Waitlist ────────────────────────────────────────────────────── */}
-      <section id="waitlist" data-chapter="waitlist" data-label="Join" className="max-w-2xl mx-auto px-8 py-24 border-t border-[var(--border)]">
-        <div className="text-center mb-12" data-reveal>
-          <h3 className="text-[30px] md:text-[42px] tracking-[-1.2px] md:tracking-[-1.5px] font-medium mb-4 leading-tight">
-            You shouldn&apos;t need a team
-            <br />
-            to get team-level work done.
-          </h3>
-          <p className="text-[var(--text-muted)] text-lg">
-            Headmaster is in early access.
-            <br />
-            Limited spots. We review every application.
-          </p>
-        </div>
-
-        {!submitted ? (
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input type="text" name="name" placeholder="Full name" className="w-full rounded-2xl border border-[var(--border)] bg-white px-6 py-4 text-lg placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#111111]/40 transition-colors" required />
-              <input type="email" name="email" placeholder="Work email" className="w-full rounded-2xl border border-[var(--border)] bg-white px-6 py-4 text-lg placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#111111]/40 transition-colors" required />
-            </div>
-            <input type="text" name="company" placeholder="School, company, or team" className="w-full rounded-2xl border border-[var(--border)] bg-white px-6 py-4 text-lg placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#111111]/40 transition-colors" />
-            <textarea name="message" placeholder="What are you hoping to achieve with autonomous agents?" rows={4} className="w-full rounded-3xl border border-[var(--border)] bg-white px-6 py-4 text-lg placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#111111]/40 transition-colors resize-y" required />
-            <button type="submit" data-magnet className="w-full mt-2 py-4 rounded-2xl bg-[#111111] text-[#F9F7F3] text-lg font-medium hover:bg-black transition-all" aria-label="Join the Headmaster waitlist">
-              Join the waitlist →
-            </button>
-          </form>
-        ) : (
-          <div className="text-center py-12">
-            <div className="mx-auto w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-6">
-              <span className="text-green-600 text-3xl" aria-hidden="true">✓</span>
-            </div>
-            <h4 className="text-3xl tracking-tight font-medium mb-3">Application received.</h4>
-            <p className="text-[var(--text-muted)] max-w-md mx-auto">
-              Thank you. Our team will review your application and reach out within 48 hours if there&apos;s a fit for this cohort.
-            </p>
-            <button onClick={() => setSubmitted(false)} className="mt-8 text-sm underline text-[var(--text-muted)] hover:text-[#111111]">
-              Submit another application
-            </button>
+      <section id="company" className="px-5 py-16 md:px-8 md:py-24">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="flex flex-col gap-6">
+            <SectionHeading
+              eyebrow="Model stack / TayX"
+              title="Model-agnostic by design."
+              copy="Headmaster can route work across cloud models, coding models, local models, enterprise endpoints, custom endpoints, and GCAP’s own TayX model layer."
+            />
+            <Card className="rounded-2xl border-primary/20 bg-accent/60">
+              <CardHeader>
+                <CardTitle>TayX is the model layer.</CardTitle>
+                <CardDescription>TayX is GCAP’s own trained and fine-tuned model layer for agentic work, coding, research, long-context reasoning, and tool-heavy workflows.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {['trained', 'fine-tuned', 'optimized', 'tested', 'evaluated', 'agent-native'].map((item) => (
+                    <Badge key={item} variant="outline" className="rounded-full bg-background">
+                      {item}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+              <CardFooter className="text-sm text-muted-foreground">No benchmark claims, just clear positioning.</CardFooter>
+            </Card>
           </div>
-        )}
-
-        <p className="text-center text-xs text-[var(--text-muted)] mt-6 tracking-tight">
-          We review every application personally.
-        </p>
+          <ProductShot src={shots.models.src} alt={shots.models.alt} label="Model Stack / Providers / TayX" />
+        </div>
       </section>
 
-      {/* ─── Footer ──────────────────────────────────────────────────────── */}
-      <footer className="border-t border-[var(--border)] py-9 text-xs text-[var(--text-muted)] px-8 flex flex-col md:flex-row gap-y-2 md:items-center justify-between max-w-6xl mx-auto">
-        <div>© {new Date().getFullYear()} GCAP Labs.</div>
-        <div className="flex gap-6 flex-wrap">
-          <a href="https://x.com/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[#111111] transition-colors" aria-label="GCAP Labs on X">X</a>
-          <a href="https://linkedin.com/company/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[#111111] transition-colors" aria-label="GCAP Labs on LinkedIn">LinkedIn</a>
-          <a href="/privacy" className="hover:text-[#111111] transition-colors">Privacy</a>
-          <a href="/terms" className="hover:text-[#111111] transition-colors">Terms</a>
-        </div>
-      </footer>
-
-    </div>
+      <section id="pricing" className="px-5 pb-20 md:px-8 md:pb-28">
+        <Card className="mx-auto max-w-7xl overflow-hidden rounded-3xl border-primary/20 bg-card shadow-xl shadow-foreground/5">
+          <CardHeader className="items-center gap-5 px-6 py-14 text-center md:px-16 md:py-20">
+            <Badge className="rounded-full px-3 py-1">GCAP Headmaster</Badge>
+            <CardTitle className="max-w-3xl text-4xl font-semibold tracking-tight md:text-6xl">Build your persistent AI workforce.</CardTitle>
+            <CardDescription className="max-w-2xl text-lg leading-8">Headmaster works with your tools, your data, your models, and your people.</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col items-center gap-3 px-6 pb-12 sm:flex-row sm:justify-center md:px-16">
+            <Button size="lg" asChild>
+              <a href="mailto:waitlist@gcap.online?subject=Book%20a%20GCAP%20Headmaster%20Demo">Book a Demo</a>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <a href="mailto:waitlist@gcap.online?subject=Try%20Headmaster">Try Headmaster</a>
+            </Button>
+          </CardContent>
+          <CardFooter className="justify-center border-t bg-secondary/40 px-6 py-5 text-center text-sm text-muted-foreground">
+            Separate shadcn variant for review. The GCAP identity and logo are preserved.
+          </CardFooter>
+        </Card>
+      </section>
+    </main>
   );
 }

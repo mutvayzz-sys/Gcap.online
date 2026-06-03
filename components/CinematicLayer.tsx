@@ -2,6 +2,22 @@
 
 import { useEffect } from "react";
 
+type LenisController = {
+  raf: (time: number) => void;
+  scrollTo: (target: HTMLElement, options?: { offset?: number }) => void;
+  destroy: () => void;
+};
+
+declare global {
+  interface Window {
+    __lenis?: LenisController;
+  }
+}
+
+type MagnetElement = HTMLElement & {
+  __magnetBound?: boolean;
+};
+
 export default function CinematicLayer() {
   useEffect(() => {
     const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -25,13 +41,14 @@ export default function CinematicLayer() {
     if (REDUCED) return cleanup;
 
     // Lenis smooth scroll
-    let lenis: any = null;
+    let lenis: LenisController | null = null;
     let lenisRaf: number | null = null;
     import("lenis").then(({ default: Lenis }) => {
-      lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
-      (window as any).__lenis = lenis;
+      const controller = new Lenis({ lerp: 0.1, smoothWheel: true }) as LenisController;
+      lenis = controller;
+      window.__lenis = controller;
       function rafLoop(time: number) {
-        lenis.raf(time);
+        controller.raf(time);
         lenisRaf = requestAnimationFrame(rafLoop);
       }
       lenisRaf = requestAnimationFrame(rafLoop);
@@ -63,8 +80,8 @@ export default function CinematicLayer() {
         btn.addEventListener("click", () => {
           const target = document.getElementById(id);
           if (!target) return;
-          if ((window as any).__lenis) {
-            (window as any).__lenis.scrollTo(target, { offset: 0 });
+          if (window.__lenis) {
+            window.__lenis.scrollTo(target, { offset: 0 });
           } else {
             target.scrollIntoView({ behavior: "smooth" });
           }
@@ -110,9 +127,9 @@ export default function CinematicLayer() {
 
       const bindMagnets = () => {
         document.querySelectorAll("[data-magnet]").forEach((el: Element) => {
-          const elem = el as HTMLElement;
-          if ((elem as any).__magnetBound) return;
-          (elem as any).__magnetBound = true;
+          const elem = el as MagnetElement;
+          if (elem.__magnetBound) return;
+          elem.__magnetBound = true;
           elem.addEventListener("pointerenter", () => ring.classList.add("is-magnet"));
           elem.addEventListener("pointerleave", () => {
             ring.classList.remove("is-magnet");
@@ -131,14 +148,13 @@ export default function CinematicLayer() {
       bindMagnets();
       setTimeout(bindMagnets, 800);
 
-      let cursorRaf: number;
       function loop() {
         rx += (mx - rx) * LERP;
         ry += (my - ry) * LERP;
         ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
-        cursorRaf = requestAnimationFrame(loop);
+        requestAnimationFrame(loop);
       }
-      cursorRaf = requestAnimationFrame(loop);
+      requestAnimationFrame(loop);
     }
 
     function initGrain() {
