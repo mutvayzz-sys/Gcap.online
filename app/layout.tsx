@@ -6,14 +6,14 @@ import CinematicLayer from "@/components/CinematicLayer";
 export const metadata: Metadata = {
   title: "Headmaster by GCAP Labs",
   description:
-    "One prompt. Your entire workforce. Headmaster orchestrates specialist AI agents to execute real work — autonomously.",
+    "Headmaster is a persistent AI workforce layer for organizations, combining memory, skills, automations, tools, messaging, and specialist agents.",
   metadataBase: new URL("https://gcap.online"),
   alternates: {
     canonical: "https://gcap.online",
   },
   openGraph: {
     title: "GCAP Labs — Headmaster",
-    description: "One prompt. Your entire workforce.",
+    description: "Persistent AI agents for real organizational work.",
     url: "https://gcap.online",
     siteName: "GCAP Labs",
     type: "website",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "GCAP Labs — Headmaster",
-    description: "One prompt. Your entire workforce.",
+    description: "Persistent AI agents for real organizational work.",
   },
   icons: {
     icon: "/images/logo.svg",

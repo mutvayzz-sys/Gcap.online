@@ -46,17 +46,25 @@ const doubled = [...TOOLS, ...TOOLS];
 
 export default function WorksWith() {
   return (
-    <div className="border-y border-[var(--border)] py-6 overflow-hidden">
-      <div className="text-xs tracking-[2px] text-[var(--text-muted)] text-center mb-5 uppercase">
-        Works with your existing tools
+    <section id="connected-tools" className="border-y border-[var(--border)] bg-white py-16 overflow-hidden">
+      <div className="mx-auto max-w-5xl px-8 text-center mb-10">
+        <div className="text-xs tracking-[2.5px] text-[var(--text-muted)] uppercase mb-3">
+          Connected Tool Layer
+        </div>
+        <h2 className="text-[32px] md:text-[48px] tracking-[-1.4px] md:tracking-[-2px] leading-tight font-medium mb-4">
+          Headmaster connects to the systems your work already lives in.
+        </h2>
+        <p className="mx-auto max-w-3xl text-lg leading-snug text-[var(--text-muted)]">
+          Bring documents, messages, APIs, calendars, browsers, databases, terminals, and internal tools into one persistent agent workspace. Headmaster does not just answer from memory. It works through approved tools.
+        </p>
       </div>
       <div className="relative">
         <div
-          className="flex items-center gap-10 whitespace-nowrap"
-          style={{ animation: "marquee 40s linear infinite", width: "max-content" }}
+          className="integrations-marquee flex items-center gap-10 whitespace-nowrap"
+          style={{ animation: "marquee 70s linear infinite", width: "max-content" }}
         >
           {doubled.map((tool, i) => (
-            <div key={i} className="flex items-center gap-2 text-[var(--text-muted)]">
+            <div key={i} className="integration-icon flex items-center gap-2 text-[var(--text-muted)] opacity-80 transition-[transform,opacity,filter] duration-300 ease-out hover:scale-[1.04] hover:opacity-100">
               {tool.Icon ? (
                 <tool.Icon size={14} aria-hidden="true" />
               ) : tool.img ? (
@@ -74,6 +82,6 @@ export default function WorksWith() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

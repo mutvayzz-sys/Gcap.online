@@ -206,6 +206,10 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   .grain, .cursor-ring, .cursor-dot { display: none !important; }
+  .integrations-marquee, .integration-row, .integration-icon {
+    animation: none !important;
+    transform: none !important;
+  }
   body.has-cursor, body.has-cursor * { cursor: auto !important; }
   * { scroll-behavior: auto !important; }
 }
