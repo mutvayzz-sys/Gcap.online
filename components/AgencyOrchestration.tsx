@@ -258,7 +258,7 @@ export default function AgencyOrchestration() {
               <div className="font-medium tracking-tight mb-1">Product launch complete.</div>
               <p className="text-[13px] text-white/55 leading-relaxed">
                 Competitor brief, messaging framework, 14 content pieces, 38 personalised outreach emails,
-                and an executive summary — all from one prompt, delivered while you slept.
+                and an executive summary — initiated from a single instruction, delivered while you slept.
               </p>
             </div>
           </motion.div>

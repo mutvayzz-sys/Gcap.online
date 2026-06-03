@@ -53,12 +53,13 @@ export default function Image() {
         {/* Tagline */}
         <div
           style={{
-            fontSize: 28,
-            color: "#888",
-            letterSpacing: "-0.5px",
+            fontSize: 26,
+            color: "#a1a1aa",
+            letterSpacing: "-0.4px",
+            maxWidth: 620,
           }}
         >
-          One prompt. Your entire workforce.
+          Persistent AI workforce layer for organizations.
         </div>
       </div>
     ),
