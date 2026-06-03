@@ -7,9 +7,9 @@ export default function WorksWith() {
     <MarqueeStrip
       duration={34}
       rows={[
-        { filter: "channel", label: "Gateways — reach Headmaster anywhere" },
-        { filter: "model", label: "Providers — the models it runs on" },
-        { filter: "connector", label: "Connectors & MCP — the systems it works in" },
+        { filter: "channel", label: "Channels — meet Headmaster where teams communicate" },
+        { filter: "connector", label: "Tools — documents, calendars, browsers, and work systems" },
+        { filter: "model", label: "Models — route work to the right provider" },
       ]}
     />
   );

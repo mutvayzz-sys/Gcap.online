@@ -77,7 +77,7 @@ export default function FinalCTA() {
 
           <div>
             <label htmlFor="cta-workflow" className="block text-xs tracking-widest uppercase text-[var(--text-muted)] mb-1.5">Workflow you want to start with</label>
-            <input id="cta-workflow" type="text" name="workflow" className="field" placeholder="e.g. Weekly client reports, Grade 8 progress reports" required aria-required="true" />
+            <input id="cta-workflow" type="text" name="workflow" className="field" placeholder="e.g. Weekly client reports, release summaries, operations checklists" required aria-required="true" />
           </div>
 
           <div>
