@@ -5,14 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
 import HeroSection from "@/components/HeroSection";
-import ProductPillars from "@/components/ProductPillars";
-import IntegrationsSection from "@/components/IntegrationsSection";
-import GuidedDemo from "@/components/GuidedDemo";
-import UseCases from "@/components/UseCases";
-import DeploymentSection from "@/components/DeploymentSection";
-import FeatureMatrix from "@/components/FeatureMatrix";
-import SchoolExample from "@/components/SchoolExample";
-import TrustControl from "@/components/TrustControl";
+import ProductExperience from "@/components/ProductExperience";
 import FinalCTA from "@/components/FinalCTA";
 
 export default function GCAPLabs() {
@@ -31,15 +24,15 @@ export default function GCAPLabs() {
 
   const navItems = [
     { href: "#product", label: "Product" },
-    { href: "#features", label: "Features" },
-    { href: "#use-cases", label: "Use Cases" },
-    { href: "#deployments", label: "Deployments" },
+    { href: "#workflows", label: "Workflows" },
+    { href: "#integrations", label: "Integrations" },
+    { href: "#agents", label: "Agents" },
+    { href: "#tayx", label: "TayX" },
     { href: "#contact", label: "Contact" },
   ];
 
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] selection:bg-[#111] selection:text-white">
-      {/* Fixed Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/95 backdrop-blur-xl border-b border-[var(--border)]">
         <div className="max-w-[1280px] mx-auto px-8 h-20 flex items-center justify-between">
           <a href="#top" className="flex items-center gap-3" aria-label="GCAP home">
@@ -47,7 +40,7 @@ export default function GCAPLabs() {
             <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
           </a>
 
-          <div className="hidden md:flex items-center gap-8 text-[15px]">
+          <div className="hidden lg:flex items-center gap-7 text-[15px]">
             {navItems.map((item) => (
               <a key={item.href} href={item.href} className="hover:text-[var(--text-muted)] transition-colors">
                 {item.label}
@@ -64,7 +57,7 @@ export default function GCAPLabs() {
 
           <button
             onClick={() => setMobileMenuOpen((p) => !p)}
-            className="md:hidden z-50 relative flex flex-col gap-[5px] p-2"
+            className="lg:hidden z-50 relative flex flex-col gap-[5px] p-2"
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -106,37 +99,10 @@ export default function GCAPLabs() {
         )}
       </AnimatePresence>
 
-      {/* HERO — calm persistent workforce command center */}
       <HeroSection />
-
-      {/* PRODUCT PILLARS — 7 cards, data-driven */}
-      <ProductPillars />
-
-      {/* INTEGRATIONS / CONNECTED TOOL LAYER — preserved icons, calm multi-row, reduced-motion */}
-      <IntegrationsSection />
-
-      {/* GUIDED DEMO — proper workflow theater with tabs, timeline, approval preview */}
-      <GuidedDemo />
-
-      {/* USE CASES — balanced across verticals */}
-      <UseCases />
-
-      {/* CONFIGURED AROUND YOUR ORG */}
-      <DeploymentSection />
-
-      {/* MORE THAN A CHAT — premium feature matrix */}
-      <FeatureMatrix />
-
-      {/* SCHOOLS — one supporting example deployment */}
-      <SchoolExample />
-
-      {/* TRUST / CONTROL */}
-      <TrustControl />
-
-      {/* FINAL CTA */}
+      <ProductExperience />
       <FinalCTA />
 
-      {/* Footer */}
       <footer className="border-t border-[var(--border)] py-9 text-xs text-[var(--text-muted)] px-8 flex flex-col md:flex-row gap-y-2 md:items-center justify-between max-w-6xl mx-auto">
         <div>© {new Date().getFullYear()} GCAP Labs. Headmaster is a persistent AI workforce layer.</div>
         <div className="flex gap-6 flex-wrap">
