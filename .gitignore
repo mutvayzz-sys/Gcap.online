@@ -2,7 +2,9 @@
 
 # dependencies
 /node_modules
+**/node_modules
 /.pnp
+**/.pnp
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -12,13 +14,17 @@
 
 # testing
 /coverage
+**/coverage
 
-# next.js
+# next.js (support root or site/ subfolder)
 /.next/
 /out/
+/site/.next/
+/site/out/
 
 # production
 /build
+/site/build
 
 # misc
 .DS_Store
@@ -35,6 +41,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+/site/.vercel
 
 # typescript
 *.tsbuildinfo
