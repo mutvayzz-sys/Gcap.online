@@ -45,34 +45,51 @@ const TOOLS: Tool[] = [
 const doubled = [...TOOLS, ...TOOLS];
 
 export default function WorksWith() {
+  // Three rows with staggered calm durations (55s-75s) + one reversed for subtle parallax
+  const rows = [
+    { duration: "70s", reverse: false },
+    { duration: "62s", reverse: true },
+    { duration: "75s", reverse: false },
+  ];
+
   return (
-    <div className="border-y border-[var(--border)] py-6 overflow-hidden">
-      <div className="text-xs tracking-[2px] text-[var(--text-muted)] text-center mb-5 uppercase">
-        Works with your existing tools
+    <div className="integrations-marquee overflow-hidden border-y border-[var(--border)] bg-[var(--bg-elevated)] py-8">
+      <div className="text-xs tracking-[2px] text-[var(--text-muted)] text-center mb-6 uppercase">
+        Approved systems, channels, APIs, and model providers
       </div>
-      <div className="relative">
-        <div
-          className="flex items-center gap-10 whitespace-nowrap"
-          style={{ animation: "marquee 40s linear infinite", width: "max-content" }}
-        >
-          {doubled.map((tool, i) => (
-            <div key={i} className="flex items-center gap-2 text-[var(--text-muted)]">
-              {tool.Icon ? (
-                <tool.Icon size={14} aria-hidden="true" />
-              ) : tool.img ? (
-                <Image
-                  src={tool.img}
-                  alt=""
-                  width={14}
-                  height={14}
-                  className="opacity-60 rounded-[2px]"
-                  aria-hidden="true"
-                />
-              ) : null}
-              <span className="text-sm font-medium">{tool.name}</span>
-            </div>
-          ))}
-        </div>
+      <div className="relative flex flex-col gap-6">
+        {rows.map((row, rowIdx) => (
+          <div
+            key={rowIdx}
+            className="integration-row flex items-center gap-9 whitespace-nowrap will-change-transform"
+            style={{
+              animation: `marquee ${row.duration} linear infinite ${row.reverse ? "reverse" : "normal"}`,
+              width: "max-content",
+            }}
+            aria-hidden={rowIdx > 0}
+          >
+            {doubled.map((tool, i) => (
+              <div
+                key={`${rowIdx}-${i}`}
+                className="integration-icon flex items-center gap-2 text-[var(--text-muted)]"
+              >
+                {tool.Icon ? (
+                  <tool.Icon size={15} aria-hidden="true" />
+                ) : tool.img ? (
+                  <Image
+                    src={tool.img}
+                    alt=""
+                    width={15}
+                    height={15}
+                    className="rounded-[2px] opacity-70"
+                    aria-hidden="true"
+                  />
+                ) : null}
+                <span className="text-sm font-medium tracking-[-0.1px]">{tool.name}</span>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

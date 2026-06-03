@@ -4,7 +4,7 @@
   --font-sans: Arial, Helvetica, sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-  /* Premium light cinematic palette — warm off-white */
+  /* GCAP warm light brand — off-white page, white surfaces, near-black text */
   --bg: #F8F7F4;
   --bg-elevated: #FFFFFF;
   --text: #111111;
@@ -12,7 +12,7 @@
   --text-muted: #5C5C5A;
   --border: #E8E7E2;
   --border-strong: #C8C7C2;
-  --accent: #3b82f6;
+  --accent: #111111;
   --success: #16a34a;
   --on-dark: #F9F7F3;
 
@@ -38,7 +38,7 @@
   --radius-lg: 24px;
   --radius-xl: 32px;
 
-  /* Shadows */
+  /* Shadows (restrained) */
   --shadow-subtle: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.06);
   --shadow-card: 0 4px 24px rgba(0,0,0,.08);
   --shadow-elevated: 0 12px 48px rgba(0,0,0,.12);
@@ -60,7 +60,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: #111; color: #fff; }
+::selection { background: #3b82f6; color: #fff; }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; }
 
@@ -68,6 +68,15 @@ h1, h2, h3 {
   font-feature-settings: "tnum" 1;
   letter-spacing: -0.02em;
 }
+
+/* Form fields — light GCAP */
+.field {
+  width: 100%; border: 1px solid var(--border); background: var(--bg-elevated); border-radius: 16px;
+  padding: 15px 22px; font-size: 17px; font-family: var(--font-sans); color: var(--ink);
+  transition: border-color .2s;
+}
+.field::placeholder { color: var(--text-muted); }
+.field:focus { outline: none; border-color: var(--border-strong); }
 
 /* ---- Layout ---- */
 .wrap { max-width: 1024px; margin: 0 auto; padding: 0 32px; }
@@ -86,7 +95,7 @@ h1, h2, h3 {
 .eyebrow { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
 .chip { display: inline-block; padding: 6px 16px; border-radius: 9999px; background: #111; color: var(--on-dark); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
 
-/* ---- Buttons ---- */
+/* ---- Buttons (light GCAP) ---- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   border: none; cursor: pointer; border-radius: 9999px; font-weight: 500;
@@ -98,19 +107,12 @@ h1, h2, h3 {
 .btn-dark:hover { background: #000; }
 .btn-white { background: #fff; color: #000; padding: 15px 44px; font-size: 19px; box-shadow: 0 24px 60px rgba(0,0,0,.30); }
 .btn-white:hover { background: rgba(255,255,255,.88); }
-.btn-ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.8); padding: 13px 42px; font-size: 19px; }
-.btn-ghost:hover { background: rgba(255,255,255,.10); }
+.btn-ghost { background: transparent; color: #111; border: 2px solid var(--border-strong); padding: 13px 42px; font-size: 19px; }
+.btn-ghost:hover { background: rgba(0,0,0,.04); }
 
-/* ---- Form fields ---- */
-.field {
-  width: 100%; border: 1px solid var(--border); background: #fff; border-radius: 16px;
-  padding: 15px 22px; font-size: 17px; font-family: var(--font-sans); color: var(--ink);
-  transition: border-color .2s;
-}
-.field::placeholder { color: var(--text-muted); }
-.field:focus { outline: none; border-color: rgba(17,17,17,.4); }
+/* Form fields already defined above for light GCAP */
 
-/* ---- Nav ---- */
+/* ---- Nav (light GCAP) ---- */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;
   background: rgba(248,247,244,.95); backdrop-filter: blur(20px);
@@ -198,7 +200,33 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ---- Reduced motion ---- */
+/* ---- Connected Tool Layer (calm marquee, multi-row parallax feel) ---- */
+.integrations-marquee {
+  /* container */
+}
+.integration-row {
+  /* base row; duration overridden inline for stagger (55s-75s range) */
+  animation: marquee 68s linear infinite;
+  will-change: transform;
+}
+.integration-row:nth-child(2) {
+  animation-duration: 61s;
+  animation-direction: reverse; /* slight opposing motion for calm parallax */
+}
+.integration-row:nth-child(3) {
+  animation-duration: 74s;
+}
+.integration-icon {
+  opacity: 0.82;
+  transition: transform 280ms ease, opacity 280ms ease, filter 280ms ease, color 280ms ease;
+}
+.integration-icon:hover {
+  transform: scale(1.035);
+  opacity: 1;
+  color: var(--text);
+}
+
+/* ---- Reduced motion (strong support everywhere) ---- */
 @media (max-width: 880px) { .chapters { display: none; } }
 @media (hover: none), (pointer: coarse) {
   .cursor-ring, .cursor-dot { display: none; }
@@ -208,4 +236,18 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
   .grain, .cursor-ring, .cursor-dot { display: none !important; }
   body.has-cursor, body.has-cursor * { cursor: auto !important; }
   * { scroll-behavior: auto !important; }
+
+  .integrations-marquee,
+  .integration-row,
+  .integration-icon,
+  [data-reveal],
+  [data-reveal-item],
+  .chapter,
+  .scroll-progress {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .chapter-label { opacity: 0.7; transform: none; }
 }
