@@ -1,6 +1,6 @@
 import WorksWith from "./WorksWith";
+import Link from "next/link";
 import SectionHeader from "./SectionHeader";
-import ProductShot from "./ProductShot";
 
 export default function IntegrationsSection() {
   return (
@@ -8,25 +8,25 @@ export default function IntegrationsSection() {
       id="connected-tools"
       data-chapter="connected-tools"
       data-label="Integrations"
-      className="border-b border-[var(--border)] py-20"
+      className="border-b border-[var(--border)] bg-[var(--bg-elevated)] py-20"
     >
-      <div className="mx-auto max-w-[1280px] px-8 mb-10">
-        <div className="max-w-[1120px]">
+      <div className="mx-auto mb-10 max-w-[1280px] px-8">
+        <div className="max-w-[920px]">
           <SectionHeader
-            eyebrow="Gateways · Providers · Connectors & MCP"
-            title="Connect the systems work already lives in."
-            body="Reach Headmaster through your team's channels, run it on the models you choose, and connect the tools, MCP servers, and systems your work already depends on."
+            eyebrow="Integrations"
+            title="Works with the systems your work already lives in."
+            body="Headmaster connects across communication channels, documents, calendars, browsers, tools, connectors, and model providers so workflows can reach the places your team already works."
           />
         </div>
       </div>
       <WorksWith />
-
-      <div className="mt-14 max-w-[1280px] mx-auto px-8" data-reveal>
-        <ProductShot
-          src="https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/10-integrations-channels-mcp.png"
-          alt="Integrations page showing channels, tools, connectors, MCP servers, webhooks, and API keys."
-          aspect="aspect-[16/10]"
-        />
+      <div className="mx-auto mt-10 max-w-[1280px] px-8">
+        <Link
+          href="/products/headmaster#integrations"
+          className="inline-flex rounded-full border border-[var(--border-strong)] px-6 py-3 text-[14px] font-medium transition-all hover:bg-[var(--bg)]"
+        >
+          Explore deeper integrations on the Headmaster page
+        </Link>
       </div>
     </section>
   );

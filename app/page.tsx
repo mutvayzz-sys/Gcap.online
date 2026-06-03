@@ -7,22 +7,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import HeroSection from "@/components/HeroSection";
 import ProductPillars from "@/components/ProductPillars";
 import ChatSection from "@/components/ChatSection";
-import MemorySection from "@/components/MemorySection";
-import SkillsSection from "@/components/SkillsSection";
-import SpecialistAgents from "@/components/SpecialistAgents";
-import RunsSection from "@/components/RunsSection";
+import GuidedWorkflowSection from "@/components/GuidedWorkflowSection";
 import ApprovalsSection from "@/components/ApprovalsSection";
-import ScheduledWork from "@/components/ScheduledWork";
-import ChannelsSection from "@/components/ChannelsSection";
 import IntegrationsSection from "@/components/IntegrationsSection";
 import DeploymentSection from "@/components/DeploymentSection";
 import TrustControl from "@/components/TrustControl";
 import UseCases from "@/components/UseCases";
-import SchoolExample from "@/components/SchoolExample";
 import ModelAgnostic from "@/components/ModelAgnostic";
 import TayXSection from "@/components/TayXSection";
-import FeatureMatrix from "@/components/FeatureMatrix";
-import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 
 export default function GCAPLabs() {
@@ -41,9 +33,9 @@ export default function GCAPLabs() {
 
   const navItems = [
     { href: "#product", label: "Product" },
-    { href: "#features", label: "Features" },
+    { href: "/products/headmaster", label: "Headmaster" },
+    { href: "/products/tayx", label: "TayX" },
     { href: "#use-cases", label: "Use Cases" },
-    { href: "#deployments", label: "Deployments" },
     { href: "#contact", label: "Contact" },
   ];
 
@@ -120,63 +112,33 @@ export default function GCAPLabs() {
       {/* HERO */}
       <HeroSection />
 
-      {/* PRODUCT PILLARS — what Headmaster is built on */}
-      <ProductPillars />
-
-      {/* CHAT — ask → work */}
+      {/* CHAT — front door to the product */}
       <ChatSection />
 
-      {/* MEMORY + SKILLS — how it learns your org */}
-      <MemorySection />
-      <SkillsSection />
+      {/* PRODUCT PILLARS — broad system overview */}
+      <ProductPillars />
 
-      {/* SPECIALIST AGENTS — who does the work */}
-      <SpecialistAgents />
+      {/* GUIDED WORKFLOW — strongest product proof */}
+      <GuidedWorkflowSection />
 
-      {/* RUNS — what gets logged */}
-      <RunsSection />
-
-      {/* APPROVALS — the control pivot */}
-      <ApprovalsSection />
-
-      {/* SCHEDULED WORK — autonomous but supervised */}
-      <ScheduledWork />
-
-      {/* CHANNELS — how you reach it */}
-      <ChannelsSection />
-
-      {/* INTEGRATIONS — gateways + providers + connectors */}
+      {/* INTEGRATIONS — visual proof only on the homepage */}
       <IntegrationsSection />
 
-      {/* CONFIGURED DEPLOYMENTS — your org, your config */}
+      {/* USE CASES — school is one vertical, not the homepage identity */}
+      <UseCases />
+
+      {/* TRUST + APPROVALS — control stays with people */}
+      <TrustControl />
+      <ApprovalsSection />
+
+      {/* DEPLOYMENTS — generic workspace snapshot */}
       <DeploymentSection />
 
-      {/* TRUST & CONTROL — near the B2B close argument */}
-      <TrustControl />
-
-      {/* USE CASES + SCHOOL EXAMPLE */}
-      <UseCases />
-      <SchoolExample />
-
-      {/* MODEL-AGNOSTIC + TAYX — pair the model story */}
+      {/* MODEL-AGNOSTIC + TAYX TEASER */}
       <ModelAgnostic />
       <TayXSection />
 
-      {/* FEATURE MATRIX — for buyers who want the full list */}
-      <FeatureMatrix />
-
-      {/* FAQ */}
-      <section id="faq" data-chapter="faq" data-label="FAQ" className="max-w-[1280px] mx-auto px-8 py-24 border-b border-[var(--border)]">
-        <div className="max-w-3xl mx-auto">
-          <div className="mb-12 text-center" data-reveal>
-            <div className="mb-4 text-xs font-medium uppercase tracking-[0.26em] text-[var(--text-muted)]">Questions</div>
-            <h2 className="text-[36px] md:text-[52px] tracking-[-1.4px] md:tracking-[-2.2px] font-medium leading-[1.05]">Frequently Asked</h2>
-          </div>
-          <FAQ />
-        </div>
-      </section>
-
-      {/* FINAL CTA */}
+      {/* CTA */}
       <FinalCTA />
 
       {/* Footer */}

@@ -15,7 +15,7 @@ export default function TayXSection() {
           <div className="mb-8" data-reveal>
             <div className="flex items-center gap-4 mb-5">
               <div className="text-xs font-medium uppercase tracking-[0.26em] text-[var(--text-muted)]">
-                What comes next from GCAP
+                GCAP model layer
               </div>
               <div className="text-xs font-medium uppercase tracking-[0.2em] border border-[var(--border-strong)] px-2.5 py-1 text-[var(--text-muted)]">
                 Coming soon
@@ -25,16 +25,16 @@ export default function TayXSection() {
               TayX
             </h2>
             <p className="mt-5 text-[18px] md:text-[20px] leading-relaxed text-[var(--text-muted)]">
-              TayX is GCAP's own model — a separate product built and trained for agentic work. It is not Headmaster. It is the model layer that will follow it.
+              TayX is GCAP’s own trained and fine-tuned model layer for agentic work, coding, research, long-context reasoning, and tool-heavy workflows.
             </p>
           </div>
 
           <div className="space-y-5" data-reveal>
             <p className="text-[17px] text-[var(--text-muted)] leading-relaxed">
-              Headmaster runs on whichever model fits the task. TayX will be the one GCAP builds specifically for long-running workflows, tool-heavy tasks, and multi-step reasoning.
+              Headmaster runs on whichever model fits the task. TayX is the GCAP-tuned option designed for long-running workflows, tool use, and multi-step reasoning.
             </p>
             <p className="text-[17px] text-[var(--text-muted)] leading-relaxed">
-              It will not release before Headmaster. When it does, it will be available as a first-class option alongside every other model Headmaster already supports.
+              TayX stays clearly separate from Headmaster: Headmaster is the product and orchestration layer; TayX is one model layer it can route work to when the workflow benefits from GCAP’s tuning.
             </p>
           </div>
         </div>

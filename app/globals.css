@@ -238,6 +238,7 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
 
   .integrations-marquee,
   .integration-row,
+  .marquee-row,
   .integration-icon,
   [data-reveal],
   [data-reveal-item],

@@ -14,8 +14,8 @@ export default function ModelAgnostic() {
       <div className="max-w-[1120px] mx-auto px-8">
         <SectionHeader
           eyebrow="Model-Agnostic by Design"
-          title="Use the Right Model for the Job"
-          body="Headmaster is not locked to one AI provider. It can run on cloud models, local models, coding models, enterprise endpoints, custom endpoints, or GCAP's own TayX model layer depending on the workflow."
+          title="Headmaster is model-agnostic. TayX is GCAP’s trained and fine-tuned model layer."
+          body="Headmaster can route work across cloud models, coding models, local models, enterprise endpoints, custom endpoints, and GCAP’s own TayX model layer."
           inverse
         />
 
@@ -46,7 +46,7 @@ export default function ModelAgnostic() {
         </div>
 
         <p className="mt-8 text-[15px] text-white/40 leading-relaxed max-w-2xl" data-reveal>
-          Future models can be added without rebuilding. Headmaster routes work to the engine that fits the task — and that engine can change as your needs change.
+          Future models can be added without rebuilding the product. Headmaster routes work to the engine that fits the task, and TayX remains GCAP’s own tuned option inside that broader model stack.
         </p>
       </div>
 

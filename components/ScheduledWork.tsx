@@ -68,7 +68,7 @@ export default function ScheduledWork() {
         <div className="rounded-2xl border border-[var(--border)] bg-white p-6">
           <div className="text-xs tracking-[2px] uppercase text-[var(--text-muted)] mb-3">Business example</div>
           <p className="text-[15px] text-[var(--text-muted)] leading-relaxed">
-            Every Monday, it prepares a client status update from the previous week's notes.
+            Every Monday, it prepares a client status update from the previous week&apos;s notes.
           </p>
         </div>
       </div>
