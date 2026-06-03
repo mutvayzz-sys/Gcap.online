@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import ProductShot from "@/components/ProductShot";
+import ProductGallery from "@/components/ProductGallery";
 import FinalCTA from "@/components/FinalCTA";
-import { productScreenshots } from "@/src/data/productScreenshots";
 
 const overview = [
   "Persistent memory and workspace context",
@@ -46,7 +45,7 @@ export default function HeadmasterProductPage() {
               The full Headmaster command layer.
             </h1>
             <p className="mt-7 max-w-[43ch] text-[19px] leading-snug tracking-[-0.3px] text-[var(--text-muted)] md:text-[21px]">
-              Headmaster is GCAP’s persistent AI workforce layer for organizations that need memory, tools, workflows, approvals, channels, automations, and model routing in one governed product.
+              Headmaster is GCAP's persistent AI workforce layer for organizations that need memory, tools, workflows, approvals, channels, automations, and model routing in one governed product.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a href="#contact" className="inline-flex justify-center rounded-full bg-[#111111] px-9 py-3.5 text-[15px] font-medium text-[#F9F7F3] transition-all hover:bg-black">
@@ -57,12 +56,9 @@ export default function HeadmasterProductPage() {
               </a>
             </div>
           </div>
-          <ProductShot
-            src="https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/01-dashboard-command-center.png"
-            alt="Headmaster dashboard showing active runs, approvals, memory updates, automations, and system status."
-            aspect="aspect-[16/10]"
-            priority
-          />
+
+          {/* Interactive gallery with lightbox */}
+          <ProductGallery />
         </section>
 
         <section className="border-y border-[var(--border)] bg-white py-16">
@@ -78,43 +74,6 @@ export default function HeadmasterProductPage() {
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-[1280px] px-8 py-24">
-          <div className="mb-14 max-w-3xl">
-            <div className="mb-4 text-xs font-medium uppercase tracking-[0.26em] text-[var(--text-muted)]">Product Story</div>
-            <h2 className="text-[36px] font-medium leading-[1.05] tracking-[-1.4px] md:text-[52px] md:tracking-[-2.2px]">
-              The complete Headmaster workflow, screen by screen.
-            </h2>
-            <p className="mt-5 text-[18px] leading-relaxed text-[var(--text-muted)] md:text-[20px]">
-              The homepage stays broad. This page holds the deeper product details, including integrations configuration and the model stack.
-            </p>
-          </div>
-
-          <div className="space-y-20">
-            {productScreenshots.map((shot, index) => (
-              <article
-                key={shot.id}
-                id={shot.id}
-                className={`grid gap-10 lg:grid-cols-2 lg:items-center ${index % 2 === 1 ? "lg:[&>div:first-child]:order-2" : ""}`}
-              >
-                <div>
-                  <div className="mb-3 text-xs font-medium uppercase tracking-[0.22em] text-[var(--text-muted)]">{shot.eyebrow}</div>
-                  <h3 className="text-[30px] font-medium leading-[1.08] tracking-[-1.2px] md:text-[42px] md:tracking-[-1.8px]">{shot.title}</h3>
-                  <p className="mt-5 text-[17px] leading-relaxed text-[var(--text-muted)]">{shot.description}</p>
-                  <ul className="mt-7 space-y-3">
-                    {shot.bullets.map((bullet) => (
-                      <li key={bullet} className="flex gap-3 text-[15px] text-[var(--text-muted)]">
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#111111]" />
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <ProductShot src={shot.src} alt={shot.alt} aspect="aspect-[16/10]" />
-              </article>
-            ))}
           </div>
         </section>
 

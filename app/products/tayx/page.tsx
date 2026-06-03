@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import ProductShot from "@/components/ProductShot";
+import LightboxImage from "@/components/LightboxImage";
 import FinalCTA from "@/components/FinalCTA";
 
 const capabilities = [
@@ -66,7 +66,7 @@ export default function TayXProductPage() {
               </a>
             </div>
           </div>
-          <ProductShot
+          <LightboxImage
             src="https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/11-model-stack-providers-tayx.png"
             alt="Model stack page showing TayX, cloud models, coding models, local models, and enterprise endpoints."
             aspect="aspect-[16/10]"
