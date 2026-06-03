@@ -26,6 +26,7 @@ export default function IntegrationsSection() {
           src="https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/10-integrations-channels-mcp.png"
           alt="Integrations page showing channels, tools, connectors, MCP servers, webhooks, and API keys."
           aspect="aspect-[16/10]"
+          parallax
         />
       </div>
     </section>

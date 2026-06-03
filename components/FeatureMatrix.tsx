@@ -17,11 +17,12 @@ export default function FeatureMatrix() {
           inverse
         />
         <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-3 shadow-xl" data-reveal>
-          <div className="grid gap-3">
+          <div className="grid gap-3" data-reveal-group>
             {features.map((feature, idx) => (
               <div
                 key={idx}
-                className="grid md:grid-cols-[0.85fr_1.15fr] gap-4 rounded-3xl border border-white/10 bg-white/[0.035] px-6 py-5 transition hover:bg-white/[0.05]"
+                data-reveal-item
+                className="grid md:grid-cols-[0.85fr_1.15fr] gap-4 rounded-3xl border border-white/10 bg-white/[0.035] px-6 py-5 transition-colors duration-200 hover:bg-white/[0.06] hover:border-white/20"
               >
                 <div className="font-medium tracking-tight text-white text-[15px] md:text-base">{feature.capability}</div>
                 <div className="text-white/70 leading-relaxed text-[15px]">{feature.meaning}</div>

@@ -20,7 +20,7 @@ import TrustControl from "@/components/TrustControl";
 import UseCases from "@/components/UseCases";
 import SchoolExample from "@/components/SchoolExample";
 import ModelAgnostic from "@/components/ModelAgnostic";
-import TayXSection from "@/components/TayXSection";
+import TayX from "@/components/TayX";
 import FeatureMatrix from "@/components/FeatureMatrix";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
@@ -48,7 +48,7 @@ export default function GCAPLabs() {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] selection:bg-[#111] selection:text-white">
+    <div className="min-h-[100dvh] bg-[var(--bg)] text-[var(--text)] selection:bg-[#111] selection:text-white">
       {/* Fixed Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/95 backdrop-blur-xl border-b border-[var(--border)]">
         <div className="max-w-[1280px] mx-auto px-8 h-20 flex items-center justify-between">
@@ -160,7 +160,7 @@ export default function GCAPLabs() {
 
       {/* MODEL-AGNOSTIC + TAYX — pair the model story */}
       <ModelAgnostic />
-      <TayXSection />
+      <TayX />
 
       {/* FEATURE MATRIX — for buyers who want the full list */}
       <FeatureMatrix />

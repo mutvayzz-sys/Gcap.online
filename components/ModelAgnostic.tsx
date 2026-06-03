@@ -19,7 +19,7 @@ export default function ModelAgnostic() {
           inverse
         />
 
-        <div className="mt-10 grid md:grid-cols-2 gap-x-16 gap-y-0 border-t border-white/10" data-reveal>
+        <div className="mt-10 grid md:grid-cols-2 gap-x-16 gap-y-0 border-t border-white/10" data-reveal-group>
           {[
             {
               title: "Cloud models",
@@ -38,7 +38,7 @@ export default function ModelAgnostic() {
               description: "For enterprise agreements or proprietary model stacks already in use.",
             },
           ].map((item) => (
-            <div key={item.title} className="py-7 border-b border-white/10">
+            <div key={item.title} data-reveal-item className="py-7 border-b border-white/10">
               <div className="text-[17px] font-medium tracking-tight mb-1.5">{item.title}</div>
               <p className="text-[15px] text-white/55 leading-relaxed">{item.description}</p>
             </div>
@@ -56,6 +56,7 @@ export default function ModelAgnostic() {
           alt="Model stack page showing TayX, cloud models, coding models, local models, and enterprise endpoints."
           aspect="aspect-[16/10]"
           className="border-white/10"
+          parallax
         />
       </div>
     </section>

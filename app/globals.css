@@ -200,9 +200,6 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
 }
 
 /* ---- Connected Tool Layer (calm marquee, multi-row parallax feel) ---- */
-.integrations-marquee {
-  /* container */
-}
 .integration-row {
   /* base row; duration overridden inline for stagger (55s-75s range) */
   animation: marquee 68s linear infinite;
@@ -251,12 +248,13 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
   .chapter-label { opacity: 0.7; transform: none; }
 }
 
-@keyframes marquee {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+/* ---- Focus visibility (keyboard a11y) ---- */
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
-
-@keyframes marquee-reverse {
-  0%   { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+.chapters.on-dark :focus-visible,
+[data-theme="dark"] :focus-visible {
+  outline-color: #F9F7F3;
 }

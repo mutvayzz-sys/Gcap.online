@@ -77,6 +77,7 @@ export default function HeroSection() {
             alt="Headmaster dashboard showing active runs, approvals, memory updates, automations, and system status."
             aspect="aspect-[16/10]"
             priority
+            parallax
           />
         </motion.div>
       </div>

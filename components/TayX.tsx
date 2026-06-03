@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import AnimatedCounter from "./AnimatedCounter";
 
 const SPECS = [
   { value: "1,000,000", label: "token context" },
@@ -93,7 +94,7 @@ export default function TayX({ onWaitlist }: TayXProps) {
           {SPECS.map(({ value, label }) => (
             <div key={label} className="bg-[#0D0D0D] px-6 py-6">
               <div className="text-[clamp(22px,2.4vw,30px)] font-semibold tracking-tight mb-1">
-                {value}
+                <AnimatedCounter value={value} />
               </div>
               <div className="text-[11px] font-medium text-white/50 tracking-[1px] uppercase">
                 {label}
@@ -113,7 +114,9 @@ export default function TayX({ onWaitlist }: TayXProps) {
         >
           {BENCHES.map(({ value, label }) => (
             <div key={label} className="bg-[#0D0D0D] px-4 py-5">
-              <div className="text-[26px] font-semibold tracking-tight mb-1">{value}</div>
+              <div className="text-[26px] font-semibold tracking-tight mb-1">
+                <AnimatedCounter value={value} />
+              </div>
               <div className="text-[10px] font-medium text-white/50 tracking-[0.8px] uppercase leading-tight">
                 {label}
               </div>

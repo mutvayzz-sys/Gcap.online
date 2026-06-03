@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import CinematicLayer from "@/components/CinematicLayer";
+import MotionProvider from "@/components/MotionProvider";
 
 export const metadata: Metadata = {
   title: "GCAP | Headmaster",
@@ -46,9 +47,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`h-full antialiased ${GeistSans.variable}`}>
-      <body className="min-h-screen flex flex-col">
+      <body className="min-h-[100dvh] flex flex-col">
         <CinematicLayer />
-        {children}
+        <MotionProvider>{children}</MotionProvider>
         <Analytics />
       </body>
     </html>
