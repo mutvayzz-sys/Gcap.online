@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const TO = process.env.CONTACT_EMAIL ?? "team@gcap.online";
 const FROM = process.env.CONTACT_FROM ?? "Headmaster Demo Requests <noreply@gcap.online>";
 
@@ -21,6 +20,8 @@ export async function POST(request: NextRequest) {
       console.error("RESEND_API_KEY not set — email not sent", { name, org, email, workflow, notes });
       return NextResponse.json({ success: true }, { status: 200 });
     }
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const { error } = await resend.emails.send({
       from: FROM,
