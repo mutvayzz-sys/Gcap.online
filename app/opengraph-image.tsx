@@ -58,7 +58,7 @@ export default function Image() {
             letterSpacing: "-0.5px",
           }}
         >
-          One prompt. Your entire workforce.
+          Persistent AI agents for real organizational work.
         </div>
       </div>
     ),

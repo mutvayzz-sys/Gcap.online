@@ -46,26 +46,33 @@ const doubled = [...TOOLS, ...TOOLS];
 
 export default function WorksWith() {
   return (
-    <div className="border-y border-[var(--border)] py-6 overflow-hidden">
-      <div className="text-xs tracking-[2px] text-[var(--text-muted)] text-center mb-5 uppercase">
-        Works with your existing tools
+    <section id="integrations" data-chapter="tools" data-label="Tools" className="border-y border-[var(--border)] py-14 overflow-hidden bg-[var(--bg)]">
+      <div className="max-w-5xl mx-auto px-8 text-center mb-8" data-reveal>
+        <div className="uppercase tracking-[2.5px] text-xs text-[var(--text-muted)] mb-3">Connected Tool Layer</div>
+        <h2 className="text-[30px] md:text-[44px] tracking-[-1.2px] md:tracking-[-1.8px] font-medium mb-4 leading-tight">
+          Headmaster connects to the systems your work already lives in.
+        </h2>
+        <p className="text-[17px] md:text-[19px] text-[var(--text-muted)] max-w-3xl mx-auto leading-relaxed">
+          Bring documents, messages, APIs, calendars, browsers, databases, terminals, and internal tools into one persistent agent workspace. Headmaster does not just answer from memory. It works through approved tools.
+        </p>
       </div>
       <div className="relative">
         <div
-          className="flex items-center gap-10 whitespace-nowrap"
-          style={{ animation: "marquee 40s linear infinite", width: "max-content" }}
+          className="integrations-marquee flex items-center gap-10 whitespace-nowrap"
+          style={{ animation: "marquee 65s linear infinite", width: "max-content" }}
+          aria-label="Supported tools and integration providers"
         >
           {doubled.map((tool, i) => (
-            <div key={i} className="flex items-center gap-2 text-[var(--text-muted)]">
+            <div key={`${tool.name}-${i}`} className="integration-icon flex items-center gap-2 text-[var(--text-muted)] opacity-80">
               {tool.Icon ? (
-                <tool.Icon size={14} aria-hidden="true" />
+                <tool.Icon size={15} aria-hidden="true" />
               ) : tool.img ? (
                 <Image
                   src={tool.img}
                   alt=""
-                  width={14}
-                  height={14}
-                  className="opacity-60 rounded-[2px]"
+                  width={15}
+                  height={15}
+                  className="opacity-70 rounded-[2px]"
                   aria-hidden="true"
                 />
               ) : null}
@@ -74,6 +81,6 @@ export default function WorksWith() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

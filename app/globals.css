@@ -183,6 +183,14 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
   to { transform: translateX(-50%); }
 }
 
+.integration-icon {
+  transition: transform 250ms ease, opacity 250ms ease, filter 250ms ease;
+}
+.integration-icon:hover {
+  transform: scale(1.04);
+  opacity: 1;
+}
+
 @keyframes pulse-dot {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
@@ -208,4 +216,10 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
   .grain, .cursor-ring, .cursor-dot { display: none !important; }
   body.has-cursor, body.has-cursor * { cursor: auto !important; }
   * { scroll-behavior: auto !important; }
+  .integrations-marquee,
+  .integration-row,
+  .integration-icon {
+    animation: none !important;
+    transform: none !important;
+  }
 }

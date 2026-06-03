@@ -118,7 +118,7 @@ export default function AgencyOrchestration() {
 
   return (
     <div ref={containerRef}>
-      {/* Prompt */}
+      {/* Workflow trigger */}
       <div className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-2xl px-6 py-5 mb-6 flex items-center gap-4">
         <div className="w-8 h-8 rounded-full bg-[#111111] flex items-center justify-center flex-shrink-0" aria-hidden="true">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -126,7 +126,7 @@ export default function AgencyOrchestration() {
           </svg>
         </div>
         <div>
-          <div className="text-[11px] tracking-[1.5px] text-[var(--text-muted)] uppercase mb-0.5">Your prompt</div>
+          <div className="text-[11px] tracking-[1.5px] text-[var(--text-muted)] uppercase mb-0.5">Workflow trigger</div>
           <div className="text-[16px] font-medium tracking-tight text-[var(--text)]">
             &ldquo;Launch my new product.&rdquo;
           </div>
@@ -258,7 +258,7 @@ export default function AgencyOrchestration() {
               <div className="font-medium tracking-tight mb-1">Product launch complete.</div>
               <p className="text-[13px] text-white/55 leading-relaxed">
                 Competitor brief, messaging framework, 14 content pieces, 38 personalised outreach emails,
-                and an executive summary — all from one prompt, delivered while you slept.
+                and an executive summary — coordinated across specialist agents and ready for review.
               </p>
             </div>
           </motion.div>
