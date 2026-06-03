@@ -45,7 +45,7 @@ export default function HeadmasterProductPage() {
               The full Headmaster command layer.
             </h1>
             <p className="mt-7 max-w-[43ch] text-[19px] leading-snug tracking-[-0.3px] text-[var(--text-muted)] md:text-[21px]">
-              Headmaster is GCAP's persistent AI workforce layer for organizations that need memory, tools, workflows, approvals, channels, automations, and model routing in one governed product.
+              Headmaster is GCAP&apos;s persistent AI workforce layer for organizations that need memory, tools, workflows, approvals, channels, automations, and model routing in one governed product.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a href="#contact" className="inline-flex justify-center rounded-full bg-[#111111] px-9 py-3.5 text-[15px] font-medium text-[#F9F7F3] transition-all hover:bg-black">
@@ -57,8 +57,8 @@ export default function HeadmasterProductPage() {
             </div>
           </div>
 
-          {/* Interactive gallery with lightbox */}
-          <ProductGallery />
+          {/* Hero image with lightbox */}
+          <ProductGallery heroOnly />
         </section>
 
         <section className="border-y border-[var(--border)] bg-white py-16">
@@ -76,6 +76,9 @@ export default function HeadmasterProductPage() {
             </div>
           </div>
         </section>
+
+        {/* Product screenshots with lightbox */}
+        <ProductGallery screenshotsOnly />
 
         <FinalCTA />
       </main>
