@@ -209,3 +209,23 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
   body.has-cursor, body.has-cursor * { cursor: auto !important; }
   * { scroll-behavior: auto !important; }
 }
+
+/* ---- Connected tool layer refinements ---- */
+.integration-icon {
+  opacity: 0.82;
+  transition: transform 250ms ease, opacity 250ms ease, filter 250ms ease, color 250ms ease;
+}
+
+.integration-icon:hover {
+  transform: scale(1.04);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .integrations-marquee,
+  .integration-row,
+  .integration-icon {
+    animation: none !important;
+    transform: none !important;
+  }
+}

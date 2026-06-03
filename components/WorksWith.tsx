@@ -46,17 +46,14 @@ const doubled = [...TOOLS, ...TOOLS];
 
 export default function WorksWith() {
   return (
-    <div className="border-y border-[var(--border)] py-6 overflow-hidden">
+    <div className="integrations-marquee border-y border-[var(--border)] py-7 overflow-hidden">
       <div className="text-xs tracking-[2px] text-[var(--text-muted)] text-center mb-5 uppercase">
-        Works with your existing tools
+        Approved systems, channels, APIs, and model providers
       </div>
       <div className="relative">
-        <div
-          className="flex items-center gap-10 whitespace-nowrap"
-          style={{ animation: "marquee 40s linear infinite", width: "max-content" }}
-        >
+        <div className="integration-row flex items-center gap-10 whitespace-nowrap" style={{ animation: "marquee 65s linear infinite", width: "max-content" }}>
           {doubled.map((tool, i) => (
-            <div key={i} className="flex items-center gap-2 text-[var(--text-muted)]">
+            <div key={`${tool.name}-${i}`} className="integration-icon flex items-center gap-2 text-[var(--text-muted)] transition duration-200 hover:scale-[1.04] hover:text-[var(--text)] hover:opacity-100">
               {tool.Icon ? (
                 <tool.Icon size={14} aria-hidden="true" />
               ) : tool.img ? (
@@ -65,7 +62,7 @@ export default function WorksWith() {
                   alt=""
                   width={14}
                   height={14}
-                  className="opacity-60 rounded-[2px]"
+                  className="rounded-[2px] opacity-60"
                   aria-hidden="true"
                 />
               ) : null}
