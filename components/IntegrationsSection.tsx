@@ -7,14 +7,16 @@ export default function IntegrationsSection() {
       id="connected-tools"
       data-chapter="connected-tools"
       data-label="Tools"
-      className="border-b border-[var(--border)] py-16"
+      className="border-b border-[var(--border)] py-20"
     >
-      <div className="mx-auto max-w-6xl px-8">
-        <SectionHeader
-          eyebrow="Connected Tool Layer"
-          title="Headmaster connects to the systems your work already lives in."
-          body="Bring documents, messages, APIs, calendars, browsers, databases, terminals, and internal tools into one persistent agent workspace. Headmaster does not just answer from memory. It works through approved tools."
-        />
+      <div className="mx-auto max-w-[1280px] px-8">
+        <div className="max-w-[1120px]">
+          <SectionHeader
+            eyebrow="Connected Tool Layer"
+            title="Headmaster connects to the systems your work already lives in."
+            body="Documents, messages, calendars, browsers, databases, terminals, and internal tools become part of one persistent agent workspace."
+          />
+        </div>
       </div>
       <WorksWith />
     </section>

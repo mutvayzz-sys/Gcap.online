@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import HeroSection from "@/components/HeroSection";
 import ProductPillars from "@/components/ProductPillars";
 import IntegrationsSection from "@/components/IntegrationsSection";
-import HowItWorks from "@/components/HowItWorks";
+import GuidedDemo from "@/components/GuidedDemo";
 import UseCases from "@/components/UseCases";
 import DeploymentSection from "@/components/DeploymentSection";
 import FeatureMatrix from "@/components/FeatureMatrix";
@@ -38,10 +38,10 @@ export default function GCAPLabs() {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] selection:bg-[#111111] selection:text-white">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] selection:bg-[#111] selection:text-white">
       {/* Fixed Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/95 backdrop-blur-xl border-b border-[var(--border)]">
-        <div className="max-w-6xl mx-auto px-8 h-20 flex items-center justify-between">
+        <div className="max-w-[1280px] mx-auto px-8 h-20 flex items-center justify-between">
           <a href="#top" className="flex items-center gap-3" aria-label="GCAP home">
             <Image src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} priority />
             <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
@@ -115,8 +115,8 @@ export default function GCAPLabs() {
       {/* INTEGRATIONS / CONNECTED TOOL LAYER — preserved icons, calm multi-row, reduced-motion */}
       <IntegrationsSection />
 
-      {/* HOW HEADMASTER WORKS — 6 step flow */}
-      <HowItWorks />
+      {/* GUIDED DEMO — proper workflow theater with tabs, timeline, approval preview */}
+      <GuidedDemo />
 
       {/* USE CASES — balanced across verticals */}
       <UseCases />

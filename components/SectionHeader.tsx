@@ -28,7 +28,7 @@ export default function SectionHeader({
         </div>
       )}
       <h2
-        className={`text-[30px] md:text-[44px] tracking-[-1.2px] md:tracking-[-1.8px] font-medium leading-tight ${
+        className={`text-[36px] md:text-[52px] tracking-[-1.4px] md:tracking-[-2.2px] font-medium leading-[1.05] ${
           inverse ? "text-white" : "text-[var(--text)]"
         }`}
       >
@@ -36,7 +36,7 @@ export default function SectionHeader({
       </h2>
       {body && (
         <p
-          className={`mt-5 text-[17px] md:text-[19px] leading-relaxed ${
+          className={`mt-5 text-[18px] md:text-[20px] leading-relaxed ${
             inverse ? "text-white/65" : "text-[var(--text-muted)]"
           } ${align === "center" ? "max-w-3xl mx-auto" : ""}`}
         >

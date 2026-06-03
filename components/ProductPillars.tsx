@@ -12,7 +12,7 @@ export default function ProductPillars() {
       id="product"
       data-chapter="product"
       data-label="Product"
-      className="max-w-6xl mx-auto px-8 py-24 border-b border-[var(--border)]"
+      className="max-w-[1120px] mx-auto px-8 py-24 border-b border-[var(--border)]"
     >
       <SectionHeader
         eyebrow="The Product"
@@ -26,7 +26,7 @@ export default function ProductPillars() {
             <div
               key={pillar.title}
               data-reveal-item
-              className="group rounded-3xl border border-[var(--border)] bg-[var(--bg-elevated)] p-7 min-h-[245px] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--border-strong)] hover:shadow-[0_24px_70px_rgba(17,17,17,0.08)]"
+              className="group rounded-3xl border border-[var(--border)] bg-[var(--bg-elevated)] p-7 min-h-[245px] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--border-strong)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
             >
               <div
                 className="w-12 h-12 rounded-2xl bg-[#111111] text-[#F9F7F3] flex items-center justify-center mb-7 transition-transform duration-300 group-hover:scale-[1.04]"

@@ -9,7 +9,7 @@ export default function FeatureMatrix() {
       data-label="Features"
       className="bg-[#0D0D0D] text-[#F9F7F3] py-24 border-b border-black"
     >
-      <div className="max-w-6xl mx-auto px-8">
+      <div className="max-w-[1120px] mx-auto px-8">
         <SectionHeader
           eyebrow="Feature Matrix"
           title="More Than a Chat Interface"

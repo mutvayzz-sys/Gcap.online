@@ -8,7 +8,7 @@ export default function SchoolExample() {
   return (
     <section
       id="schools"
-      className="max-w-6xl mx-auto px-8 py-24 border-b border-[var(--border)]"
+      className="max-w-[1120px] mx-auto px-8 py-24 border-b border-[var(--border)]"
     >
       <SectionHeader
         eyebrow="Example Deployment"
