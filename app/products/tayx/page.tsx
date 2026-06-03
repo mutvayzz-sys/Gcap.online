@@ -114,7 +114,7 @@ export default function TayXProductPage() {
       </main>
 
       <footer className="mx-auto flex max-w-6xl flex-col justify-between gap-y-2 border-t border-[var(--border)] px-8 py-9 text-xs text-[var(--text-muted)] md:flex-row md:items-center">
-        <div>© {new Date().getFullYear()} GCAP Labs. TayX is GCAP’s model layer.</div>
+        <div>© 2025 GCAP Labs. TayX is GCAP’s model layer.</div>
         <div className="flex flex-wrap gap-6">
           <Link href="/" className="transition-colors hover:text-[var(--text)]">Home</Link>
           <a href="/privacy" className="transition-colors hover:text-[var(--text)]">Privacy</a>

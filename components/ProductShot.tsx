@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 
 interface ProductShotProps {
@@ -8,7 +6,7 @@ interface ProductShotProps {
   aspect?: string;
   className?: string;
   priority?: boolean;
-  onClick?: () => void;
+  "data-lightbox"?: string;
 }
 
 export default function ProductShot({
@@ -17,13 +15,14 @@ export default function ProductShot({
   aspect = "aspect-[16/10]",
   className = "",
   priority = false,
-  onClick,
+  "data-lightbox": dataLightbox,
 }: ProductShotProps) {
+  const isClickable = dataLightbox !== undefined;
   return (
     <div
-      onClick={onClick}
+      data-lightbox={dataLightbox}
       className={`group relative overflow-hidden rounded-[24px] border border-[rgba(17,17,17,0.08)] bg-white shadow-lg ${aspect} ${className} ${
-        onClick ? "cursor-zoom-in" : ""
+        isClickable ? "cursor-zoom-in" : ""
       }`}
     >
       <Image
@@ -35,7 +34,7 @@ export default function ProductShot({
         priority={priority}
       />
       {/* Zoom overlay on hover */}
-      {onClick && (
+      {isClickable && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-200 group-hover:bg-black/10 group-hover:opacity-100">
           <svg
             width="32"

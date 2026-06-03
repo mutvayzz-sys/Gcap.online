@@ -1,10 +1,7 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import ProductShot from "@/components/ProductShot";
-import ImageLightbox from "@/components/ImageLightbox";
+import ProductLightbox from "@/components/ProductLightbox";
 import FinalCTA from "@/components/FinalCTA";
 import { productScreenshots } from "@/src/data/productScreenshots";
 
@@ -23,6 +20,11 @@ const heroImage = {
 
 // All images for lightbox navigation
 const allImages: readonly { src: string; alt: string }[] = [heroImage, ...productScreenshots];
+
+export const metadata = {
+  title: "Headmaster — GCAP Labs",
+  description: "The full Headmaster command layer. Persistent AI workforce for organizations that need memory, tools, workflows, approvals, and model routing.",
+};
 
 function PageNav() {
   return (
@@ -44,8 +46,6 @@ function PageNav() {
 }
 
 export default function HeadmasterProductPage() {
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <PageNav />
@@ -77,7 +77,7 @@ export default function HeadmasterProductPage() {
             alt={heroImage.alt}
             aspect="aspect-[16/10]"
             priority
-            onClick={() => setLightboxIndex(0)}
+            data-lightbox="0"
           />
         </section>
 
@@ -140,7 +140,7 @@ export default function HeadmasterProductPage() {
                   src={shot.src}
                   alt={shot.alt}
                   aspect="aspect-[16/10]"
-                  onClick={() => setLightboxIndex(index + 1)}
+                  data-lightbox={String(index + 1)}
                 />
               </article>
             ))}
@@ -150,16 +150,10 @@ export default function HeadmasterProductPage() {
         <FinalCTA />
       </main>
 
-      {lightboxIndex !== null && (
-        <ImageLightbox
-          images={allImages}
-          initialIndex={lightboxIndex}
-          onClose={() => setLightboxIndex(null)}
-        />
-      )}
+      <ProductLightbox images={allImages} />
 
       <footer className="mx-auto flex max-w-6xl flex-col justify-between gap-y-2 border-t border-[var(--border)] px-8 py-9 text-xs text-[var(--text-muted)] md:flex-row md:items-center">
-        <div>© {new Date().getFullYear()} GCAP Labs. Headmaster is a persistent AI workforce layer.</div>
+        <div>© 2025 GCAP Labs. Headmaster is a persistent AI workforce layer.</div>
         <div className="flex flex-wrap gap-6">
           <Link href="/" className="transition-colors hover:text-[var(--text)]">Home</Link>
           <a href="/privacy" className="transition-colors hover:text-[var(--text)]">Privacy</a>

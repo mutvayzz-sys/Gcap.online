@@ -13,7 +13,7 @@ export default function Privacy() {
           ← Back to gcap.online
         </Link>
         <h1 className="text-[40px] tracking-[-1.5px] font-medium mb-4">Privacy Policy</h1>
-        <p className="text-sm text-[var(--text-muted)] mb-12">Last updated: {new Date().getFullYear()}</p>
+        <p className="text-sm text-[var(--text-muted)] mb-12">Last updated: 2025</p>
 
         <div className="prose prose-sm max-w-none space-y-8 text-[var(--text-muted)] leading-relaxed">
           <section>
