@@ -53,6 +53,23 @@ export default function CinematicLayer() {
       lenisRaf = requestAnimationFrame(rafLoop);
     });
 
+    // Intercept all hash anchor clicks and route through Lenis
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest("a[href^='#']") as HTMLAnchorElement | null;
+      if (!anchor) return;
+      const id = anchor.getAttribute("href")!.slice(1);
+      const el = document.getElementById(id);
+      if (!el) return;
+      e.preventDefault();
+      if (window.__lenis) {
+        window.__lenis.scrollTo(el, { offset: 0 });
+      } else {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+    document.addEventListener("click", handleAnchorClick);
+
     // Custom cursor (fine pointer only)
     if (FINE) initCursor();
 
@@ -229,6 +246,7 @@ export default function CinematicLayer() {
 
     function cleanup() {
       window.removeEventListener("scroll", updateProgress);
+      document.removeEventListener("click", handleAnchorClick);
       if (lenisRaf !== null) cancelAnimationFrame(lenisRaf);
       if (lenis) lenis.destroy();
     }

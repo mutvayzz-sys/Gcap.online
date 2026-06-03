@@ -6,27 +6,31 @@ import { motion, AnimatePresence } from "framer-motion";
 const QAS = [
   {
     q: "How is this different from ChatGPT or Claude?",
-    a: "Those answer questions in a chat. Headmaster completes tasks. It plans the work, runs a team of specialist agents, checks the results, and hands you a finished outcome — and it keeps going after you close the laptop.",
+    a: "Those answer questions in a chat. Headmaster completes tasks. It plans the work, delegates to specialist agents, connects to your approved tools, and hands you a finished outcome. It also remembers context across sessions and keeps workflows running on schedule.",
+  },
+  {
+    q: "What is the difference between Headmaster and TayX?",
+    a: "Headmaster is the AI workforce layer — the product that plans, delegates, and completes work inside your organization. TayX is GCAP's own model layer, trained and fine-tuned for agentic work. Headmaster can use TayX or other models depending on the task.",
   },
   {
     q: "Is my data safe?",
-    a: "You control what Headmaster can access and what it remembers. It works with the tools you already use, with permission controls on what each agent can touch. Full security details are shared with early-access members.",
+    a: "Each organization gets its own private workspace with separate memory, files, and configuration. You control what Headmaster can access and what it remembers. Sensitive actions pause for human approval before anything is sent. Full security details are shared with early-access members.",
   },
   {
     q: "Do I need to be technical to use it?",
-    a: "No. You describe what you want in plain English. The technical coordination happens under the hood — you just approve the plan and get the result.",
+    a: "No. You describe what you want in plain English. Headmaster handles the coordination, delegation, and tool usage under the hood. You review the plan, approve the output, and get the result.",
   },
   {
     q: "Is this real, or just a demo?",
-    a: "Headmaster is real and in early access today. Specialist agents, persistent memory, and autonomous execution are working now — that’s what the waitlist is for.",
+    a: "Headmaster is real and in early access today. Persistent memory, specialist agents, scheduled work, and approval gates are working now.",
   },
   {
     q: "Which AI models does Headmaster use?",
-    a: "Headmaster orchestrates 20+ AI providers simultaneously — Claude, GPT-4, Gemini, Llama, Mistral, Kimi, Qwen, DeepSeek, and more. It routes each subtask to the model best suited for that type of work: reasoning, coding, writing, or verification. You don't manage model selection; Headmaster does.",
+    a: "Headmaster is model-agnostic. It can work with cloud models, local models, coding models, enterprise endpoints, custom endpoints, or GCAP's own TayX model layer. It routes work to the engine that fits the task, and you are not locked to a single provider.",
   },
   {
     q: "What can it actually do?",
-    a: "Research, writing, data compilation, reports, email drafting, document work, web tasks, and more — coordinated across a whole task, not one step at a time.",
+    a: "Research, writing, data compilation, reports, email drafting, document work, scheduled summaries, meeting briefs, and more — coordinated across a whole task and delivered for your approval.",
   },
   {
     q: "What does it cost?",

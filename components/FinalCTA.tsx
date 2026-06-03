@@ -4,12 +4,41 @@ import { useState } from "react";
 
 export default function FinalCTA() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // In production this would POST to an API / workflow trigger
-    window.open("mailto:waitlist@gcap.online?subject=Headmaster Deployment Inquiry", "_blank");
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      name: formData.get("name") as string,
+      org: formData.get("org") as string,
+      email: formData.get("email") as string,
+      workflow: formData.get("workflow") as string,
+      notes: formData.get("notes") as string,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -56,13 +85,20 @@ export default function FinalCTA() {
             <textarea name="notes" rows={3} className="field resize-y" placeholder="Tools, team size, specific requirements..." />
           </div>
 
+          {error && (
+            <div className="text-sm text-red-600 bg-red-50 rounded-xl px-4 py-3">
+              {error}
+            </div>
+          )}
+
           <div className="flex flex-col sm:flex-row gap-3 pt-3">
             <button
               type="submit"
+              disabled={loading}
               data-magnet
-              className="flex-1 py-4 rounded-2xl bg-[#111111] text-[#F9F7F3] text-[15px] font-medium hover:bg-black transition-all"
+              className="flex-1 py-4 rounded-2xl bg-[#111111] text-[#F9F7F3] text-[15px] font-medium hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Book a Demo
+              {loading ? "Sending..." : "Book a Demo"}
             </button>
             <button
               type="button"

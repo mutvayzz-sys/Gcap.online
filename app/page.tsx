@@ -6,13 +6,24 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import HeroSection from "@/components/HeroSection";
 import ProductPillars from "@/components/ProductPillars";
-import IntegrationsSection from "@/components/IntegrationsSection";
 import GuidedDemo from "@/components/GuidedDemo";
-import UseCases from "@/components/UseCases";
+import ChatSection from "@/components/ChatSection";
+import MemorySection from "@/components/MemorySection";
+import SkillsSection from "@/components/SkillsSection";
+import SpecialistAgents from "@/components/SpecialistAgents";
+import RunsSection from "@/components/RunsSection";
+import ApprovalsSection from "@/components/ApprovalsSection";
+import ScheduledWork from "@/components/ScheduledWork";
+import ChannelsSection from "@/components/ChannelsSection";
+import IntegrationsSection from "@/components/IntegrationsSection";
 import DeploymentSection from "@/components/DeploymentSection";
-import FeatureMatrix from "@/components/FeatureMatrix";
-import SchoolExample from "@/components/SchoolExample";
 import TrustControl from "@/components/TrustControl";
+import UseCases from "@/components/UseCases";
+import SchoolExample from "@/components/SchoolExample";
+import ModelAgnostic from "@/components/ModelAgnostic";
+import TayXSection from "@/components/TayXSection";
+import FeatureMatrix from "@/components/FeatureMatrix";
+import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 
 export default function GCAPLabs() {
@@ -106,32 +117,67 @@ export default function GCAPLabs() {
         )}
       </AnimatePresence>
 
-      {/* HERO — calm persistent workforce command center */}
+      {/* HERO */}
       <HeroSection />
 
-      {/* PRODUCT PILLARS — 7 cards, data-driven */}
+      {/* PRODUCT PILLARS — what Headmaster is built on */}
       <ProductPillars />
 
-      {/* INTEGRATIONS / CONNECTED TOOL LAYER — preserved icons, calm multi-row, reduced-motion */}
-      <IntegrationsSection />
-
-      {/* GUIDED DEMO — proper workflow theater with tabs, timeline, approval preview */}
+      {/* GUIDED DEMO — show it working, early */}
       <GuidedDemo />
 
-      {/* USE CASES — balanced across verticals */}
-      <UseCases />
+      {/* CHAT — ask → work */}
+      <ChatSection />
 
-      {/* CONFIGURED AROUND YOUR ORG */}
+      {/* MEMORY + SKILLS — how it learns your org */}
+      <MemorySection />
+      <SkillsSection />
+
+      {/* SPECIALIST AGENTS — who does the work */}
+      <SpecialistAgents />
+
+      {/* RUNS — what gets logged */}
+      <RunsSection />
+
+      {/* APPROVALS — the control pivot */}
+      <ApprovalsSection />
+
+      {/* SCHEDULED WORK — autonomous but supervised */}
+      <ScheduledWork />
+
+      {/* CHANNELS — how you reach it */}
+      <ChannelsSection />
+
+      {/* INTEGRATIONS — gateways + providers + connectors */}
+      <IntegrationsSection />
+
+      {/* CONFIGURED DEPLOYMENTS — your org, your config */}
       <DeploymentSection />
 
-      {/* MORE THAN A CHAT — premium feature matrix */}
-      <FeatureMatrix />
+      {/* TRUST & CONTROL — near the B2B close argument */}
+      <TrustControl />
 
-      {/* SCHOOLS — one supporting example deployment */}
+      {/* USE CASES + SCHOOL EXAMPLE */}
+      <UseCases />
       <SchoolExample />
 
-      {/* TRUST / CONTROL */}
-      <TrustControl />
+      {/* MODEL-AGNOSTIC + TAYX — pair the model story */}
+      <ModelAgnostic />
+      <TayXSection />
+
+      {/* FEATURE MATRIX — for buyers who want the full list */}
+      <FeatureMatrix />
+
+      {/* FAQ */}
+      <section id="faq" data-chapter="faq" data-label="FAQ" className="max-w-[1280px] mx-auto px-8 py-24 border-b border-[var(--border)]">
+        <div className="max-w-3xl mx-auto">
+          <div className="mb-12 text-center" data-reveal>
+            <div className="mb-4 text-xs font-medium uppercase tracking-[0.26em] text-[var(--text-muted)]">Questions</div>
+            <h2 className="text-[36px] md:text-[52px] tracking-[-1.4px] md:tracking-[-2.2px] font-medium leading-[1.05]">Frequently Asked</h2>
+          </div>
+          <FAQ />
+        </div>
+      </section>
 
       {/* FINAL CTA */}
       <FinalCTA />
