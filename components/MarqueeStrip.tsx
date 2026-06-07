@@ -128,7 +128,7 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
     // Render the set twice; translate -50% lands exactly on the second copy → seamless.
     const seq = [...set, ...set];
     return (
-      <div className="marquee-row flex w-max" style={{ animation: `${reverse ? "marquee-reverse" : "marquee"} ${dur}s linear infinite`, animationPlayState: paused ? "paused" : "running" }}>
+      <div className="marquee-row flex w-max" style={{ animation: reducedMotion ? "none" : `${reverse ? "marquee-reverse" : "marquee"} ${dur}s linear infinite`, animationPlayState: reducedMotion ? "running" : paused ? "paused" : "running" }}>
         {seq.map((item, i) => (
           <button
             key={i}
