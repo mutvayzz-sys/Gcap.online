@@ -62,7 +62,7 @@ export default function SystemBehind() {
             <div
               key={item.title}
               data-reveal-item
-              className="rounded-3xl border border-[var(--border)] bg-[var(--bg-elevated)] p-7 min-h-[220px] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--border-strong)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+              className="system-card rounded-3xl border border-[var(--border)] bg-[var(--bg-elevated)] p-7 min-h-[220px]"
             >
               <div className="w-11 h-11 rounded-2xl bg-[#111111] text-[#F9F7F3] flex items-center justify-center mb-5">
                 <Icon size={19} strokeWidth={1.8} />

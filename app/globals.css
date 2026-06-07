@@ -284,3 +284,24 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
   0%   { transform: translateX(-50%); }
   100% { transform: translateX(0); }
 }
+
+/* Hover effects gated behind media queries */
+.system-card {
+  transition: all 300ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .system-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-strong);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  }
+}
+
+.product-pillar-icon {
+  transition: transform 300ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .product-pillar-icon:hover {
+    transform: scale(1.04);
+  }
+}
