@@ -131,6 +131,7 @@ export default function GCAPLabs() {
       {/* FEATURE STACK — additional capabilities in stacking cards */}
       <StackedCardsSection />
 
+
       {/* INTEGRATIONS — visual proof only on the homepage */}
       <IntegrationsSection />
 
