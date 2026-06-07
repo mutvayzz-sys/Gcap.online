@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import {
   SiSlack, SiGmail, SiGithub, SiNotion, SiZoom,
@@ -96,7 +96,16 @@ function fill(items: MarqueeItem[], min = 14): MarqueeItem[] {
 export default function MarqueeStrip({ rows, duration = 34, inverse = false }: MarqueeStripProps) {
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
   const [paused, setPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   const handleEnter = (item: MarqueeItem, e: React.MouseEvent | React.FocusEvent) => {
     const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
