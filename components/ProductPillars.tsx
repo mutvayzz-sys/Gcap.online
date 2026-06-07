@@ -15,7 +15,7 @@ export default function ProductPillars() {
       className="max-w-[1120px] mx-auto px-8 py-24 border-b border-[var(--border)]"
     >
       <SectionHeader
-        eyebrow="The Product"
+        eyebrow="Everything Headmaster does"
         title="What Headmaster Is Built On"
         body="Headmaster is a persistent AI workforce layer for organizations: a private command layer that remembers, learns, schedules, connects, delegates, and waits for review where it matters."
       />

@@ -50,7 +50,7 @@ export default function FinalCTA() {
     >
       <div className="max-w-3xl mx-auto text-center mb-10">
         <h2 className="text-[36px] md:text-[52px] tracking-[-1.6px] md:tracking-[-2.2px] font-medium mb-4 leading-tight">
-          Deploy Headmaster inside your organization.
+          Ready to put Headmaster to work?
         </h2>
         <p className="text-[18px] md:text-[20px] text-[var(--text-muted)]">
           Start with one workflow, connect the right tools, and let your AI workforce learn from real operations.
@@ -99,7 +99,7 @@ export default function FinalCTA() {
               data-magnet
               className="flex-1 py-4 rounded-2xl bg-[#111111] text-[#F9F7F3] text-[15px] font-medium hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "Sending..." : "Book a Demo"}
+              {loading ? "Sending..." : "Request a deployment call"}
             </button>
             <button
               type="button"

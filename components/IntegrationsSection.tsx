@@ -13,8 +13,8 @@ export default function IntegrationsSection() {
       <div className="mx-auto mb-10 max-w-[1280px] px-8">
         <div className="max-w-[920px]">
           <SectionHeader
-            eyebrow="Integrations"
-            title="Works with the systems your work already lives in."
+            eyebrow="Meets your team where they already work"
+            title="17 platforms. 300+ models. One workspace."
             body="Headmaster connects across communication channels, documents, calendars, browsers, tools, connectors, and model providers so workflows can reach the places your team already works."
           />
         </div>
