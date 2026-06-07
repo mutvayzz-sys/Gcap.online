@@ -11,7 +11,7 @@ export default function UseCases() {
     >
       <div className="max-w-[1280px] mx-auto px-8">
         <SectionHeader
-          eyebrow="Deploy Headmaster Where Work Repeats"
+          eyebrow="One agent. Every workflow."
           title="Use Cases Across Organizations"
           body="Headmaster adapts to the workflows of different organizations without changing the core system. One persistent layer, many verticals."
         />

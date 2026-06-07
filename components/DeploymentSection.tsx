@@ -16,7 +16,7 @@ export default function DeploymentSection() {
         {/* Left intro + capabilities list */}
         <div className="lg:col-span-5">
           <SectionHeader
-            eyebrow="Configured Around Your Organization"
+            eyebrow="Built around how your org actually works"
             title="Configured Deployments"
             body="Every deployment can include custom workflows, private memory, approved tools, branded interfaces, role permissions, and human review rules."
           />

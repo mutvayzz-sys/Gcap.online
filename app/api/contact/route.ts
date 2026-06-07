@@ -7,14 +7,16 @@ const FROM = process.env.CONTACT_FROM ?? "Headmaster Demo Requests <noreply@gcap
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, org, email, workflow, notes } = body;
+    const { name, organization, email, role, platforms, workflow, notes } = body;
 
-    if (!name || !org || !email || !workflow) {
+    if (!name || !organization || !email || !workflow) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
     }
+
+    const org = organization;
 
     if (!process.env.RESEND_API_KEY) {
       console.error("RESEND_API_KEY not set — email not sent", { name, org, email, workflow, notes });
@@ -80,6 +82,30 @@ export async function POST(request: NextRequest) {
                           </table>
                         </td>
                       </tr>
+
+                      ${role ? `
+                      <tr>
+                        <td style="padding:20px 0;border-bottom:1px solid #F0EFEB;">
+                          <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                            <tr>
+                              <td width="120" style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#AEADA9;vertical-align:top;padding-top:1px;">Role</td>
+                              <td style="font-size:15px;color:#111111;">${role}</td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>` : ""}
+
+                      ${platforms ? `
+                      <tr>
+                        <td style="padding:20px 0;border-bottom:1px solid #F0EFEB;">
+                          <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                            <tr>
+                              <td width="120" style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#AEADA9;vertical-align:top;padding-top:1px;">Platforms</td>
+                              <td style="font-size:15px;color:#111111;">${platforms}</td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>` : ""}
 
                       <tr>
                         <td style="padding:20px 0;border-bottom:1px solid #F0EFEB;">

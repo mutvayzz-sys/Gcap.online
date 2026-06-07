@@ -13,7 +13,7 @@ export default function TrustControl() {
       <div className="max-w-[1120px] mx-auto px-8">
         <SectionHeader
           eyebrow="Trust & Control"
-          title="Built for Control, Not Blind Automation"
+          title="Your approval before anything important ships"
           body="Headmaster is designed to work through permissions, review steps, and approved tools so organizations stay in control."
         />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5" data-reveal-group>

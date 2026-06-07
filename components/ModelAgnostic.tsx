@@ -13,7 +13,7 @@ export default function ModelAgnostic() {
     >
       <div className="max-w-[1120px] mx-auto px-8">
         <SectionHeader
-          eyebrow="Model-Agnostic by Design"
+          eyebrow="Route work to the right model, automatically"
           title="Headmaster is model-agnostic. TayX is GCAP’s trained and fine-tuned model layer."
           body="Headmaster can route work across cloud models, coding models, local models, enterprise endpoints, custom endpoints, and GCAP’s own TayX model layer."
           inverse

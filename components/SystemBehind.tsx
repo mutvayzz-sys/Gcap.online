@@ -51,7 +51,7 @@ export default function SystemBehind() {
     >
       <SectionHeader
         eyebrow="The System"
-        title="More Than a Chat Box"
+        title="Ask it. It runs."
         body="Headmaster is a connected work layer where memory, tools, channels, automations, specialist agents, and approvals operate together."
       />
 

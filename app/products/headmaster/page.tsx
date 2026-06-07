@@ -36,9 +36,10 @@ function PageNav() {
         </Link>
         <div className="hidden items-center gap-8 text-[15px] md:flex">
           <Link href="/products/headmaster" className="text-[var(--text)]">Headmaster</Link>
+          <Link href="/products/hq" className="transition-colors hover:text-[var(--text-muted)]">HQ</Link>
           <Link href="/products/tayx" className="transition-colors hover:text-[var(--text-muted)]">TayX</Link>
           <Link href="/#use-cases" className="transition-colors hover:text-[var(--text-muted)]">Use Cases</Link>
-          <a href="#contact" className="rounded-full bg-[#111111] px-6 py-[10px] text-sm text-[#F9F7F3] transition-colors hover:bg-black">Book a Demo</a>
+          <Link href="/contact" className="rounded-full bg-[#111111] px-6 py-[10px] text-sm text-[#F9F7F3] transition-colors hover:bg-black">Book a Demo</Link>
         </div>
       </div>
     </nav>
@@ -147,15 +148,92 @@ export default function HeadmasterProductPage() {
           </div>
         </section>
 
+        {/* Agent Capabilities */}
+        <section className="mx-auto max-w-[1280px] px-8 py-24 border-b border-[var(--border)]">
+          <div className="mb-16">
+            <div className="mb-4 text-xs font-medium uppercase tracking-[0.26em] text-[var(--text-muted)]">Agent Capabilities</div>
+            <h2 className="text-[36px] font-medium leading-[1.05] tracking-[-1.4px] md:text-[52px] md:tracking-[-2.2px]">
+              Built for the real work your organization does.
+            </h2>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2">
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-8">
+              <h3 className="text-[22px] font-semibold tracking-tight mb-3">17 messaging platforms</h3>
+              <p className="text-[15px] text-[var(--text-muted)] leading-relaxed mb-4">
+                Telegram, Discord, Slack, WhatsApp, Signal, iMessage (BlueBubbles), WeChat, WeCom, QQBot, Matrix, Email, SMS, DingTalk, Feishu, Mattermost, Home Assistant, Webhooks. One agent. Every surface.
+              </p>
+              <p className="text-[13px] text-[var(--text-muted)]">Grouped as: Messaging, Enterprise, Dev & Infra</p>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-8">
+              <h3 className="text-[22px] font-semibold tracking-tight mb-3">300+ model providers</h3>
+              <p className="text-[15px] text-[var(--text-muted)] leading-relaxed mb-4">
+                Anthropic Claude, OpenAI GPT-5.5, Google Gemini, AWS Bedrock, NVIDIA NIM, xAI Grok, Kimi K2.6, Xiaomi MiMo, Ollama (local), OpenRouter, Vercel AI Gateway, Arcee AI, and more.
+              </p>
+              <p className="text-[13px] text-[var(--text-muted)]">Live model switching mid-session. Fast Mode for priority processing.</p>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-8">
+              <h3 className="text-[22px] font-semibold tracking-tight mb-3">Subagent delegation</h3>
+              <p className="text-[15px] text-[var(--text-muted)] leading-relaxed mb-4">
+                Isolated subagents with their own conversations, terminals, and Python RPC scripts. Orchestrator role can spawn its own workers.
+              </p>
+              <p className="text-[13px] text-[var(--text-muted)]">Configurable spawn depth. Concurrent siblings share filesystem state without conflicts.</p>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-8">
+              <h3 className="text-[22px] font-semibold tracking-tight mb-3">Five sandbox backends</h3>
+              <p className="text-[15px] text-[var(--text-muted)] leading-relaxed mb-4">
+                Local, Docker, SSH, Singularity, Modal. Container hardening and namespace isolation.
+              </p>
+              <p className="text-[13px] text-[var(--text-muted)]">Real isolation, not a shell wrapper.</p>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-8">
+              <h3 className="text-[22px] font-semibold tracking-tight mb-3">Plugin system</h3>
+              <p className="text-[15px] text-[var(--text-muted)] leading-relaxed mb-4">
+                Register slash commands, dispatch tools, veto tool execution pre-call, rewrite tool results, transform terminal output, add custom dashboard tabs, ship custom image gen backends.
+              </p>
+              <p className="text-[13px] text-[var(--text-muted)]">Full lifecycle hooks.</p>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-8">
+              <h3 className="text-[22px] font-semibold tracking-tight mb-3">/steer — mid-run nudges</h3>
+              <p className="text-[15px] text-[var(--text-muted)] leading-relaxed mb-4">
+                Inject a note the running agent sees after its next tool call, without interrupting the turn or breaking prompt cache.
+              </p>
+              <p className="text-[13px] text-[var(--text-muted)]">Course-correct in flight.</p>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-8">
+              <h3 className="text-[22px] font-semibold tracking-tight mb-3">Fast Mode</h3>
+              <p className="text-[15px] text-[var(--text-muted)] leading-relaxed mb-4">
+                Priority processing for OpenAI and Anthropic models. Toggle /fast to route through priority queues.
+              </p>
+              <p className="text-[13px] text-[var(--text-muted)]">Significantly lower latency.</p>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-8">
+              <h3 className="text-[22px] font-semibold tracking-tight mb-3">Backup & restore</h3>
+              <p className="text-[15px] text-[var(--text-muted)] leading-relaxed mb-4">
+                Full backup and restore of configuration, sessions, skills, and memory. Migrate between machines or snapshot before major changes.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <FinalCTA />
       </main>
 
       <ProductLightbox images={allImages} />
 
       <footer className="mx-auto flex max-w-6xl flex-col justify-between gap-y-2 border-t border-[var(--border)] px-8 py-9 text-xs text-[var(--text-muted)] md:flex-row md:items-center">
-        <div>© 2025 GCAP Labs. Headmaster is a persistent AI workforce layer.</div>
+        <div>© 2026 GCAP Labs. Headmaster — persistent AI agents for organizations.</div>
         <div className="flex flex-wrap gap-6">
           <Link href="/" className="transition-colors hover:text-[var(--text)]">Home</Link>
+          <Link href="/security" className="transition-colors hover:text-[var(--text)]">Security</Link>
+          <Link href="/changelog" className="transition-colors hover:text-[var(--text)]">Changelog</Link>
           <a href="/privacy" className="transition-colors hover:text-[var(--text)]">Privacy</a>
           <a href="/terms" className="transition-colors hover:text-[var(--text)]">Terms</a>
         </div>
