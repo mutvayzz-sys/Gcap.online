@@ -60,8 +60,9 @@ export default function FAQ() {
               className={`text-[var(--text-muted)] mt-0.5 flex-shrink-0 transition-transform duration-200 ${
                 open === i ? "rotate-45" : ""
               }`}
+              aria-hidden="true"
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-label="Expand answer">
                 <path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             </span>

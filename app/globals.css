@@ -234,10 +234,12 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
   opacity: 0.82;
   transition: transform 280ms ease, opacity 280ms ease, filter 280ms ease, color 280ms ease;
 }
-.integration-icon:hover {
-  transform: scale(1.035);
-  opacity: 1;
-  color: var(--text);
+@media (hover: hover) and (pointer: fine) {
+  .integration-icon:hover {
+    transform: scale(1.035);
+    opacity: 1;
+    color: var(--text);
+  }
 }
 
 /* Touch device styles */
