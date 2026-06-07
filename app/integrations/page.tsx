@@ -2,24 +2,18 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import MarqueeStrip, { ALL_ITEMS, type RowConfig } from "@/components/MarqueeStrip";
+import MarqueeStrip, { type RowConfig } from "@/components/MarqueeStrip";
 import SiteNav from "@/components/SiteNav";
 import { MessageSquare, Database, Code, Zap } from "lucide-react";
 
 const EASE = [0.23, 1, 0.32, 1] as const;
-
-const t = (delay: number) => ({
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: EASE, delay },
-});
 
 const categories = [
   {
     title: "Communication Channels",
     description: "Start tasks and receive updates through your preferred messaging platform. Headmaster integrates with all major team communication tools.",
     icon: MessageSquare,
-    count: 7,
+    count: 17,
   },
   {
     title: "AI Model Providers",
@@ -31,7 +25,7 @@ const categories = [
     title: "Data & Storage",
     description: "Connect to Google Drive, Notion, GitHub, Linear, Confluence, and other tools. Headmaster reads and writes as part of workflows.",
     icon: Database,
-    count: 8,
+    count: 11,
   },
   {
     title: "Custom APIs & Webhooks",
@@ -100,10 +94,10 @@ export default function IntegrationsPage() {
             className="text-center mb-16"
           >
             <h2 className="text-[32px] md:text-[48px] font-semibold tracking-[-1.2px] mb-4">
-              400+ integrations
+              Named platform coverage
             </h2>
             <p className="text-[18px] text-[var(--text-muted)] max-w-2xl mx-auto">
-              Cover every major platform category. Use any combination across your organization.
+              Browse the named platform categories Headmaster can route through today, with custom APIs and webhooks for internal systems.
             </p>
           </motion.div>
 

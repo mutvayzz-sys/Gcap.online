@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 export const metadata = {
   title: "Deployment Guide - Documentation",
   description: "How to deploy Headmaster, prerequisites, and configuration",

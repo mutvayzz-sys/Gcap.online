@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 export const metadata = {
   title: "Overview - Headmaster Documentation",
   description: "What is Headmaster and how it works",

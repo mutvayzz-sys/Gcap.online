@@ -53,7 +53,6 @@ export default function UseCasesPage() {
         <section className="max-w-[1280px] mx-auto px-8 py-24 border-b border-[var(--border)]">
           <div className="grid md:grid-cols-2 gap-8">
             {useCases.map((uc, i) => {
-              const vertical = (uc.vertical || uc.title).toLowerCase().replace(/\s+/g, "-");
               return (
                 <motion.div
                   key={uc.title}
@@ -63,7 +62,7 @@ export default function UseCasesPage() {
                   viewport={{ once: true, margin: "-80px" }}
                 >
                   <Link
-                    href={`/use-cases/${vertical}`}
+                    href={`/use-cases/${uc.slug}`}
                     className="group block h-full rounded-3xl border border-[var(--border)] bg-[var(--bg-elevated)] p-10 hover:border-[var(--border-strong)] transition-all"
                   >
                     <h2 className="text-[28px] font-semibold tracking-tight mb-4 group-hover:text-[var(--text-muted)] transition-colors">
@@ -72,6 +71,14 @@ export default function UseCasesPage() {
                     <p className="text-[16px] text-[var(--text-muted)] leading-relaxed mb-6">
                       {uc.description}
                     </p>
+                    <div className="mb-6 flex flex-wrap gap-2">
+                      <span className="rounded-full border border-[var(--border)] bg-[var(--bg)] px-3 py-1 text-[12px] font-medium text-[var(--text)]">
+                        Saves {uc.savings}
+                      </span>
+                      <span className="rounded-full border border-[var(--border)] bg-[var(--bg)] px-3 py-1 text-[12px] font-medium text-[var(--text-muted)]">
+                        {uc.workflowCount} workflows automated
+                      </span>
+                    </div>
                     <div className="inline-flex items-center gap-2 text-[14px] font-medium text-[var(--text)] group-hover:gap-3 transition-all">
                       Explore workflows
                       <ArrowRight className="w-4 h-4" />
@@ -93,10 +100,10 @@ export default function UseCasesPage() {
               viewport={{ once: true, margin: "-80px" }}
             >
               <h2 className="text-[36px] md:text-[48px] tracking-[-1.6px] md:tracking-[-2.2px] font-semibold mb-6 leading-tight">
-                Don't see your use case?
+                Don&apos;t see your use case?
               </h2>
               <p className="text-[18px] md:text-[20px] text-[var(--text-muted)] mb-8">
-                Headmaster is built to handle any workflow. Let's discuss your organization's unique needs.
+                Headmaster is built to handle any workflow. Let&apos;s discuss your organization&apos;s unique needs.
               </p>
               <Link
                 href="/contact"

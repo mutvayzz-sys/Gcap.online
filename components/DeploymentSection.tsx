@@ -1,8 +1,8 @@
-import { LockKeyhole, Workflow, KeyRound, MailCheck, Network } from "lucide-react";
+import { KeyRound, LockKeyhole, MailCheck, Network, Palette, Workflow } from "lucide-react";
 import { deploymentCapabilities } from "@/src/data/deploymentCapabilities";
 import SectionHeader from "./SectionHeader";
 
-const deploymentIcons = [LockKeyhole, Workflow, KeyRound, MailCheck, Network, KeyRound];
+const deploymentIcons = [LockKeyhole, Workflow, KeyRound, MailCheck, Network, Palette];
 
 export default function DeploymentSection() {
   return (
@@ -22,7 +22,7 @@ export default function DeploymentSection() {
           />
 
           <div className="mt-8 space-y-6">
-            {deploymentCapabilities.slice(0, 4).map((cap, i) => {
+            {deploymentCapabilities.map((cap, i) => {
               const Icon = deploymentIcons[i];
               return (
                 <div key={i} className="flex gap-4">

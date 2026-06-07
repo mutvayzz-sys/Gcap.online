@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 export const metadata = {
   title: "Headmaster Core - Documentation",
   description: "Complete feature guide, capabilities, and configuration",

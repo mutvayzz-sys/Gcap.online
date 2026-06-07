@@ -20,10 +20,10 @@ export default function ApprovalsSection() {
 
       <div className="grid md:grid-cols-4 gap-4 mt-4" data-reveal-group>
         {[
-          { icon: ShieldCheck, title: "Approve", description: "Confirm and release when the draft looks right." },
-          { icon: X, title: "Reject", description: "Stop the workflow and send it back for rework." },
-          { icon: PencilLine, title: "Edit", description: "Make changes directly before finalizing the output." },
-          { icon: Eye, title: "Review", description: "Request a second look from another team member." },
+          { icon: ShieldCheck, title: "Approve", description: "Confirm and release when the draft looks right. Headmaster releases to its destination — channel, file, or API." },
+          { icon: X, title: "Reject", description: "The workflow returns to draft state. The agent logs the reason and awaits revised instructions." },
+          { icon: PencilLine, title: "Edit", description: "Modify inline before release. Changes are recorded as operator edits in the audit log." },
+          { icon: Eye, title: "Review", description: "Routes to a second approver before release. No output leaves with a single point of failure." },
         ].map((item) => {
           const Icon = item.icon;
           return (
