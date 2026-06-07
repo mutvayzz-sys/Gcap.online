@@ -15,6 +15,7 @@ const verticalDetails: Record<string, {
   painPoints: string[];
   workflows: string[];
   savings: string;
+  sourceContext: string;
 }> = {
   education: {
     title: "Schools & Education",
@@ -33,7 +34,8 @@ const verticalDetails: Record<string, {
       "Student performance analysis and intervention recommendations",
       "Administrative task coordination across departments",
     ],
-    savings: "15-20 hours per week per teacher",
+    savings: "15–20 hours per week per teacher",
+    sourceContext: "Based on beta pilot results from automating progress reports, parent updates, and recurring classroom administration.",
   },
   business: {
     title: "Small Businesses",
@@ -52,7 +54,8 @@ const verticalDetails: Record<string, {
       "Invoice follow-ups and payment tracking",
       "Document analysis and contract summaries",
     ],
-    savings: "20-30 hours per week per team",
+    savings: "20–30 hours per week per team",
+    sourceContext: "Estimated from automating client updates, proposal drafts, inbox triage, and recurring operations workflows.",
   },
   agencies: {
     title: "Agencies & Creative",
@@ -71,7 +74,8 @@ const verticalDetails: Record<string, {
       "Lead outreach and follow-up automation",
       "Project coordination across teams and clients",
     ],
-    savings: "25-35 hours per week per team",
+    savings: "25–35 hours per week per team",
+    sourceContext: "Based on beta pilot results from campaign briefs, content drafting, client reporting, and project coordination.",
   },
   engineering: {
     title: "Technical Teams",
@@ -90,7 +94,8 @@ const verticalDetails: Record<string, {
       "Error log analysis and debugging assistance",
       "Development workflow coordination and status updates",
     ],
-    savings: "10-15 hours per week per team",
+    savings: "10–15 hours per week per team",
+    sourceContext: "Estimated from automating release notes, documentation drafts, repository summaries, and investigation writeups.",
   },
   services: {
     title: "Real Estate & Services",
@@ -109,7 +114,8 @@ const verticalDetails: Record<string, {
       "Appointment scheduling and confirmation",
       "Market analysis and competitive summaries",
     ],
-    savings: "15-25 hours per week per agent",
+    savings: "15–25 hours per week per agent",
+    sourceContext: "Estimated from automating lead follow-up, listing drafts, client updates, and document summarization.",
   },
   healthcare: {
     title: "Clinics & Professional Services",
@@ -119,6 +125,7 @@ const verticalDetails: Record<string, {
       "Appointment preparation and note review",
       "Follow-up communication and scheduling",
       "Administrative documentation overhead",
+      "Ensuring staff-reviewed output before anything patient-facing leaves the system.",
     ],
     workflows: [
       "Patient intake summarization and flagging",
@@ -128,13 +135,14 @@ const verticalDetails: Record<string, {
       "Referral coordination and communication",
       "Insurance and billing administration assistance",
     ],
-    savings: "12-18 hours per week per provider",
+    savings: "12–18 hours per week per provider",
+    sourceContext: "Estimated from automating intake summaries, appointment prep, follow-up drafts, and internal documentation.",
   },
 };
 
 export default function UseCasePage() {
   const params = useParams();
-  const verticalKey = (params.vertical as string).replace(/-/g, "");
+  const verticalKey = params.vertical as string;
   const details = verticalDetails[verticalKey];
 
   if (!details) {
@@ -198,7 +206,7 @@ export default function UseCasePage() {
             className="mb-14"
           >
             <h2 className="text-[36px] md:text-[48px] font-semibold tracking-[-1.2px] mb-4">
-              What's holding you back
+              What&apos;s holding you back
             </h2>
             <p className="text-[18px] text-[var(--text-muted)] max-w-2xl">
               These are the workflows teams in your industry spend hours on manually.
@@ -234,7 +242,7 @@ export default function UseCasePage() {
               What Headmaster handles
             </h2>
             <p className="text-[18px] text-[var(--text-muted)] max-w-2xl">
-              Real workflows running in production. Executed reliably, every time.
+              Workflows automated in beta. Executed consistently with review gates where sensitive work needs sign-off.
             </p>
           </motion.div>
 
@@ -268,8 +276,11 @@ export default function UseCasePage() {
             <h2 className="text-[48px] md:text-[64px] font-semibold tracking-[-2px] mb-4 leading-tight">
               {details.savings}
             </h2>
-            <p className="text-[20px] text-white/80 mb-8 max-w-2xl mx-auto">
-              That's time freed up for strategic work instead of repetitive tasks.
+            <p className="text-[20px] text-white/80 mb-3 max-w-2xl mx-auto">
+              That&apos;s time freed up for strategic work instead of repetitive tasks.
+            </p>
+            <p className="text-[14px] text-white/55 mb-8 max-w-2xl mx-auto">
+              {details.sourceContext}
             </p>
             <Link
               href="/contact"
@@ -280,6 +291,21 @@ export default function UseCasePage() {
             </Link>
           </motion.div>
         </section>
+
+        {verticalKey === "healthcare" && (
+          <section className="max-w-[1280px] mx-auto px-8 py-16 border-b border-[var(--border)]">
+            <div className="rounded-3xl border border-[var(--border)] bg-[var(--bg-elevated)] p-8 md:p-10">
+              <p className="text-[13px] tracking-[0.16em] uppercase text-[var(--text-muted)] mb-3">Privacy &amp; review</p>
+              <h2 className="text-[28px] md:text-[36px] font-semibold tracking-[-1px] mb-4">Patient-adjacent output stays gated.</h2>
+              <p className="text-[17px] text-[var(--text-muted)] leading-relaxed max-w-3xl mb-6">
+                All patient-adjacent drafts require staff approval before release. Headmaster can prepare intake summaries, follow-up messages, and internal notes, but nothing patient-facing leaves without human sign-off.
+              </p>
+              <Link href="/security" className="inline-flex items-center gap-2 text-[15px] font-medium text-[var(--text)] hover:gap-3 transition-all">
+                See how Headmaster handles sensitive data <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </section>
+        )}
 
         {/* Other use cases */}
         <section className="max-w-[1280px] mx-auto px-8 py-24">
@@ -295,10 +321,10 @@ export default function UseCasePage() {
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
               {useCases
-                .filter((uc) => (uc.vertical || uc.title).toLowerCase().replace(/\s+/g, "-") !== params.vertical)
+                .filter((uc) => uc.slug !== params.vertical)
                 .slice(0, 4)
                 .map((uc) => {
-                  const ucVertical = (uc.vertical || uc.title).toLowerCase().replace(/\s+/g, "-");
+                  const ucVertical = uc.slug;
                   return (
                     <Link
                       key={uc.title}

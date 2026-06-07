@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
+import ProductShot from "./ProductShot";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,35 +12,45 @@ const STORY_SECTIONS = [
   {
     id: "memory",
     title: "Persistent Memory",
-    description: "Agents retain complete context of past interactions, enabling continuity across conversations and reducing redundant instruction.",
+    description: "When a workflow resumes after days or weeks, Headmaster can reload prior decisions, approved formats, workspace files, and user preferences before drafting the next output.",
+    shot: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/06-memory-providers.png",
+    alt: "Memory providers screen showing agent memory, user profiles, and provider configuration.",
     stat: "100%",
     statLabel: "Context retained",
   },
   {
     id: "platforms",
     title: "17 Messaging Platforms",
-    description: "Unified agent interface across Slack, Teams, Discord, WhatsApp, Telegram, email, and more—no platform silos.",
+    description: "Slack, Teams, Discord, WhatsApp, Telegram, email, and other channels become entry points into the same persistent workspace instead of separate disconnected bots.",
+    shot: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/10-integrations-channels-mcp.png",
+    alt: "Integrations screen showing channels, connectors, MCP servers, webhooks, and API keys.",
     stat: "17+",
     statLabel: "Platforms supported",
   },
   {
     id: "models",
     title: "300+ Model Support",
-    description: "Run on Claude, GPT, Grok, Gemini, or bring your own—zero switching costs. Model-agnostic by design.",
+    description: "Work can route across cloud models, coding models, local models, enterprise endpoints, custom endpoints, or TayX depending on the workflow and deployment policy.",
+    shot: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/11-model-stack-providers-tayx.png",
+    alt: "Model stack screen showing cloud models, coding models, local models, enterprise endpoints, and TayX.",
     stat: "300+",
     statLabel: "Models integrated",
   },
   {
     id: "delegation",
     title: "Subagent Delegation",
-    description: "Decompose complex tasks into specialized agents working in parallel. Coordinate outputs into cohesive results.",
+    description: "Complex requests split into specialist profiles for research, writing, analysis, operations, or code, each with the model, tools, and memory needed for its part of the job.",
+    shot: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/09-agents-profiles.png",
+    alt: "Agents screen showing specialist profiles with model, memory, skills, and tool assignments.",
     stat: "∞",
     statLabel: "Scalable workflows",
   },
   {
     id: "approvals",
     title: "Human-in-the-Loop",
-    description: "Critical actions wait for human sign-off. No autonomous decisions on sensitive operations. You stay in control.",
+    description: "Approval queues show pending, approved, rejected, and edited outputs, with the responsible reviewer recorded before sensitive work leaves the workspace.",
+    shot: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/04-approvals-queue.png",
+    alt: "Approvals queue screen showing documents and messages awaiting human review.",
     stat: "100%",
     statLabel: "High-stakes actions approved before sending",
   },
@@ -48,12 +59,13 @@ const STORY_SECTIONS = [
 export default function PinnedScrollSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() =>
+    typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
+  );
 
   useEffect(() => {
-    // Check for prefers-reduced-motion
+    // Subscribe to prefers-reduced-motion changes.
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
 
     const handleChange = (e: MediaQueryListEvent) => {
       setPrefersReducedMotion(e.matches);
@@ -72,7 +84,7 @@ export default function PinnedScrollSection() {
 
       gsap.set(sections, { opacity: 0 });
 
-      sections.forEach((section, index) => {
+      sections.forEach((section) => {
         gsap.fromTo(
           section,
           { opacity: 0, y: 60 },
@@ -155,15 +167,13 @@ export default function PinnedScrollSection() {
                 </div>
               </div>
 
-              {/* Right: Visual accent (parallax background) */}
-              <div
-                className={`hidden lg:block h-[400px] rounded-2xl bg-gradient-to-br from-[var(--border)] to-transparent relative overflow-hidden ${
-                  idx % 2 === 1 ? "lg:order-1" : ""
-                }`}
-              >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_60%,rgba(255,255,255,0.05),transparent_70%)]" />
-                <div className="absolute top-10 right-10 w-32 h-32 bg-[var(--text)]/5 rounded-full blur-3xl" />
-                <div className="absolute bottom-10 left-10 w-40 h-40 bg-[var(--text)]/3 rounded-full blur-3xl" />
+              {/* Right: product proof */}
+              <div className={`hidden lg:block ${idx % 2 === 1 ? "lg:order-1" : ""}`}>
+                <ProductShot
+                  src={section.shot}
+                  alt={section.alt}
+                  aspect="aspect-[16/10]"
+                />
               </div>
             </div>
           ))}

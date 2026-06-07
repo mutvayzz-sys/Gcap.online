@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 export const metadata = {
   title: "Deployment Guide - Documentation",
   description: "How to deploy Headmaster, prerequisites, and configuration",
@@ -11,6 +12,22 @@ export default function DeploymentPage() {
       <p>
         This guide covers deploying Headmaster to your organization, including prerequisites, configuration, and best practices for production environments.
       </p>
+
+
+      <h2>Quick start</h2>
+      <p>Use this path for a minimum viable single-machine deployment before moving to the production Kubernetes guidance below.</p>
+      <pre><code className="language-bash">
+npx headmaster init my-workspace
+cd my-workspace
+npx headmaster configure --owner ops@example.com
+npx headmaster run "Create a hello-world operations summary and queue it for approval"
+      </code></pre>
+      <ul>
+        <li><strong>Minimum machine</strong>: 2 CPU cores, 4 GB RAM, local storage, and one configured model provider key.</li>
+        <li><strong>No Kubernetes required</strong>: start with local execution, one workspace, one owner, and one approval queue.</li>
+        <li><strong>First run</strong>: verify memory, tool access, approval routing, and audit-log creation before connecting production systems.</li>
+      </ul>
+      <p>The <code>gcaplabs/headmaster-deploy</code> repository should only be used when your GCAP deployment contact confirms access and the repository is available to your organization.</p>
 
       <h2>Prerequisites</h2>
 
@@ -89,14 +106,13 @@ export default function DeploymentPage() {
       <h3>1. Prepare Your Environment</h3>
 
       <p>
-        Create a deployment directory and clone the Headmaster configuration:
+        Create a deployment directory from the deployment bundle provided by GCAP. If your GCAP deployment contact has granted access to <code>gcaplabs/headmaster-deploy</code>, you can use that repository; otherwise use the private bundle supplied during onboarding.
       </p>
 
       <pre><code className="language-bash">
 mkdir -p /opt/headmaster
 cd /opt/headmaster
-git clone https://github.com/gcaplabs/headmaster-deploy.git
-cd headmaster-deploy
+# unpack the GCAP-provided deployment bundle here
       </code></pre>
 
       <h3>2. Configure Environment Variables</h3>
@@ -378,6 +394,10 @@ npx headmaster memory:archive --days 90
         <li>Emergency Hotline: +1-415-555-0147</li>
         <li>Status Page: https://status.gcaplabs.com</li>
       </ul>
+          <div className="mt-16 border-t pt-8">
+        <p><strong>Next:</strong></p>
+        <p><a href="/docs/security">Security</a> · <a href="/docs/hq">HQ</a> · <a href="/docs/plugins">Plugins</a></p>
+      </div>
     </article>
   );
 }

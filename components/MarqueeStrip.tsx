@@ -10,47 +10,37 @@ import {
 } from "react-icons/si";
 import type { IconType } from "react-icons";
 
-export interface MarqueeItem {
-  name: string;
-  category: "model" | "channel" | "connector";
-  description: string;
+import { allPlatforms, type PlatformCategory, type PlatformItem } from "@/src/data/platforms";
+
+const ICONS: Record<string, IconType> = {
+  slack: SiSlack,
+  gmail: SiGmail,
+  github: SiGithub,
+  notion: SiNotion,
+  zoom: SiZoom,
+  linear: SiLinear,
+  googledrive: SiGoogledrive,
+  googlecalendar: SiGooglecalendar,
+  confluence: SiConfluence,
+  openai: SiOpenai,
+  google: SiGoogle,
+  meta: SiMeta,
+  claude: SiClaude,
+  googlemeet: SiGooglemeet,
+  telegram: SiTelegram,
+  whatsapp: SiWhatsapp,
+  discord: SiDiscord,
+};
+
+export interface MarqueeItem extends PlatformItem {
+  category: PlatformCategory;
   Icon?: IconType;
-  img?: string;
 }
 
-export const ALL_ITEMS: MarqueeItem[] = [
-  // Models
-  { name: "Claude", category: "model", description: "Anthropic's model, used for reasoning, writing, and agent workflows.", Icon: SiClaude },
-  { name: "OpenAI", category: "model", description: "OpenAI's model family, including GPT-4 and o-series for complex tasks.", Icon: SiOpenai },
-  { name: "Gemini", category: "model", description: "Google's model, optimized for multimodal and long-context work.", Icon: SiGoogle },
-  { name: "Llama", category: "model", description: "Meta's open model, available for local or private deployments.", Icon: SiMeta },
-  { name: "Mistral", category: "model", description: "Efficient open model for speed-sensitive or cost-optimized tasks.", img: "/icons/integrations/mistral.svg" },
-  { name: "DeepSeek", category: "model", description: "Strong reasoning model for analysis and research workflows.", img: "/icons/integrations/deepseek.svg" },
-  { name: "Qwen", category: "model", description: "Alibaba's model, effective for multilingual and long-context tasks.", img: "/icons/integrations/qwen.svg" },
-  { name: "Kimi", category: "model", description: "Moonshot AI's model, strong for long document and context-heavy work.", img: "/icons/integrations/kimi.svg" },
-  { name: "MiniMax", category: "model", description: "Versatile model suited for multimodal and task-delegation workflows.", img: "/icons/integrations/minimax.svg" },
-  { name: "OpenRouter", category: "model", description: "Model routing layer for switching providers without rebuilding.", img: "/icons/integrations/openrouter.svg" },
-  // Channels
-  { name: "Slack", category: "channel", description: "Start tasks and receive updates in your team's Slack workspace.", Icon: SiSlack },
-  { name: "Telegram", category: "channel", description: "Reach Headmaster through a Telegram bot for quick updates.", Icon: SiTelegram },
-  { name: "WhatsApp", category: "channel", description: "Receive workflow updates and approvals via WhatsApp.", Icon: SiWhatsapp },
-  { name: "Discord", category: "channel", description: "Connect Headmaster to a Discord server for team notifications.", Icon: SiDiscord },
-  { name: "Teams", category: "channel", description: "Receive drafts and updates directly in Microsoft Teams channels.", img: "/icons/integrations/teams.svg" },
-  { name: "Google Meet", category: "channel", description: "Integrate meeting scheduling and summaries via Google Meet.", Icon: SiGooglemeet },
-  { name: "Gmail", category: "channel", description: "Receive drafts and summaries directly in your inbox.", Icon: SiGmail },
-  // Connectors
-  { name: "Google Drive", category: "connector", description: "Access, read, and organize documents in approved Drive folders.", Icon: SiGoogledrive },
-  { name: "Google Calendar", category: "connector", description: "Read events and schedule recurring workflow triggers.", Icon: SiGooglecalendar },
-  { name: "GitHub", category: "connector", description: "Read repos, issues, and commits for engineering workflows.", Icon: SiGithub },
-  { name: "Notion", category: "connector", description: "Read and update pages, databases, and project docs in Notion.", Icon: SiNotion },
-  { name: "Zoom", category: "connector", description: "Schedule meetings and process recordings as part of workflows.", Icon: SiZoom },
-  { name: "Linear", category: "connector", description: "Read and update issues, cycles, and project state.", Icon: SiLinear },
-  { name: "Confluence", category: "connector", description: "Read and write documentation pages in team wikis.", Icon: SiConfluence },
-  { name: "Browserbase", category: "connector", description: "Browser automation for web-based workflows and data gathering.", img: "/icons/integrations/browserbase.svg" },
-  { name: "Cursor", category: "connector", description: "AI coding environment integration for development workflows.", img: "/icons/integrations/cursor.svg" },
-  { name: "VS Code", category: "connector", description: "Direct integration with VS Code for engineering agent tasks.", img: "/icons/integrations/vscode.svg" },
-  { name: "Firecrawl", category: "connector", description: "Web scraping and content extraction for research workflows.", img: "/icons/integrations/firecrawl.svg" },
-];
+export const ALL_ITEMS: MarqueeItem[] = allPlatforms.map((item) => ({
+  ...item,
+  Icon: item.iconKey ? ICONS[item.iconKey] : undefined,
+}));
 
 const CATEGORY_LABELS: Record<MarqueeItem["category"], string> = {
   model: "AI Model",
@@ -96,12 +86,13 @@ function fill(items: MarqueeItem[], min = 14): MarqueeItem[] {
 export default function MarqueeStrip({ rows, duration = 34, inverse = false }: MarqueeStripProps) {
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
   const [paused, setPaused] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(() =>
+    typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
+  );
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mq.matches);
     const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);

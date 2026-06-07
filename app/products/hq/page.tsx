@@ -122,6 +122,59 @@ export default function HQPage() {
           </div>
         </section>
 
+
+        <section className="max-w-[1280px] mx-auto px-8 py-24 border-b border-[var(--border)]">
+          <div className="mb-12 max-w-3xl">
+            <h2 className="text-wrap balance text-[2rem] sm:text-[2.5rem] leading-tight tracking-[-0.02em] font-semibold mb-4">Agent org chart</h2>
+            <p className="text-[17px] text-[var(--text-muted)] leading-relaxed">HQ makes reporting lines visible: one coordinating agent can delegate to department agents, and department agents can supervise specialist subagents.</p>
+          </div>
+          <div className="rounded-3xl border border-[var(--border)] bg-[#0D0D0D] p-8 text-[#F9F7F3]">
+            <div className="mx-auto max-w-4xl">
+              <div className="mx-auto w-fit rounded-2xl border border-white/15 bg-white/10 px-6 py-4 text-center">
+                <div className="text-xs uppercase tracking-[0.18em] text-white/45">Executive</div>
+                <div className="mt-1 text-lg font-medium">CEO Agent</div>
+              </div>
+              <div className="mx-auto h-8 w-px bg-white/20" />
+              <div className="grid gap-4 md:grid-cols-3">
+                {["Ops Agent", "Research Agent", "Comms Agent"].map((agent) => (
+                  <div key={agent} className="rounded-2xl border border-white/15 bg-white/[0.06] p-4 text-center">
+                    <div className="text-xs uppercase tracking-[0.16em] text-white/40">Department</div>
+                    <div className="mt-1 font-medium">{agent}</div>
+                    <div className="mt-4 grid gap-2 text-sm text-white/65">
+                      <div className="rounded-xl bg-black/25 px-3 py-2">Specialist 1</div>
+                      <div className="rounded-xl bg-black/25 px-3 py-2">Specialist 2</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="max-w-[1280px] mx-auto px-8 py-24 border-b border-[var(--border)]">
+          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+            <div>
+              <h2 className="text-[32px] md:text-[42px] font-semibold tracking-[-1.5px] mb-4">Cost controls per agent.</h2>
+              <p className="text-[17px] text-[var(--text-muted)] leading-relaxed">Set per-agent monthly budgets in tokens or dollars. HQ warns operators at 80%, hard-stops at the configured limit, and records spend by agent in the audit log.</p>
+            </div>
+            <div className="rounded-3xl border border-[var(--border)] bg-[var(--bg-elevated)] p-6">
+              {[
+                ["Research Agent", "62%", "Healthy"],
+                ["Comms Agent", "82%", "Warning"],
+                ["Ops Agent", "100%", "Stopped"],
+              ].map(([agent, pct, status]) => (
+                <div key={agent} className="mb-5 last:mb-0">
+                  <div className="mb-2 flex items-center justify-between text-sm"><span className="font-medium">{agent}</span><span className="text-[var(--text-muted)]">{status}</span></div>
+                  <div className="h-3 overflow-hidden rounded-full bg-white">
+                    <div className="h-full rounded-full bg-[#111111]" style={{ width: pct }} />
+                  </div>
+                  <div className="mt-1 text-xs text-[var(--text-muted)]">{pct} of monthly budget used</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="max-w-[1280px] mx-auto px-8 py-24 border-b border-[var(--border)]">
           <div className="grid md:grid-cols-2 gap-12">
             {secondaryFeatures.map((feature, i) => (

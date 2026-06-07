@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 export const metadata = {
   title: "Overview - Headmaster Documentation",
   description: "What is Headmaster and how it works",
@@ -9,13 +10,13 @@ export default function OverviewPage() {
       <h1>What is Headmaster</h1>
 
       <p>
-        Headmaster is a persistent AI agent platform designed for enterprise organizations that need autonomous agents to operate reliably at scale. Unlike traditional chatbots that reset with each conversation, Headmaster agents maintain complete memory of past interactions, understand organizational context, and coordinate complex workflows across teams.
+        Headmaster is a persistent AI agent platform for organizations that need governed agents to handle recurring work across teams, tools, and approval gates. Unlike traditional chatbots that reset with each conversation, Headmaster agents maintain complete memory of past interactions, understand organizational context, and coordinate complex workflows across teams.
       </p>
 
       <h2>Product Architecture</h2>
 
       <p>
-        Headmaster's architecture is built around three core pillars that enable it to be truly production-ready:
+        Headmaster's architecture is built around three core pillars that make long-running agent work governable:
       </p>
 
       <h3>1. Persistent Memory Layer</h3>
@@ -77,13 +78,24 @@ export default function OverviewPage() {
         Your agents then run continuously, handling routine work while escalating exceptions to humans.
       </p>
 
+
+      <h2>Internal Architecture</h2>
+      <p>Headmaster is organized around four internal components that keep execution, permissions, memory, and context management separate.</p>
+      <ul>
+        <li><strong>Hermes</strong>: handles agent execution, tool dispatch, run state, and workflow coordination.</li>
+        <li><strong>Paperclip</strong>: manages permissions, approved tools, role-based access, and approval boundaries.</li>
+        <li><strong>Memento</strong>: provides persistent, searchable, pluggable memory for workspace context and prior decisions.</li>
+        <li><strong>Lens</strong>: compresses and selects context so long-running workflows stay inside model token limits.</li>
+      </ul>
+      <p><strong>Audit-ready:</strong> every tool call, cost event, approval decision, operator edit, and final output is logged and searchable.</p>
+
       <h2>Key Differentiators</h2>
 
       <ul>
         <li><strong>Model-Agnostic</strong>: Zero vendor lock-in. Switch models without rewriting agent logic</li>
         <li><strong>Platform-Agnostic</strong>: Deploy to any messaging system, database, or API</li>
         <li><strong>Human-Centric</strong>: No autonomous decisions without oversight</li>
-        <li><strong>Enterprise-Grade</strong>: Built for compliance, audit, and security from day one</li>
+        <li><strong>Audit-ready</strong>: Every tool call, cost event, approval decision, and operator edit is logged and searchable</li>
         <li><strong>Scalable</strong>: Run one agent or coordinate hundreds working in parallel</li>
       </ul>
 
@@ -98,6 +110,10 @@ export default function OverviewPage() {
       <p>
         <a href="/docs/security">Security & Compliance</a> — Security features, certifications, and data handling
       </p>
+          <div className="mt-16 border-t pt-8">
+        <p><strong>Next:</strong></p>
+        <p><a href="/docs/headmaster">Headmaster Core</a> · <a href="/docs/deployment">Deployment</a> · <a href="/docs/security">Security</a></p>
+      </div>
     </article>
   );
 }

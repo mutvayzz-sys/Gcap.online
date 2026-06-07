@@ -45,8 +45,8 @@ export default function ModelAgnostic() {
           ))}
         </div>
 
-        <p className="mt-8 text-[15px] text-white/40 leading-relaxed max-w-2xl" data-reveal>
-          Future models can be added without rebuilding the product. Headmaster routes work to the engine that fits the task, and TayX remains GCAP’s own tuned option inside that broader model stack.
+        <p className="mt-8 text-[15px] text-white/55 leading-relaxed max-w-2xl" data-reveal>
+          TayX is GCAP’s own tuned model layer — optimized for long-running workflows, tool use, and multi-step reasoning. <a href="/products/tayx" className="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">Coming soon.</a>
         </p>
       </div>
 

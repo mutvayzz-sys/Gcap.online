@@ -48,7 +48,7 @@ export default function SocialProof() {
         >
           <div>
             <p className="mb-4 text-xs font-medium uppercase tracking-[0.26em] text-[var(--text-muted)]">
-              Beta social proof
+              Early access feedback
             </p>
             <h2 id="social-proof-title" className="text-[36px] md:text-[52px] tracking-[-1.4px] md:tracking-[-2.2px] font-medium leading-[1.05] text-[var(--text)]">
               What early testers actually told us.

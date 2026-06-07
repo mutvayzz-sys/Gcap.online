@@ -2,36 +2,31 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import MarqueeStrip, { ALL_ITEMS, type RowConfig } from "@/components/MarqueeStrip";
+import MarqueeStrip, { type RowConfig } from "@/components/MarqueeStrip";
+import { communicationPlatforms, connectors, modelProviders } from "@/src/data/platforms";
 import SiteNav from "@/components/SiteNav";
 import { MessageSquare, Database, Code, Zap } from "lucide-react";
 
 const EASE = [0.23, 1, 0.32, 1] as const;
-
-const t = (delay: number) => ({
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: EASE, delay },
-});
 
 const categories = [
   {
     title: "Communication Channels",
     description: "Start tasks and receive updates through your preferred messaging platform. Headmaster integrates with all major team communication tools.",
     icon: MessageSquare,
-    count: 7,
+    count: communicationPlatforms.length,
   },
   {
     title: "AI Model Providers",
     description: "Use any model — Claude, GPT-4, Gemini, Llama, Mistral, and 300+ others. Switch models per task or per agent. Pay for what you use.",
     icon: Zap,
-    count: 10,
+    count: modelProviders.length,
   },
   {
     title: "Data & Storage",
     description: "Connect to Google Drive, Notion, GitHub, Linear, Confluence, and other tools. Headmaster reads and writes as part of workflows.",
     icon: Database,
-    count: 8,
+    count: connectors.length,
   },
   {
     title: "Custom APIs & Webhooks",
@@ -100,10 +95,10 @@ export default function IntegrationsPage() {
             className="text-center mb-16"
           >
             <h2 className="text-[32px] md:text-[48px] font-semibold tracking-[-1.2px] mb-4">
-              400+ integrations
+              Named platform coverage
             </h2>
             <p className="text-[18px] text-[var(--text-muted)] max-w-2xl mx-auto">
-              Cover every major platform category. Use any combination across your organization.
+              Browse the named platform categories Headmaster can route through today, with custom APIs and webhooks for internal systems.
             </p>
           </motion.div>
 
@@ -152,6 +147,32 @@ export default function IntegrationsPage() {
 
             <MarqueeStrip rows={marqueeRows} duration={40} />
           </div>
+        </section>
+
+
+        {/* Scannable platform list */}
+        <section className="max-w-[1280px] mx-auto px-8 py-24 border-b border-[var(--border)]">
+          <div className="mb-12 max-w-3xl">
+            <h2 className="text-[32px] md:text-[44px] font-semibold tracking-[-1.2px] mb-4">All supported platforms</h2>
+            <p className="text-[17px] text-[var(--text-muted)] leading-relaxed">A scannable list for buyers who need to verify a specific channel, model provider, or connector without waiting for the marquee.</p>
+          </div>
+          {[
+            ["Communication platforms", communicationPlatforms],
+            ["Model providers", modelProviders],
+            ["Connectors", connectors],
+          ].map(([label, items]) => (
+            <div key={label as string} className="mb-12 last:mb-0">
+              <h3 className="mb-4 text-[18px] font-semibold tracking-tight">{label as string}</h3>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {(items as typeof communicationPlatforms).map((item) => (
+                  <div key={item.name} className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-5">
+                    <div className="text-[15px] font-medium text-[var(--text)]">{item.name}</div>
+                    <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-muted)]">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </section>
 
         {/* How it works */}

@@ -2,9 +2,9 @@ import SectionHeader from "./SectionHeader";
 import ProductShot from "./ProductShot";
 
 const steps = [
-  "Loads workspace context, memory, documents, and previous formats.",
-  "Selects the right tools, channels, and specialist agents for the workflow.",
-  "Builds a review-ready output with a clear approval checkpoint.",
+  "Loads workspace context, memory, documents, and previous formats. Workspace memory, past formats, relevant files, and prior decisions load automatically — no re-briefing required.",
+  "Selects the right tools, channels, and specialist agents for the workflow. It can choose from 17+ channels and 300+ models, assign specialist subagents per task, and build the output before asking for sign-off.",
+  "Builds a review-ready output with a clear approval checkpoint. Edit, approve, reject, or request a second review — nothing leaves until confirmed.",
 ];
 
 export default function GuidedWorkflowSection() {

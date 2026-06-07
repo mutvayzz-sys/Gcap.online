@@ -1,16 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import SiteNav from "@/components/SiteNav";
 
 const EASE = [0.23, 1, 0.32, 1] as const;
-
-const t = (delay: number) => ({
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: EASE, delay },
-});
 
 interface FormData {
   name: string;
@@ -94,7 +88,7 @@ export default function ContactPage() {
       });
 
       setTimeout(() => setStatus("idle"), 5000);
-    } catch (error) {
+    } catch {
       setStatus("error");
       setTimeout(() => setStatus("idle"), 5000);
     }
@@ -102,18 +96,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] pt-32 pb-20">
-      {/* Fixed Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/95 backdrop-blur-xl border-b border-[var(--border)]">
-        <div className="max-w-[1280px] mx-auto px-8 h-20 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-3">
-            <Image src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} priority />
-            <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
-          </a>
-          <a href="/" className="text-[15px] hover:text-[var(--text-muted)] transition-colors">
-            Back to home
-          </a>
-        </div>
-      </nav>
+      <SiteNav />
 
       <main className="max-w-[1280px] mx-auto px-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE }} className="grid lg:grid-cols-[1fr_1.2fr] gap-16 items-start">
@@ -121,7 +104,7 @@ export default function ContactPage() {
           <div>
             <h1 className="text-[42px] sm:text-[52px] md:text-[64px] leading-[0.94] tracking-[-0.03em] font-semibold mb-6">Talk to the team</h1>
             <p className="text-[17px] text-[var(--text-muted)] leading-relaxed mb-12 max-w-[45ch]">
-              Headmaster is deployed per organization — configuration, integrations, and pricing are scoped to your workflows. Tell us what you're trying to automate and we'll take it from there.
+              Headmaster is deployed per organization — configuration, integrations, and pricing are scoped to your workflows. Tell us what you&apos;re trying to automate and we&apos;ll take it from there.
             </p>
 
             <div className="space-y-8 mt-16">
@@ -140,7 +123,7 @@ export default function ContactPage() {
           <motion.form onSubmit={handleSubmit} className="space-y-5">
             {status === "success" && (
               <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="p-4 rounded-xl bg-[#d4edda] border border-[#c3e6cb] text-[#155724] text-[14px]">
-                ✓ Got it — we'll be in touch within 24 hours.
+                ✓ Got it — we&apos;ll be in touch within 24 hours.
               </motion.div>
             )}
 

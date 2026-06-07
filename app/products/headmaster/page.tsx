@@ -4,13 +4,29 @@ import ProductShot from "@/components/ProductShot";
 import ProductLightbox from "@/components/ProductLightbox";
 import FinalCTA from "@/components/FinalCTA";
 import { productScreenshots } from "@/src/data/productScreenshots";
+import { communicationPlatforms, executionBackends, modelProviders } from "@/src/data/platforms";
 
 const overview = [
-  "Persistent memory and workspace context",
-  "Reusable workflows, skills, and automations",
-  "Specialist agents with approved tools",
-  "Human approvals, execution history, and auditability",
-  "Channels, connectors, MCP servers, webhooks, API keys, and model routing",
+  {
+    title: "Persistent memory",
+    description: "Headmaster retains approved formats, decisions, workflow history, and user preferences across sessions. Memory is pluggable, searchable, and scoped to the workspace so agents can resume work without a fresh briefing.",
+  },
+  {
+    title: "Reusable workflows",
+    description: "Repeated work becomes saved skills, scheduled automations, and guided runs. Operators can launch the same process consistently while approvals still pause sensitive outputs.",
+  },
+  {
+    title: "Specialist agents",
+    description: "Research, writing, analysis, code, and operations agents can receive distinct tools, models, and context. The parent agent coordinates delegated work into one review-ready result.",
+  },
+  {
+    title: "Approvals and auditability",
+    description: "External messages, data writes, exports, and high-stakes actions can require human sign-off. Every prompt, tool call, model route, approval decision, and operator edit is retained for review.",
+  },
+  {
+    title: "Channels and model routing",
+    description: "Headmaster connects communication channels, connectors, MCP servers, webhooks, API keys, and model providers. Work can start anywhere while using the same memory, permissions, and approval policy.",
+  },
 ];
 
 const heroImage = {
@@ -91,8 +107,9 @@ export default function HeadmasterProductPage() {
             </h2>
             <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {overview.map((item) => (
-                <div key={item} className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-6 text-[15px] font-medium tracking-tight">
-                  {item}
+                <div key={item.title} className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-6">
+                  <h3 className="text-[17px] font-semibold tracking-tight">{item.title}</h3>
+                  <p className="mt-3 text-[14px] leading-relaxed text-[var(--text-muted)]">{item.description}</p>
                 </div>
               ))}
             </div>
@@ -222,6 +239,32 @@ export default function HeadmasterProductPage() {
               </p>
             </div>
           </div>
+        </section>
+
+
+        <section className="mx-auto max-w-[1280px] px-8 py-24 border-b border-[var(--border)]">
+          <div className="mb-12 max-w-3xl">
+            <div className="mb-4 text-xs font-medium uppercase tracking-[0.26em] text-[var(--text-muted)]">Technical Reference</div>
+            <h2 className="text-[34px] font-medium leading-[1.05] tracking-[-1.4px] md:text-[48px] md:tracking-[-2px]">Check support without hunting through screenshots.</h2>
+            <p className="mt-5 text-[17px] leading-relaxed text-[var(--text-muted)]">Communication channels, model providers, and execution backends are consolidated here for technical buyers. The full platform detail lives on the integrations page.</p>
+          </div>
+          <div className="grid gap-6 lg:grid-cols-3">
+            {[
+              ["Communication Channels", communicationPlatforms.map((item) => item.name)],
+              ["Model Providers", [...modelProviders.map((item) => item.name), "300+ via OpenRouter"]],
+              ["Execution Backends", [...executionBackends]],
+            ].map(([title, items]) => (
+              <div key={title as string} className="rounded-3xl border border-[var(--border)] bg-[var(--bg-elevated)] p-7">
+                <h3 className="text-[18px] font-semibold tracking-tight">{title as string}</h3>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {(items as string[]).map((item) => (
+                    <span key={item} className="rounded-full border border-[var(--border)] bg-[var(--bg)] px-3 py-1 text-[12px] text-[var(--text-muted)]">{item}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <Link href="/integrations" className="mt-8 inline-flex rounded-full border border-[var(--border-strong)] px-6 py-3 text-[14px] font-medium transition-all hover:bg-white">View full integration detail</Link>
         </section>
 
         <FinalCTA />
