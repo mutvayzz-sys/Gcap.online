@@ -305,3 +305,13 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
     transform: scale(1.04);
   }
 }
+
+.marquee-item-icon {
+  transition: all 200ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .marquee-item-icon:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  }
+}
