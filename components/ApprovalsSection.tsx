@@ -14,7 +14,7 @@ export default function ApprovalsSection() {
     >
       <SectionHeader
         eyebrow="Control Stays With People"
-        title="Headmaster Prepares. Humans Decide."
+        title="Headmaster drafts. You decide."
         body="Headmaster can draft reports, emails, updates, and actions, but sensitive work can pause for review. Approve, reject, edit, or request changes before anything important leaves the workspace."
       />
 

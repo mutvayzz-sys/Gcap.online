@@ -3,19 +3,18 @@ import { Analytics } from "@vercel/analytics/next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import CinematicLayer from "@/components/CinematicLayer";
-import MotionProvider from "@/components/MotionProvider";
 
 export const metadata: Metadata = {
   title: "GCAP | Headmaster",
   description:
-    "Headmaster is a persistent AI workforce layer for organizations — combining memory, skills, automations, tools, messaging, specialist agents, approvals, and private deployments.",
+    "Headmaster is a persistent AI agent for organizations. Persistent memory, 17 messaging platforms, 300+ models, subagent delegation, and human approval gates. By GCAP Labs.",
   metadataBase: new URL("https://gcap.online"),
   alternates: {
     canonical: "https://gcap.online",
   },
   openGraph: {
     title: "GCAP | Headmaster",
-    description: "Persistent AI agents for real organizational work.",
+    description: "The AI agent that runs your organization. While you sleep.",
     url: "https://gcap.online",
     siteName: "GCAP",
     images: [
@@ -23,7 +22,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "GCAP Headmaster — persistent AI workforce layer",
+        alt: "GCAP Headmaster — persistent AI agent for organizations",
       },
     ],
     locale: "en_US",
@@ -32,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "GCAP | Headmaster",
-    description: "Persistent AI agents for real organizational work.",
+    description: "The AI agent that runs your organization. While you sleep.",
     images: ["/opengraph-image"],
   },
   icons: {
@@ -47,9 +46,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`h-full antialiased ${GeistSans.variable}`}>
-      <body className="min-h-[100dvh] flex flex-col">
+      <body className="min-h-screen flex flex-col overflow-x-hidden">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <CinematicLayer />
-        <MotionProvider>{children}</MotionProvider>
+        <div id="main-content" className="contents">
+          {children}
+        </div>
         <Analytics />
       </body>
     </html>

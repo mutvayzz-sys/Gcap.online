@@ -13,13 +13,13 @@ export default function ModelAgnostic() {
     >
       <div className="max-w-[1120px] mx-auto px-8">
         <SectionHeader
-          eyebrow="Model-Agnostic by Design"
-          title="Use the Right Model for the Job"
-          body="Headmaster is not locked to one AI provider. It can run on cloud models, local models, coding models, enterprise endpoints, custom endpoints, or GCAP's own TayX model layer depending on the workflow."
+          eyebrow="Route work to the right model, automatically"
+          title="Headmaster is model-agnostic. TayX is GCAP’s trained and fine-tuned model layer."
+          body="Headmaster can route work across cloud models, coding models, local models, enterprise endpoints, custom endpoints, and GCAP’s own TayX model layer."
           inverse
         />
 
-        <div className="mt-10 grid md:grid-cols-2 gap-x-16 gap-y-0 border-t border-white/10" data-reveal-group>
+        <div className="mt-10 grid md:grid-cols-2 gap-x-16 gap-y-0 border-t border-white/10" data-reveal>
           {[
             {
               title: "Cloud models",
@@ -38,7 +38,7 @@ export default function ModelAgnostic() {
               description: "For enterprise agreements or proprietary model stacks already in use.",
             },
           ].map((item) => (
-            <div key={item.title} data-reveal-item className="py-7 border-b border-white/10">
+            <div key={item.title} className="py-7 border-b border-white/10">
               <div className="text-[17px] font-medium tracking-tight mb-1.5">{item.title}</div>
               <p className="text-[15px] text-white/55 leading-relaxed">{item.description}</p>
             </div>
@@ -46,7 +46,7 @@ export default function ModelAgnostic() {
         </div>
 
         <p className="mt-8 text-[15px] text-white/40 leading-relaxed max-w-2xl" data-reveal>
-          Future models can be added without rebuilding. Headmaster routes work to the engine that fits the task — and that engine can change as your needs change.
+          Future models can be added without rebuilding the product. Headmaster routes work to the engine that fits the task, and TayX remains GCAP’s own tuned option inside that broader model stack.
         </p>
       </div>
 
@@ -56,7 +56,6 @@ export default function ModelAgnostic() {
           alt="Model stack page showing TayX, cloud models, coding models, local models, and enterprise endpoints."
           aspect="aspect-[16/10]"
           className="border-white/10"
-          parallax
         />
       </div>
     </section>

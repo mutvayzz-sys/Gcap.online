@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GCAP.online — Skill Audit Todo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Syne',system-ui,sans-serif;background:#0a0a0b;color:#e8e6e1;min-height:100vh;padding:0 0 80px}
+.page{max-width:940px;margin:0 auto;padding:2rem 1.5rem}
+.hdr{padding:2rem 0 1.5rem;border-bottom:1px solid #1e1e22;margin-bottom:1.5rem}
+.hdr-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.5rem}
+.hdr h1{font-size:17px;font-weight:600;color:#e8e6e1;letter-spacing:-.01em}
+.version-badge{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#555;background:#111;border:1px solid #222;padding:2px 8px;border-radius:3px;white-space:nowrap;margin-top:2px}
+.hdr p{font-size:12px;color:#555;margin-top:4px}
+.hdr-meta{font-size:10px;color:#3a3a40;margin-top:8px;font-family:'IBM Plex Mono',monospace}
+
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:1.25rem}
+.stat{background:#111013;border:1px solid #1c1c20;border-radius:5px;padding:.625rem .875rem}
+.stat-n{font-size:22px;font-weight:600;color:#e8e6e1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.stat-l{font-size:10px;color:#444;margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
+
+.prog-row{display:flex;align-items:center;gap:10px;margin-bottom:1.5rem}
+.prog-track{flex:1;height:3px;background:#1c1c20;border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#c84040,#d97706,#3b6eff);border-radius:99px}
+.prog-lbl{font-size:11px;color:#444;min-width:52px;text-align:right;font-family:'IBM Plex Mono',monospace}
+
+.legend{display:flex;gap:12px;margin-bottom:1.25rem;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:#444}
+.leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+
+.filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:1.5rem}
+.fbtn{font-size:10px;padding:4px 10px;border-radius:3px;border:1px solid #1e1e22;background:transparent;color:#555;cursor:pointer;font-family:'Syne',sans-serif;font-weight:500;transition:all 100ms ease-out;letter-spacing:.02em}
+.fbtn:hover{background:#111013;color:#aaa}
+.fbtn.on{background:#3b6eff;color:#fff;border-color:#3b6eff}
+
+.sec{margin-bottom:2rem}
+.sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid #14141a}
+.sec-title{font-size:10px;font-weight:600;color:#333;text-transform:uppercase;letter-spacing:.1em;font-family:'IBM Plex Mono',monospace}
+.sec-ct{font-size:10px;color:#2a2a32;font-family:'IBM Plex Mono',monospace;margin-left:auto}
+.skill-pill{font-size:9px;font-weight:600;color:#7c5cff;text-transform:uppercase;letter-spacing:.08em;background:#100d1a;border:1px solid #2a1e44;padding:1px 6px;border-radius:2px}
+
+.item{display:flex;align-items:flex-start;gap:10px;padding:9px 10px;border-radius:4px;border:1px solid transparent;margin-bottom:3px;cursor:default;user-select:none}
+.item:hover{background:#0f0f12;border-color:#1e1e26}
+.item.done{opacity:.28}
+.item.todo-critical{border-left:2px solid #c84040;border-radius:0 4px 4px 0;background:#0d0505}
+.item.todo-major{border-left:2px solid #d97706;border-radius:0 4px 4px 0}
+.item.todo-medium{border-left:2px solid #3b6eff;border-radius:0 4px 4px 0}
+.item.todo-minor{border-left:2px solid #2a2a38;border-radius:0 4px 4px 0}
+
+.chk{width:14px;height:14px;border-radius:2px;border:1px solid #2a2a32;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center}
+.item.done .chk{background:#22c55e;border-color:#22c55e}
+.chk-inner{font-size:8px;color:#fff;display:none}
+.item.done .chk-inner{display:block}
+
+.item-body{flex:1;min-width:0}
+.item-title{font-size:12.5px;color:#c8c5be;line-height:1.5;font-weight:400}
+.item.done .item-title{text-decoration:line-through;color:#333}
+.item-note{font-size:10.5px;color:#3a3a44;margin-top:3px;font-style:italic;line-height:1.5;font-family:'IBM Plex Mono',monospace}
+.item-note.ref{color:#4a5a7a;font-style:normal}
+.item-meta{display:flex;align-items:center;gap:4px;margin-top:4px;flex-wrap:wrap}
+
+.badge{font-size:9px;padding:1px 6px;border-radius:2px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-family:'IBM Plex Mono',monospace}
+.bc{background:#1a0808;color:#c84040;border:1px solid #2a1010}
+.bm{background:#1a1108;color:#c87020;border:1px solid #2a1e08}
+.bmed{background:#08101a;color:#4a7aaa;border:1px solid #0e1a2a}
+.bn{background:#111013;color:#444;border:1px solid #1e1e26}
+.bskill-anim{background:#0d0d1a;color:#7c5cff;border:1px solid #1e1a3a}
+.bskill-emil{background:#0a0d1a;color:#5c8fff;border:1px solid #1a2040}
+.bskill-taste{background:#1a0d08;color:#ff8040;border:1px solid #3a1e08}
+.bskill-imp{background:#0a1a12;color:#40c080;border:1px solid #0e2a1a}
+.bskill-ux{background:#1a1008;color:#c0a040;border:1px solid #2a2008}
+
+.empty{text-align:center;padding:2rem;color:#2a2a32;font-size:12px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <div class="hdr-top">
+    <h1>GCAP.online — Skill Audit Todo</h1>
+    <span class="version-badge">June 2026 · 5 skills audited</span>
+  </div>
+  <p>Every finding from every installed design skill, mapped to file:line. Nothing guessed.</p>
+  <div class="hdr-meta">Skills: 12-Principles · Emil Design Eng · gpt-taste · impeccable · ui-ux-pro-max</div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-n">35</div><div class="stat-l">total items</div></div>
+  <div class="stat"><div class="stat-n" style="color:#22c55e">35</div><div class="stat-l">done</div></div>
+  <div class="stat"><div class="stat-n" style="color:#22c55e">0</div><div class="stat-l">critical left</div></div>
+  <div class="stat"><div class="stat-n" style="color:#22c55e">0</div><div class="stat-l">major left</div></div>
+  <div class="stat"><div class="stat-n" style="color:#22c55e">100%</div><div class="stat-l">complete</div></div>
+</div>
+
+<div class="prog-row">
+  <div class="prog-track"><div class="prog-fill" style="width:0%"></div></div>
+  <span class="prog-lbl">0 / 35</span>
+</div>
+
+<div class="legend">
+  <div class="leg"><div class="leg-dot" style="background:#c84040"></div>Critical</div>
+  <div class="leg"><div class="leg-dot" style="background:#d97706"></div>Major</div>
+  <div class="leg"><div class="leg-dot" style="background:#3b6eff"></div>Medium</div>
+  <div class="leg"><div class="leg-dot" style="background:#2a2a38"></div>Minor / Suggestion</div>
+</div>
+
+<div class="filters">
+  <button class="fbtn on" onclick="setF('all',this)">All 35</button>
+  <button class="fbtn" onclick="setF('critical',this)">Critical</button>
+  <button class="fbtn" onclick="setF('major',this)">Major</button>
+  <button class="fbtn" onclick="setF('medium',this)">Medium</button>
+  <button class="fbtn" onclick="setF('minor',this)">Minor</button>
+  <button class="fbtn" onclick="setF('anim',this)">12-Principles</button>
+  <button class="fbtn" onclick="setF('emil',this)">Emil</button>
+  <button class="fbtn" onclick="setF('taste',this)">gpt-taste</button>
+  <button class="fbtn" onclick="setF('imp',this)">impeccable</button>
+  <button class="fbtn" onclick="setF('ux',this)">ui-ux-pro-max</button>
+  <button class="fbtn" onclick="setF('gsap',this)">GSAP</button>
+  <button class="fbtn" onclick="setF('css',this)">CSS / Tokens</button>
+  <button class="fbtn" onclick="setF('content',this)">Copy / Content</button>
+</div>
+
+<div id="list"></div>
+</div>
+
+<script>
+const ITEMS = [
+
+// ─── 12 PRINCIPLES OF ANIMATION ───────────────────────────────
+{id:'A1',sec:'12 Principles of Animation',skill:'anim',sev:'minor',tags:['css'],state:'done',
+  t:'Unify button vs .btn transform timing — 100ms vs 280ms on the same element type',
+  note:'globals.css:151 → button { transition: transform 100ms } vs :166 → .btn { transition: transform 280ms }. Pick one token and apply it everywhere. Use --dur-fast (200ms) for all button transforms.'},
+
+{id:'A2',sec:'12 Principles of Animation',skill:'anim',sev:'minor',tags:['css'],state:'done',
+  t:'Chapter dot scale(1.55) exceeds the 0.95–1.05 safe deformation range',
+  note:'globals.css:228 → .chapter.active .chapter-dot { transform: scale(1.55) }. Cap at scale(1.3) max. The dot is decorative but the principle still applies — keep squash/stretch subtle.'},
+
+{id:'A3',sec:'12 Principles of Animation',skill:'anim',sev:'minor',tags:['gsap'],state:'done',
+  t:'Add ease:"power2.out" to GSAP PinnedScrollSection fromTo — no explicit ease on scrub tween',
+  note:'PinnedScrollSection.tsx:74-88 → gsap.fromTo(section, {opacity:0,y:60}, {opacity:1,y:0, scrollTrigger:{scrub:1}}). Without an explicit ease, GSAP applies power1.inOut during the scrub window. Add ease:"power2.out" to the tween object.'},
+
+{id:'A4',sec:'12 Principles of Animation',skill:'anim',sev:'minor',tags:['css'],state:'done',
+  t:'Replace chapter dot cubic-bezier overshoot with a Framer Motion spring for natural settle',
+  note:'globals.css:29 → --ease-playful: cubic-bezier(0.34,1.56,0.64,1) on chapter dots. A spring ({ type:"spring", duration:0.4, bounce:0.2 }) gives more natural velocity-based settle when the active dot jumps between chapters.'},
+
+// ─── EMIL DESIGN ENGINEERING ──────────────────────────────────
+{id:'B1',sec:'Emil Design Engineering',skill:'emil',sev:'medium',tags:['css'],state:'done',
+  t:'Replace transition:all on .system-card with specific properties + var(--ease-confident)',
+  note:'globals.css:321 → .system-card { transition: all 300ms ease }. Rewrite: transition: transform 300ms var(--ease-confident), border-color 300ms var(--ease-confident), box-shadow 300ms var(--ease-confident). The token exists — use it.'},
+
+{id:'B2',sec:'Emil Design Engineering',skill:'emil',sev:'medium',tags:['css'],state:'done',
+  t:'Replace transition:all on .marquee-item-icon with specific properties + var(--ease-confident)',
+  note:'globals.css:342 → .marquee-item-icon { transition: all 200ms ease }. Rewrite: transition: transform 200ms var(--ease-confident), box-shadow 200ms var(--ease-confident). Avoid animating properties you do not intend to animate.'},
+
+{id:'B3',sec:'Emil Design Engineering',skill:'emil',sev:'medium',tags:['css'],state:'done',
+  t:'Replace plain ease keyword with var(--ease-confident) on all .integration-icon transitions',
+  note:'globals.css:266 → .integration-icon { transition: transform 280ms ease, opacity 280ms ease, filter 280ms ease, color 280ms ease }. The custom token is defined 240 lines above. Use it on every property declaration here.'},
+
+{id:'B4',sec:'Emil Design Engineering',skill:'emil',sev:'medium',tags:['css'],state:'done',
+  t:'Replace plain ease keyword with var(--ease-confident) on .product-pillar-icon',
+  note:'globals.css:334 → .product-pillar-icon { transition: transform 300ms ease }. Same fix — swap ease for var(--ease-confident). Four CSS rules across the file still use the generic keyword despite the token being defined at line 27.'},
+
+{id:'B5',sec:'Emil Design Engineering',skill:'emil',sev:'medium',tags:['css'],state:'done',
+  t:'Gate ProductPillars Tailwind hover: classes behind @media(hover:hover) and (pointer:fine)',
+  note:'ProductPillars.tsx:39 → hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-card)]. On touch devices, Tailwind hover: fires on tap and sticks. Use [@media(hover:hover)_and_(pointer:fine)]:hover: variant, or move the rule to a CSS class inside the existing media query block.'},
+
+{id:'B6',sec:'Emil Design Engineering',skill:'emil',sev:'medium',tags:['css'],state:'done',
+  t:'Gate SiteNav link hover: classes behind pointer media query',
+  note:'SiteNav.tsx:34 → hover:bg-white hover:text-[var(--text)]. Same issue — Tailwind hover on touch. Move to [@media(hover:hover)_and_(pointer:fine)]:hover: variant or CSS. The CSS media-query blocks already exist in globals.css for this pattern.'},
+
+{id:'B7',sec:'Emil Design Engineering',skill:'emil',sev:'minor',tags:['gsap'],state:'done',
+  t:'Replace Framer Motion y shorthand with transform string for GPU acceleration in HeroSection',
+  note:'HeroSection.tsx:9 → initial:{opacity:0,y:16}, animate:{opacity:1,y:0}. The y shorthand runs on the main thread via requestAnimationFrame. Replace with: initial:{opacity:0,transform:"translateY(16px)"}, animate:{opacity:1,transform:"translateY(0)"}. Matters when the browser is loading assets during hero entrance.'},
+
+// ─── GPT-TASTE ────────────────────────────────────────────────
+{id:'C1',sec:'gpt-taste',skill:'taste',sev:'major',tags:['gsap'],state:'done',
+  t:'Implement GSAP pinned scroll: title fixed left with pin:true, feature gallery scrolls right',
+  note:'Currently missing. gpt-taste requires: ScrollTrigger pin:true on a wrapper, left column title stays fixed while a series of images/cards scrolls up the right column. This is the core "Desire" chapter paradigm. Only 1 of 4 required GSAP patterns is currently implemented.'},
+
+{id:'C2',sec:'gpt-taste',skill:'taste',sev:'major',tags:['gsap'],state:'done',
+  t:'Add image scale + fade scroll: images enter at scale:0.8, grow to 1.0, darken and fade on exit',
+  note:'Currently missing. PinnedScrollSection uses y:60 only — no scale start. Images in the scroll story sections need: gsap.fromTo(img, {scale:0.8,opacity:0}, {scale:1,opacity:1,scrollTrigger:{scrub:1}}) and an exit timeline that fades + darkens via a color overlay as the section leaves the viewport.'},
+
+{id:'C3',sec:'gpt-taste',skill:'taste',sev:'major',tags:['gsap'],state:'done',
+  t:'Add card stacking scroll — cards overlap and stack from the bottom as user scrolls down',
+  note:'Currently missing. Use position:sticky on each card with incrementing top values (top:4rem, top:8rem, top:12rem) inside a tall scroll container. Each card stacks on top of the previous as the user advances. Pair with a slight scale-down on the card that gets buried beneath.'},
+
+{id:'C4',sec:'gpt-taste',skill:'taste',sev:'major',tags:['content'],state:'done',
+  t:'Remove raw numbers from hero subtitle — move "17 messaging platforms. 300+ models." to Interest section',
+  note:'HeroSection.tsx:47 → "Persistent memory. 17 messaging platforms. 300+ models." gpt-taste bans raw stats in the hero. The hero subtitle should deliver the emotional promise; the proof numbers belong in the stats/features section where they have context and visual weight.'},
+
+{id:'C5',sec:'gpt-taste',skill:'taste',sev:'medium',tags:['content'],state:'done',
+  t:'Remove "Feature N" meta-labels from all 5 PinnedScrollSection story sections',
+  note:'PinnedScrollSection.tsx:139 → renders "Feature 1", "Feature 2", "Feature 3", "Feature 4", "Feature 5". Sequential numbered labels are explicitly banned by gpt-taste as cheap scaffolding. Remove entirely or replace with a short descriptive phrase that adds meaning ("Since day one", "Works while you sleep").'},
+
+{id:'C6',sec:'gpt-taste',skill:'taste',sev:'medium',tags:['content'],state:'done',
+  t:'Convert hero pill eyebrow to bare text — remove the bordered pill treatment',
+  note:'HeroSection.tsx:29-34 → inline-flex items-center border border-[var(--border-strong)] px-3 py-1.5 ... "Headmaster by GCAP Labs". gpt-taste bans pill-tags in the hero zone. Strip the border and background — keep the text, drop the box. A bare eyebrow at small caps reads more editorial.'},
+
+{id:'C7',sec:'gpt-taste',skill:'taste',sev:'medium',tags:['layout'],state:'done',
+  t:'Consolidate ProductPillars from 7 cards to 3–5 with structural variety, not 7 uniform items',
+  note:'gpt-taste cap: 3–5 highly intentional cards. Currently 7 identical-structure cards. Merge the two smallest pillars, or replace the featured card (Brain) with a product screenshot card, and add one stat-only card. The grid math stays valid with 5 items; dense packing auto-handles layout.'},
+
+{id:'C8',sec:'gpt-taste',skill:'taste',sev:'minor',tags:['layout'],state:'done',
+  t:'Embed inline typography images inside a section heading — pill-shaped photo within H2 text',
+  note:'gpt-taste component arsenal: "I shape <img class=inline-block w-24 h-10 rounded-full> digital spaces." Apply to the PinnedScrollSection heading or a new section. Use a Vercel blob image of the product UI or a team photo cropped to a pill. Creates premium editorial feel.'},
+
+{id:'C9',sec:'gpt-taste',skill:'taste',sev:'minor',tags:['layout'],state:'done',
+  t:'Add testimonial section: overlapping portrait images with minimalist quote typography',
+  note:'Replace or augment SocialProof with overlapping portrait circles (beta tester anonymized silhouettes or initials avatars) stacked left, quote text right. Controlled by subtle prev/next arrows. Creates the "Desire" social proof moment that raw text quotes do not fully deliver.'},
+
+// ─── IMPECCABLE ───────────────────────────────────────────────
+{id:'D1',sec:'impeccable',skill:'imp',sev:'critical',tags:['css'],state:'done',
+  t:'Change --bg from #F8F7F4 — this is exactly the AI cream default impeccable bans for 2026',
+  note:'globals.css:7 → --bg: #F8F7F4. Falls in the OKLCH L~0.97 C~0.01 hue~75 warm-neutral band that impeccable identifies as "the saturated AI default of 2026". Options: (a) true off-white at chroma 0 (#FAFAFA), (b) a cooler off-white tinted toward the brand hue, or (c) a darker mid-tone. Warmth via accent + typography — not body bg.'},
+
+{id:'D2',sec:'impeccable',skill:'imp',sev:'major',tags:['gsap'],state:'done',
+  t:'Fix GSAP opacity-0 content gating in PinnedScrollSection — content ships blank without JS',
+  note:'PinnedScrollSection.tsx:135 → className="story-section grid ... opacity-0". The opacity-0 is in the static HTML. In SSR, headless, or backgrounded tabs, GSAP may not fire and every story section ships invisible. Remove opacity-0 from className. Apply it via gsap.set(sections, {opacity:0}) inside the useEffect, after confirming GSAP has initialized.'},
+
+{id:'D3',sec:'impeccable',skill:'imp',sev:'major',tags:['css'],state:'done',
+  t:'Remove ghost-card pattern from ProductPillars: 1px border + box-shadow 24px blur on the same card',
+  note:'ProductPillars.tsx:38 → border border-[var(--border)] + hover:shadow-[var(--shadow-card)] where --shadow-card: 0 4px 24px rgba(0,0,0,.08). impeccable: pick one — a solid 1px border at brand strength OR a shadow at no more than 8px blur. Not both. Choose: keep the subtle border, remove the shadow; or remove the border and use shadow-sm (0 1px 3px).'},
+
+{id:'D4',sec:'impeccable',skill:'imp',sev:'major',tags:['css'],state:'done',
+  t:'Remove ghost-card from MarqueeStrip tooltip: 1px border + 30px blur shadow',
+  note:'MarqueeStrip.tsx:195 → border border-[var(--border)] shadow-[0_8px_30px_rgba(0,0,0,0.12)]. Same fix: 30px blur + 1px border is the codex ghost-card tell. Drop the border and keep only a well-scoped shadow (max 8px blur) or invert — keep border, remove shadow.'},
+
+{id:'D5',sec:'impeccable',skill:'imp',sev:'major',tags:['layout'],state:'done',
+  t:'Break the uniform icon+h3+p structure across all 7 ProductPillars cards',
+  note:'ProductPillars.tsx:42-54 → every card is identical: 12x12 dark square icon → h3 → p. impeccable calls this the "identical card grid" ban. The featured card (Brain, col-span-2 row-span-2) should have a different content type: a product screenshot, an animated stat, or a text-only manifesto. Three card archetypes minimum.'},
+
+{id:'D6',sec:'impeccable',skill:'imp',sev:'major',tags:['content'],state:'done',
+  t:'Reduce eyebrow usage — currently 3 surfaces use tracked uppercase eyebrows',
+  note:'Hero pill eyebrow + ProductPillars SectionHeader eyebrow + PinnedScrollSection "Feature N" labels = eyebrow on every section, which impeccable flags as AI grammar. Choose one: (a) keep the ProductPillars eyebrow as the single system eyebrow, remove from hero + pinned section; (b) drop all three and let the h2 stand alone.'},
+
+{id:'D7',sec:'impeccable',skill:'imp',sev:'medium',tags:['css'],state:'done',
+  t:'Build a semantic z-index scale — replace arbitrary 9000/9999/10000 with --z-* tokens',
+  note:'globals.css: grain z-index:9000, cursor z-index:9999, skip-link z-index:10000. impeccable + ui-ux-pro-max both flag these. Define: --z-fixed:40, --z-chapters:50, --z-nav:50, --z-overlay:60, --z-grain:70, --z-cursor:80, --z-critical:90. Apply consistently. Never use 999x values.'},
+
+{id:'D8',sec:'impeccable',skill:'imp',sev:'medium',tags:['content'],state:'done',
+  t:'Replace "mission-critical" buzzword in PinnedScrollSection stat label',
+  note:'PinnedScrollSection.tsx:44 → statLabel: "Mission-critical tasks approved". "mission-critical" is in impeccable\'s banned buzzword list. Rewrite with a specific noun: "High-stakes actions approved before sending" or "Sensitive operations await your sign-off". Describe what literally happens.'},
+
+{id:'D9',sec:'impeccable',skill:'imp',sev:'minor',tags:['css'],state:'done',
+  t:'Add text-wrap:balance to PinnedScrollSection h2',
+  note:'PinnedScrollSection.tsx:121 → <h2 className="text-[clamp(1.5rem,3vw,2.5rem)] ...">. Missing text-wrap:balance. HeroSection h1 already uses it. Apply consistently to all h2/h3 elements where short ragged lines can appear.'},
+
+{id:'D10',sec:'impeccable',skill:'imp',sev:'minor',tags:['css'],state:'done',
+  t:'Add text-wrap:balance to ProductPillars h3 headings',
+  note:'ProductPillars.tsx:50 → <h3 className="text-[30px] md:text-[38px] ... mb-3">. Missing text-wrap:balance. Pillar titles like "Subagent Delegation" can break oddly at mid-range viewports. One class addition fixes it.'},
+
+{id:'D11',sec:'impeccable',skill:'imp',sev:'minor',tags:['css'],state:'done',
+  t:'Add text-wrap:pretty to PinnedScrollSection body paragraphs to prevent orphans',
+  note:'PinnedScrollSection.tsx:145 → <p className="text-[17px] leading-relaxed ...">. text-wrap:pretty specifically targets the last line to prevent single-word orphans. Complements the existing 70ch max-width. Low effort, high polish.'},
+
+// ─── UI/UX PRO MAX ────────────────────────────────────────────
+{id:'E1',sec:'ui-ux-pro-max',skill:'ux',sev:'medium',tags:['css'],state:'done',
+  t:'Add cursor:pointer to the button rule in globals.css',
+  note:'globals.css:151 → button, a[role="button"], a[href] { transition: transform 100ms ease-out } — no cursor:pointer. HTML <button> defaults to cursor:default in most browsers. Add cursor:pointer to this rule. One property, one line. Affects every button on the site.'},
+
+{id:'E2',sec:'ui-ux-pro-max',skill:'ux',sev:'medium',tags:['css'],state:'done',
+  t:'Add touch-action:manipulation to buttons and links to eliminate the 300ms tap delay on mobile',
+  note:'globals.css:151 — no touch-action set anywhere. touch-action:manipulation tells the browser not to wait for a double-tap zoom gesture, cutting the tap delay from 300ms to near-instant. Add to the same rule: button, a[href], a[role="button"] { touch-action: manipulation }. Combine with the cursor:pointer fix.'},
+
+{id:'E3',sec:'ui-ux-pro-max',skill:'ux',sev:'minor',tags:['css'],state:'done',
+  t:'Change hero paragraph from leading-snug (1.375) to leading-relaxed (1.625)',
+  note:'HeroSection.tsx:45 → className="... leading-snug". ui-ux-pro-max requires 1.5–1.75 line-height for body text. The hero paragraph at 19-21px is body text, not display text. leading-snug (1.375) is below spec. Use leading-relaxed (1.625) or leading-normal (1.5) minimum.'},
+
+{id:'E4',sec:'ui-ux-pro-max',skill:'ux',sev:'minor',tags:['css'],state:'done',
+  t:'Add overflow-x:hidden to the main layout wrapper to prevent GSAP horizontal scroll flash',
+  note:'layout.tsx — no overflow-x:hidden on <main> or <body>. GSAP off-screen setup (elements positioned to the right of the viewport before animating in) can cause a momentary horizontal scrollbar flash on page load. Wrap page content in a container with overflow-x:hidden as recommended by gpt-taste and ui-ux-pro-max.'},
+
+{id:'E5',sec:'ui-ux-pro-max',skill:'ux',sev:'minor',tags:['css'],state:'done',
+  t:'Verify all interactive elements show cursor:pointer after the globals.css fix is applied',
+  note:'After E1 is implemented, audit all custom interactive components (ChatSection, MarqueeStrip buttons, chapter dots, scroll-progress bar) to confirm they inherit or explicitly set cursor:pointer. The global rule covers button and a[href] — custom div-based interactive elements need explicit treatment.'},
+
+];
+
+const SEC_ORDER = [
+  '12 Principles of Animation',
+  'Emil Design Engineering',
+  'gpt-taste',
+  'impeccable',
+  'ui-ux-pro-max',
+];
+
+const SKILL_LABELS = {
+  anim: '12-Principles',
+  emil: 'Emil',
+  taste: 'gpt-taste',
+  imp: 'impeccable',
+  ux: 'ui-ux-pro-max',
+};
+
+const SKILL_BADGE_CLASS = {
+  anim: 'bskill-anim',
+  emil: 'bskill-emil',
+  taste: 'bskill-taste',
+  imp: 'bskill-imp',
+  ux: 'bskill-ux',
+};
+
+let cf = 'all';
+
+function setF(f, el) {
+  cf = f;
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  render();
+}
+
+function match(item) {
+  if (cf === 'all') return true;
+  if (cf === 'critical') return item.sev === 'critical';
+  if (cf === 'major') return item.sev === 'major';
+  if (cf === 'medium') return item.sev === 'medium';
+  if (cf === 'minor') return item.sev === 'minor';
+  if (cf === 'gsap') return item.tags.includes('gsap');
+  if (cf === 'css') return item.tags.includes('css');
+  if (cf === 'content') return item.tags.includes('content');
+  if (cf === 'layout') return item.tags.includes('layout');
+  return item.skill === cf;
+}
+
+function sevBadge(s) {
+  const cls = { critical: 'bc', major: 'bm', medium: 'bmed', minor: 'bn' };
+  const lbl = { critical: 'Critical', major: 'Major', medium: 'Medium', minor: 'Minor' };
+  return `<span class="badge ${cls[s]}">${lbl[s]}</span>`;
+}
+
+function skillBadge(skill) {
+  return `<span class="badge ${SKILL_BADGE_CLASS[skill]}">${SKILL_LABELS[skill]}</span>`;
+}
+
+function stateClass(item) {
+  if (item.state === 'done') return 'done';
+  return `todo-${item.sev}`;
+}
+
+function render() {
+  const el = document.getElementById('list');
+  const filtered = ITEMS.filter(match);
+  if (!filtered.length) { el.innerHTML = '<div class="empty">No items match this filter.</div>'; return; }
+
+  const bySec = {};
+  SEC_ORDER.forEach(s => bySec[s] = []);
+  filtered.forEach(i => { if (bySec[i.sec]) bySec[i.sec].push(i); });
+
+  let html = '';
+  SEC_ORDER.forEach(sec => {
+    const its = bySec[sec];
+    if (!its.length) return;
+    const dc = its.filter(i => i.state === 'done').length;
+    const skill = its[0].skill;
+    html += `<div class="sec"><div class="sec-hdr">
+      <span class="sec-title">${sec}</span>
+      <span class="badge ${SKILL_BADGE_CLASS[skill]}" style="margin-left:6px">${SKILL_LABELS[skill]}</span>
+      <span class="sec-ct" style="margin-left:auto">${dc} done · ${its.length - dc} remaining</span>
+    </div>`;
+    its.forEach(item => {
+      html += `<div class="item ${stateClass(item)}" onclick="toggle('${item.id}')">
+        <div class="chk"><span class="chk-inner">✓</span></div>
+        <div class="item-body">
+          <div class="item-title">${item.t}</div>
+          ${item.note ? `<div class="item-note ref">${item.note}</div>` : ''}
+          <div class="item-meta">
+            ${sevBadge(item.sev)}
+            ${skillBadge(item.skill)}
+            ${item.tags.map(t => `<span class="badge bn">${t}</span>`).join('')}
+          </div>
+        </div>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  el.innerHTML = html;
+  updateProgress();
+}
+
+function toggle(id) {
+  const item = ITEMS.find(i => i.id === id);
+  if (!item) return;
+  item.state = item.state === 'done' ? 'todo' : 'done';
+  render();
+}
+
+function updateProgress() {
+  const done = ITEMS.filter(i => i.state === 'done').length;
+  const pct = Math.round((done / ITEMS.length) * 100);
+  const fill = document.querySelector('.prog-fill');
+  const lbl = document.querySelector('.prog-lbl');
+  if (fill) fill.style.width = pct + '%';
+  if (lbl) lbl.textContent = `${done} / ${ITEMS.length}`;
+}
+
+render();
+</script>
+</body>
+</html>

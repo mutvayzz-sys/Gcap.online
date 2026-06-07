@@ -14,7 +14,7 @@ export default function ChatSection() {
       <div className="grid lg:grid-cols-2 gap-14 items-center">
         <div data-reveal>
           <SectionHeader
-            eyebrow="More Than a Chat Box"
+            eyebrow="Ask it. It runs."
             title="Ask Headmaster. Get work moving."
             body="Start with a request, attach context, and let Headmaster turn it into a plan, workflow, draft, or approval-ready output. Chat is the front door — the product is what happens behind it."
           />

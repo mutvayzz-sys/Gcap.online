@@ -50,7 +50,7 @@ export default function FinalCTA() {
     >
       <div className="max-w-3xl mx-auto text-center mb-10">
         <h2 className="text-[36px] md:text-[52px] tracking-[-1.6px] md:tracking-[-2.2px] font-medium mb-4 leading-tight">
-          Deploy Headmaster inside your organization.
+          Ready to put Headmaster to work?
         </h2>
         <p className="text-[18px] md:text-[20px] text-[var(--text-muted)]">
           Start with one workflow, connect the right tools, and let your AI workforce learn from real operations.
@@ -77,7 +77,7 @@ export default function FinalCTA() {
 
           <div>
             <label htmlFor="cta-workflow" className="block text-xs tracking-widest uppercase text-[var(--text-muted)] mb-1.5">Workflow you want to start with</label>
-            <input id="cta-workflow" type="text" name="workflow" className="field" placeholder="e.g. Weekly client reports, Grade 8 progress reports" required aria-required="true" />
+            <input id="cta-workflow" type="text" name="workflow" className="field" placeholder="e.g. Weekly client reports, release summaries, operations checklists" required aria-required="true" />
           </div>
 
           <div>
@@ -97,14 +97,14 @@ export default function FinalCTA() {
               disabled={loading}
               aria-describedby={error ? "form-error" : undefined}
               data-magnet
-              className="flex-1 py-4 rounded-2xl bg-[#111111] text-[#F9F7F3] text-[15px] font-medium hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 py-4 rounded-2xl bg-[#111111] text-[#F9F7F3] text-[15px] font-medium hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F7F3]"
             >
-              {loading ? "Sending..." : "Book a Demo"}
+              {loading ? "Sending..." : "Request a deployment call"}
             </button>
             <button
               type="button"
               onClick={() => window.open("mailto:waitlist@gcap.online?subject=Headmaster Deployment Discussion", "_blank")}
-              className="flex-1 py-4 rounded-2xl border border-[var(--border-strong)] text-[15px] font-medium hover:bg-white transition-all"
+              className="flex-1 py-4 rounded-2xl border border-[var(--border-strong)] text-[15px] font-medium hover:bg-white transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)]"
             >
               Discuss a Deployment
             </button>
@@ -119,7 +119,7 @@ export default function FinalCTA() {
           <p className="text-[var(--text-muted)]">
             Thank you. Our team will review your deployment fit and reach out with next steps.
           </p>
-          <button onClick={() => setSubmitted(false)} className="mt-6 text-sm underline text-[var(--text-muted)] hover:text-[var(--text)]">
+          <button onClick={() => setSubmitted(false)} className="mt-6 text-sm underline text-[var(--text-muted)] hover:text-[var(--text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)]">
             Submit another request
           </button>
         </div>

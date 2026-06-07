@@ -1,0 +1,244 @@
+---
+title: Security & Compliance
+description: Security features, compliance certifications, and data handling practices
+---
+
+# Security & Compliance
+
+Headmaster is built with enterprise-grade security from the ground up. We implement defense-in-depth across all layers of the platform.
+
+## Security Architecture
+
+### Encryption
+
+**In Transit**
+- All communication uses TLS 1.3
+- Certificate pinning for critical endpoints
+- Perfect forward secrecy for all sessions
+- Mutual TLS for service-to-service communication
+
+**At Rest**
+- AES-256 encryption for all data
+- Separate encryption keys per customer
+- Hardware security modules (HSMs) for key storage
+- Regular key rotation (90-day schedule)
+
+**Sensitive Data**
+- API keys and credentials encrypted with envelope encryption
+- PII masked in logs and audit trails
+- Password hashing with PBKDF2 and salt
+- Memory/conversation data encrypted with customer-specific keys
+
+### Access Control
+
+**Authentication**
+- OAuth 2.0 and SAML 2.0 support
+- Multi-factor authentication (MFA) required for admin access
+- Session timeouts: 24 hours for web, 30 days for API
+- Impossible travel detection
+
+**Authorization**
+- Role-based access control (RBAC)
+- Team-based isolation of agents and data
+- Principle of least privilege
+- Audit logging for all permission changes
+
+**API Security**
+- API key rotation required every 90 days
+- Rate limiting: 1000 req/min per key
+- IP whitelisting available
+- Webhook signature validation
+
+### Network Security
+
+- DDoS protection with Cloudflare
+- VPC isolation for dedicated deployments
+- VPN/private link support
+- Egress IP whitelisting
+
+### Application Security
+
+**Code Security**
+- SAST scanning on every commit
+- Dependency vulnerability scanning
+- Regular penetration testing
+- Bug bounty program ($500-$25,000 rewards)
+
+**Data Validation**
+- Input validation on all endpoints
+- SQL injection prevention
+- XSS protection
+- CSRF tokens on state-changing operations
+
+**Error Handling**
+- Generic error messages to users
+- Detailed errors logged for debugging
+- No sensitive data in error responses
+- Stack traces hidden in production
+
+## Compliance Certifications
+
+### SOC 2 Type II
+- **Scope**: Organization's control environment
+- **Audit Period**: 12 months
+- **Trust Principles**: Security, Availability, Processing Integrity, Confidentiality, Privacy
+- **Status**: Current, expires December 2025
+- **Auditor**: CliftonLarsonAllen LLP
+
+### GDPR Compliance
+- **Data Controller**: GCAP Labs (for processing)
+- **Data Processor**: Your organization (for stored data)
+- **Rights**: Full data subject access, portability, deletion
+- **Transfers**: Standard Contractual Clauses (SCCs) for EU transfers
+- **DPA**: Data Processing Agreement included
+
+### HIPAA Compliance
+- **Business Associate Agreement**: Available for healthcare organizations
+- **Encryption**: NIST-approved algorithms for PHI
+- **Audit Controls**: Logging of all PHI access
+- **Access Controls**: Role-based access to health information
+- **Integrity**: Data integrity verification and checksums
+
+### CCPA & State Privacy Laws
+- **Consumer Rights**: Access, deletion, data portability, opt-out
+- **Do Not Sell**: Personal information never sold or shared
+- **Privacy Policy**: Clear disclosure of data practices
+- **Right to Delete**: Automated deletion of personal data
+- **Breach Notification**: 30-day breach notification requirement
+
+### ISO/IEC 27001
+- **Status**: Certified
+- **Scope**: Information security management system
+- **Auditor**: Bureau Veritas
+- **Focus**: Confidentiality, integrity, availability
+
+### Other Standards
+- **PCI DSS**: Not applicable (we don't process credit cards)
+- **FedRAMP**: Authorized for US federal government use
+- **C5**: German security certification for cloud services
+- **IRAP**: Australian Information Security Registered Assessors Program
+
+## Data Handling Practices
+
+### Data Retention
+
+**Active Data** (while customer uses Headmaster)
+- Conversation logs and memory: retained indefinitely or per customer policy
+- System logs: 90 days
+- Audit logs: 2 years
+- Backups: 30-day rolling window
+
+**Deleted Data** (after customer deletes organization)
+- Immediate deletion from operational systems
+- Removed from backups within 30 days
+- Cryptographic erasure certificate provided
+- No manual recovery possible
+
+### Data Residency
+
+Select where your data is stored:
+- **US**: AWS us-east-1 (N. Virginia)
+- **EU**: AWS eu-west-1 (Ireland)
+- **Asia-Pacific**: AWS ap-southeast-1 (Singapore)
+- **Custom**: Private cloud deployments available
+
+### Data Ownership
+
+- **Your Data**: You own all agent configurations, conversations, and memory
+- **Our Systems**: We retain service logs and anonymized usage metrics
+- **Third Parties**: Never shared without explicit consent
+- **Subprocessors**: Published at [gcap.online/subprocessors](/subprocessors)
+
+## Operational Security
+
+### Infrastructure
+
+**Deployment**
+- Infrastructure as Code (IaC) for reproducibility
+- Blue-green deployments for zero downtime
+- Canary releases for gradual rollouts
+- Rollback capability for all updates
+
+**Monitoring**
+- 24/7 security operations center
+- Real-time threat detection
+- Automated incident response
+- Monthly security reviews
+
+**Incident Response**
+- Documented incident response procedures
+- 24/7 incident hotline: +1-415-555-0147
+- Maximum response time: 1 hour for critical issues
+- Post-incident reviews with customers
+
+### Staff Security
+
+**Employee Access**
+- Background checks for all employees
+- Least privilege principle for system access
+- Mandatory security training (annual)
+- NDAs and security agreements required
+
+**Access Logging**
+- All privileged access logged
+- Access reviews quarterly
+- Exceptions require approval
+- Audit trail immutable
+
+## Vulnerability Management
+
+### Scanning
+- Weekly vulnerability scans
+- Continuous SAST scanning
+- Dependency vulnerability detection
+- Regular penetration testing
+
+### Patching
+- Critical patches: deployed within 24 hours
+- High severity: within 7 days
+- Medium/Low: within 30 days
+- Emergency patches as needed
+
+### Disclosure
+- Responsible vulnerability disclosure policy
+- Bug bounty program for external researchers
+- Security advisories published for CVEs
+- CVSS score assessment for all vulnerabilities
+
+## Compliance Support
+
+### Documentation
+- Data Processing Agreements (DPA)
+- Business Associate Agreements (BAA) for HIPAA
+- Security attestations and SOC 2 reports
+- Compliance questionnaires
+
+### Audits
+- Right to audit included in contracts
+- Customer-led audits supported
+- Third-party audits accommodated
+- Audit results provided within 30 days
+
+### Training
+- Security documentation and guides
+- Implementation best practices
+- Compliance workshop availability
+- Ongoing support during audits
+
+## Reporting Security Issues
+
+Found a security vulnerability? Please report it responsibly:
+
+1. **Do not** open public issues
+2. Email: security@gcaplabs.com
+3. PGP Key: [Available here](https://gcap.online/security-pgp)
+4. Include: vulnerability details, affected versions, proof of concept
+
+**Response SLA**: Initial response within 24 hours, updates every 7 days.
+
+## Additional Resources
+
+- [Security Policy](https://gcap.online/security-policy)
+- [Incident Response Plan](https://gcap.online/incident-response)
+- [Subprocessor List](https://gcap.online/subprocessors)
+- [Bug Bounty Program](https://gcap.online/bug-bounty)

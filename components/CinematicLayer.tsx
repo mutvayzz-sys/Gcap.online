@@ -1,11 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 type LenisController = {
   raf: (time: number) => void;
   scrollTo: (target: HTMLElement, options?: { offset?: number }) => void;
   destroy: () => void;
+};
+
+type MagneticElement = HTMLElement & {
+  __magnetBound?: boolean;
 };
 
 declare global {
@@ -17,6 +22,7 @@ declare global {
 export default function CinematicLayer() {
   useEffect(() => {
     const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const FINE = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
     // Scroll progress bar
     const bar = document.createElement("div");
@@ -35,17 +41,11 @@ export default function CinematicLayer() {
 
     if (REDUCED) return cleanup;
 
-    // Film grain
-    initGrain();
-
-    // Scroll reveals
-    initReveals();
-
     // Lenis smooth scroll
     let lenis: LenisController | null = null;
     let lenisRaf: number | null = null;
     import("lenis").then(({ default: Lenis }) => {
-      lenis = new Lenis({ lerp: 0.12, wheelMultiplier: 1.05, smoothWheel: true });
+      lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
       window.__lenis = lenis;
       function rafLoop(time: number) {
         lenis?.raf(time);
@@ -71,6 +71,15 @@ export default function CinematicLayer() {
     };
     document.addEventListener("click", handleAnchorClick);
 
+    // Custom cursor (fine pointer only)
+    if (FINE) initCursor();
+
+    // Film grain
+    initGrain();
+
+    // Scroll reveals
+    initReveals();
+
     function buildChapters() {
       const secs = [...document.querySelectorAll("[data-chapter]")] as HTMLElement[];
       if (!secs.length) return;
@@ -84,7 +93,7 @@ export default function CinematicLayer() {
         const btn = document.createElement("button");
         btn.className = "chapter";
         btn.setAttribute("data-goto", id);
-        btn.innerHTML = `<span class="chapter-label">${label}</span><span class="chapter-dot"></span>`;
+        btn.innerHTML = `<span class="chapter-label">${label}</span><div class="chapter-dot-container"><span class="chapter-dot"></span></div>`;
         btn.addEventListener("click", () => {
           const target = document.getElementById(id);
           if (!target) return;
@@ -105,13 +114,70 @@ export default function CinematicLayer() {
           const sec = entry.target as HTMLElement;
           const id = sec.getAttribute("data-chapter");
           const isDark = sec.getAttribute("data-theme") === "dark";
-          document.querySelectorAll(".chapter").forEach((c) =>
-            c.classList.toggle("active", c.getAttribute("data-goto") === id)
-          );
+          document.querySelectorAll(".chapter").forEach((c) => {
+            const isActive = c.getAttribute("data-goto") === id;
+            c.classList.toggle("active", isActive);
+            const dotContainer = c.querySelector(".chapter-dot-container") as HTMLElement;
+            if (dotContainer) {
+              dotContainer.style.transform = isActive ? "scale(1.3)" : "scale(1)";
+              dotContainer.style.transition = "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)";
+            }
+          });
           rail.classList.toggle("on-dark", isDark);
         });
       }, { threshold: 0, rootMargin: "-45% 0px -45% 0px" });
       secs.forEach((sec) => io.observe(sec));
+    }
+
+    function initCursor() {
+      if (document.querySelector(".cursor-ring")) return;
+      const ring = document.createElement("div");
+      ring.className = "cursor-ring";
+      const dot = document.createElement("div");
+      dot.className = "cursor-dot";
+      document.body.appendChild(ring);
+      document.body.appendChild(dot);
+      document.body.classList.add("has-cursor");
+
+      let mx = innerWidth / 2, my = innerHeight / 2;
+      let rx = mx, ry = my;
+      const LERP = 0.15;
+
+      window.addEventListener("pointermove", (e) => {
+        mx = e.clientX; my = e.clientY;
+        dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+      });
+
+      const bindMagnets = () => {
+        document.querySelectorAll("[data-magnet]").forEach((el: Element) => {
+          const elem = el as MagneticElement;
+          if (elem.__magnetBound) return;
+          elem.__magnetBound = true;
+          elem.addEventListener("pointerenter", () => ring.classList.add("is-magnet"));
+          elem.addEventListener("pointerleave", () => {
+            ring.classList.remove("is-magnet");
+            elem.style.transition = "transform var(--dur-leave) var(--ease-confident)";
+            elem.style.transform = "translate(0,0)";
+          });
+          elem.addEventListener("pointermove", (e) => {
+            const r = elem.getBoundingClientRect();
+            const dx = (e.clientX - (r.left + r.width / 2)) * 0.18;
+            const dy = (e.clientY - (r.top + r.height / 2)) * 0.3;
+            elem.style.transition = "transform var(--dur-fast) var(--ease-confident)";
+            elem.style.transform = `translate(${dx}px, ${dy}px)`;
+          });
+        });
+      };
+      bindMagnets();
+      setTimeout(bindMagnets, 800);
+
+      function loop() {
+        rx += (mx - rx) * LERP;
+        ry += (my - ry) * LERP;
+        ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
     }
 
     function initGrain() {
@@ -139,17 +205,27 @@ export default function CinematicLayer() {
     }
 
     function initReveals() {
+      if (REDUCED) {
+        // Skip animations if prefers-reduced-motion
+        document.querySelectorAll("[data-reveal], [data-reveal-item]").forEach((el) => {
+          const elem = el as HTMLElement;
+          elem.style.opacity = "1";
+          elem.style.transform = "none";
+        });
+        return;
+      }
+
       const io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const el = entry.target as HTMLElement;
-          el.style.transition = "opacity 0.66s cubic-bezier(0.16,1,0.30,1), transform 0.66s cubic-bezier(0.16,1,0.30,1)";
+          el.style.transition = "opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)";
           el.style.opacity = "1";
           el.style.transform = "translateY(0)";
           el.style.willChange = "auto";
           io.unobserve(el);
         });
-      }, { threshold: 0, rootMargin: "0px 0px -16% 0px" });
+      }, { threshold: 0, rootMargin: "0px 0px -80px 0px" });
 
       const groupIo = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -158,20 +234,19 @@ export default function CinematicLayer() {
           const items = group.querySelectorAll("[data-reveal-item]") as NodeListOf<HTMLElement>;
           items.forEach((item, i) => {
             setTimeout(() => {
-              item.style.transition = "opacity 0.6s cubic-bezier(0.16,1,0.30,1), transform 0.6s cubic-bezier(0.16,1,0.30,1)";
+              item.style.transition = "opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)";
               item.style.opacity = "1";
               item.style.transform = "translateY(0)";
-              item.style.willChange = "auto";
-            }, i * 70);
+            }, i * 50);
           });
           groupIo.unobserve(group);
         });
-      }, { threshold: 0, rootMargin: "0px 0px -20% 0px" });
+      }, { threshold: 0, rootMargin: "0px 0px -80px 0px" });
 
       document.querySelectorAll("[data-reveal]").forEach((el) => {
         const elem = el as HTMLElement;
         elem.style.opacity = "0";
-        elem.style.transform = "translateY(22px)";
+        elem.style.transform = "translateY(16px)";
         elem.style.willChange = "transform, opacity";
         io.observe(elem);
       });
@@ -180,8 +255,7 @@ export default function CinematicLayer() {
         const items = group.querySelectorAll("[data-reveal-item]") as NodeListOf<HTMLElement>;
         items.forEach((item) => {
           item.style.opacity = "0";
-          item.style.transform = "translateY(20px)";
-          item.style.willChange = "transform, opacity";
+          item.style.transform = "translateY(12px)";
         });
         groupIo.observe(group);
       });

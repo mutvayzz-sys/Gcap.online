@@ -16,7 +16,7 @@ export default function DeploymentSection() {
         {/* Left intro + capabilities list */}
         <div className="lg:col-span-5">
           <SectionHeader
-            eyebrow="Configured Around Your Organization"
+            eyebrow="Built around how your org actually works"
             title="Configured Deployments"
             body="Every deployment can include custom workflows, private memory, approved tools, branded interfaces, role permissions, and human review rules."
           />
@@ -44,7 +44,7 @@ export default function DeploymentSection() {
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <div className="text-xs uppercase tracking-[2px] text-white/40">Private Deployment</div>
-                  <div className="text-xl font-medium tracking-tight mt-1">Acme School District — Prod</div>
+                  <div className="text-xl font-medium tracking-tight mt-1">Acme Operations Workspace — Prod</div>
                 </div>
                 <div className="text-xs px-3 py-1 border border-white/20 text-white/70">Isolated</div>
               </div>
@@ -52,24 +52,24 @@ export default function DeploymentSection() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                 <div className="rounded-xl bg-white/5 p-4">
                   <div className="text-white/50 text-xs mb-1">Memory &amp; Skills</div>
-                  <div className="text-white">14 custom workflows • Prior term formats • Parent tone library</div>
+                  <div className="text-white">14 custom workflows • Brand voice memory • Client reporting formats</div>
                 </div>
                 <div className="rounded-xl bg-white/5 p-4">
                   <div className="text-white/50 text-xs mb-1">Connected Tools</div>
-                  <div className="text-white">Google Workspace • SIS • Email • Calendar • Internal Drive</div>
+                  <div className="text-white">Google Workspace • CRM • Email • Calendar • Internal Drive</div>
                 </div>
                 <div className="rounded-xl bg-white/5 p-4">
                   <div className="text-white/50 text-xs mb-1">Access &amp; Roles</div>
-                  <div className="text-white">Teachers (read + draft) • Admins (approve) • IT (config)</div>
+                  <div className="text-white">Team roles • Managers approve external communications • IT config</div>
                 </div>
                 <div className="rounded-xl bg-white/5 p-4">
                   <div className="text-white/50 text-xs mb-1">Approval Gates</div>
-                  <div className="text-white">All parent comms • Grade changes • External exports</div>
+                  <div className="text-white">External communications • Data edits • Client-facing exports</div>
                 </div>
               </div>
 
               <div className="mt-6 text-xs text-white/50 border-t border-white/10 pt-4">
-                Branded interface enabled • 3 scheduled automations active • Full audit log retained
+                Approved tools enabled • 3 scheduled automations active • Full audit trail retained
               </div>
             </div>
           </div>

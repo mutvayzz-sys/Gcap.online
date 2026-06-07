@@ -14,7 +14,7 @@ export const deploymentCapabilities: readonly DeploymentCapability[] = [
   },
   {
     title: "Role-Based Access",
-    description: "Admins, staff, managers, teachers, or operators can receive different permissions.",
+    description: "Admins, staff, managers, operators, and client-facing teams can receive different permissions.",
   },
   {
     title: "Human Approval",

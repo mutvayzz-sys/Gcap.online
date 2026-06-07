@@ -7,74 +7,61 @@ import { AnimatePresence, motion } from "framer-motion";
 import HeroSection from "@/components/HeroSection";
 import ProductPillars from "@/components/ProductPillars";
 import ChatSection from "@/components/ChatSection";
-import MemorySection from "@/components/MemorySection";
-import SkillsSection from "@/components/SkillsSection";
-import SpecialistAgents from "@/components/SpecialistAgents";
-import RunsSection from "@/components/RunsSection";
+import PinnedScrollSection from "@/components/PinnedScrollSection";
+import GuidedWorkflowSection from "@/components/GuidedWorkflowSection";
 import ApprovalsSection from "@/components/ApprovalsSection";
-import ScheduledWork from "@/components/ScheduledWork";
-import ChannelsSection from "@/components/ChannelsSection";
 import IntegrationsSection from "@/components/IntegrationsSection";
 import DeploymentSection from "@/components/DeploymentSection";
 import TrustControl from "@/components/TrustControl";
 import UseCases from "@/components/UseCases";
-import SchoolExample from "@/components/SchoolExample";
 import ModelAgnostic from "@/components/ModelAgnostic";
-import TayX from "@/components/TayX";
-import FeatureMatrix from "@/components/FeatureMatrix";
-import FAQ from "@/components/FAQ";
+import TayXSection from "@/components/TayXSection";
 import FinalCTA from "@/components/FinalCTA";
+import StatsReveal from "@/components/StatsReveal";
+import PinnedSplitSection from "@/components/PinnedSplitSection";
+import ScrollFadeSection from "@/components/ScrollFadeSection";
+import StackedCardsSection from "@/components/StackedCardsSection";
+import InlineImageHeading from "@/components/InlineImageHeading";
+import TestimonialCarousel from "@/components/TestimonialCarousel";
 
 export default function GCAPLabs() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const scrollTo = (id: string) => {
-    setMobileMenuOpen(false);
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const lenis = (window as unknown as { __lenis?: { scrollTo: (el: HTMLElement, opts?: { offset?: number }) => void } }).__lenis;
-      if (lenis) lenis.scrollTo(el, { offset: 0 });
-      else el.scrollIntoView({ behavior: "smooth" });
-    }, 50);
-  };
-
   const navItems = [
-    { href: "#product", label: "Product" },
-    { href: "#features", label: "Features" },
-    { href: "#use-cases", label: "Use Cases" },
-    { href: "#deployments", label: "Deployments" },
-    { href: "#contact", label: "Contact" },
+    { href: "/products/headmaster", label: "Headmaster" },
+    { href: "/products/hq", label: "HQ" },
+    { href: "/integrations", label: "Integrations" },
+    { href: "/use-cases", label: "Use Cases" },
+    { href: "/contact", label: "Contact" },
   ];
 
   return (
-    <div className="min-h-[100dvh] bg-[var(--bg)] text-[var(--text)] selection:bg-[#111] selection:text-white">
-      {/* Fixed Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/95 backdrop-blur-xl border-b border-[var(--border)]">
-        <div className="max-w-[1280px] mx-auto px-8 h-20 flex items-center justify-between">
-          <a href="#top" className="flex items-center gap-3">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] selection:bg-[#111] selection:text-white">
+      {/* Floating premium nav */}
+      <nav className="fixed left-0 right-0 top-4 z-50 px-4" aria-label="Primary navigation">
+        <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between rounded-full border border-white/60 bg-[var(--bg)]/78 px-4 pl-5 shadow-[0_18px_60px_rgba(17,17,17,0.10)] backdrop-blur-2xl ring-1 ring-black/5 md:px-5">
+          <a href="#top" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">
             <Image src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} priority />
             <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
           </a>
 
-          <div className="hidden md:flex items-center gap-8 text-[15px]">
+          <div className="hidden md:flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/55 p-1 text-[14px] shadow-inner shadow-white/60">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="hover:text-[var(--text-muted)] transition-colors">
+              <a key={item.href} href={item.href} className="rounded-full px-4 py-2 text-[var(--text-muted)] transition-colors hover:bg-white hover:text-[var(--text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)]">
                 {item.label}
               </a>
             ))}
-            <button
-              onClick={() => scrollTo("contact")}
-              className="px-6 py-[10px] rounded-full bg-[#111111] text-[#F9F7F3] text-sm hover:bg-black transition-colors"
-              aria-label="Book a demo"
+            <a
+              href="/contact"
+              className="ml-1 rounded-full bg-[#111111] px-5 py-2.5 text-sm text-[#F9F7F3] shadow-[0_10px_30px_rgba(0,0,0,0.16)] transition-colors hover:bg-black active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F7F3]"
             >
               Book a Demo
-            </button>
+            </a>
           </div>
 
           <button
             onClick={() => setMobileMenuOpen((p) => !p)}
-            className="md:hidden z-50 relative flex flex-col gap-[5px] p-2"
+            className="md:hidden z-50 relative flex flex-col gap-[5px] p-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded"
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -100,19 +87,19 @@ export default function GCAPLabs() {
                   key={href}
                   href={href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-3xl tracking-tight font-medium hover:text-[var(--text-muted)] transition-colors"
+                  className="text-3xl tracking-tight font-medium hover:text-[var(--text-muted)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded"
                 >
                   {label}
                 </a>
               ))}
             </nav>
-            <button
-              onClick={() => scrollTo("contact")}
-              className="mt-10 w-full py-4 rounded-full bg-[#111111] text-[#F9F7F3] text-lg font-medium"
-              aria-label="Book a demo"
+            <a
+              href="/contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="mt-10 w-full py-4 rounded-full bg-[#111111] text-[#F9F7F3] text-lg font-medium text-center active:scale-[0.97] transition-transform focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F7F3]"
             >
               Book a Demo
-            </button>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
@@ -120,71 +107,64 @@ export default function GCAPLabs() {
       {/* HERO */}
       <HeroSection />
 
-      {/* PRODUCT PILLARS — what Headmaster is built on */}
-      <ProductPillars />
-
-      {/* CHAT — ask → work */}
+      {/* CHAT — front door to the product */}
       <ChatSection />
 
-      {/* MEMORY + SKILLS — how it learns your org */}
-      <MemorySection />
-      <SkillsSection />
+      {/* PRODUCT PILLARS — broad system overview */}
+      <ProductPillars />
 
-      {/* SPECIALIST AGENTS — who does the work */}
-      <SpecialistAgents />
+      {/* EDITORIAL CHAPTER BREAK */}
+      <InlineImageHeading />
 
-      {/* RUNS — what gets logged */}
-      <RunsSection />
+      {/* HOW IT WORKS — pinned left title, steps scroll right */}
+      <PinnedSplitSection />
 
-      {/* APPROVALS — the control pivot */}
-      <ApprovalsSection />
+      {/* PINNED SCROLL SECTION — product story with parallax and reveal */}
+      <PinnedScrollSection />
 
-      {/* SCHEDULED WORK — autonomous but supervised */}
-      <ScheduledWork />
+      {/* PROOF NUMBERS — key stats scale in and fade on scroll */}
+      <ScrollFadeSection />
 
-      {/* CHANNELS — how you reach it */}
-      <ChannelsSection />
+      {/* GUIDED WORKFLOW — strongest product proof */}
+      <GuidedWorkflowSection />
 
-      {/* INTEGRATIONS — gateways + providers + connectors */}
+      {/* FEATURE STACK — additional capabilities in stacking cards */}
+      <StackedCardsSection />
+
+      {/* INTEGRATIONS — visual proof only on the homepage */}
       <IntegrationsSection />
 
-      {/* CONFIGURED DEPLOYMENTS — your org, your config */}
+      {/* USE CASES — school is one vertical, not the homepage identity */}
+      <UseCases />
+
+      {/* TRUST + APPROVALS — control stays with people */}
+      <TrustControl />
+      <ApprovalsSection />
+
+      {/* DEPLOYMENTS — generic workspace snapshot */}
       <DeploymentSection />
 
-      {/* TRUST & CONTROL — near the B2B close argument */}
-      <TrustControl />
-
-      {/* USE CASES + SCHOOL EXAMPLE */}
-      <UseCases />
-      <SchoolExample />
-
-      {/* MODEL-AGNOSTIC + TAYX — pair the model story */}
+      {/* MODEL-AGNOSTIC + TAYX TEASER */}
       <ModelAgnostic />
-      <TayX />
+      <TayXSection />
 
-      {/* FEATURE MATRIX — for buyers who want the full list */}
-      <FeatureMatrix />
+      {/* STATS REVEAL — text animation on scroll */}
+      <StatsReveal />
 
-      {/* FAQ */}
-      <section id="faq" data-chapter="faq" data-label="FAQ" className="max-w-[1280px] mx-auto px-8 py-24 border-b border-[var(--border)]">
-        <div className="max-w-3xl mx-auto">
-          <div className="mb-12 text-center" data-reveal>
-            <div className="mb-4 text-xs font-medium uppercase tracking-[0.26em] text-[var(--text-muted)]">Questions</div>
-            <h2 className="text-[36px] md:text-[52px] tracking-[-1.4px] md:tracking-[-2.2px] font-medium leading-[1.05]">Frequently Asked</h2>
-          </div>
-          <FAQ />
-        </div>
-      </section>
+      {/* TESTIMONIAL CAROUSEL — overlapping avatars + quote navigation */}
+      <TestimonialCarousel />
 
-      {/* FINAL CTA */}
+      {/* CTA */}
       <FinalCTA />
 
       {/* Footer */}
       <footer className="border-t border-[var(--border)] py-9 text-xs text-[var(--text-muted)] px-8 flex flex-col md:flex-row gap-y-2 md:items-center justify-between max-w-6xl mx-auto">
-        <div>© {new Date().getFullYear()} GCAP Labs. Headmaster is a persistent AI workforce layer.</div>
+        <div>© 2026 GCAP Labs. Headmaster — persistent AI agents for organizations.</div>
         <div className="flex gap-6 flex-wrap">
           <a href="https://x.com/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--text)] transition-colors">X</a>
           <a href="https://linkedin.com/company/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--text)] transition-colors">LinkedIn</a>
+          <a href="/security" className="hover:text-[var(--text)] transition-colors">Security</a>
+          <a href="/changelog" className="hover:text-[var(--text)] transition-colors">Changelog</a>
           <a href="/privacy" className="hover:text-[var(--text)] transition-colors">Privacy</a>
           <a href="/terms" className="hover:text-[var(--text)] transition-colors">Terms</a>
         </div>

@@ -1,8 +1,4 @@
-"use client";
-
-import { useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 interface ProductShotProps {
   src: string;
@@ -10,8 +6,7 @@ interface ProductShotProps {
   aspect?: string;
   className?: string;
   priority?: boolean;
-  /** Enable subtle scroll-linked parallax on the image (transform-only). */
-  parallax?: boolean;
+  "data-lightbox"?: string;
 }
 
 export default function ProductShot({
@@ -20,36 +15,43 @@ export default function ProductShot({
   aspect = "aspect-[16/10]",
   className = "",
   priority = false,
-  parallax = false,
+  "data-lightbox": dataLightbox,
 }: ProductShotProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  // Image is over-scaled (110%) so the parallax travel never reveals edges.
-  const y = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
-  const active = parallax && !reduce;
-
+  const isClickable = dataLightbox !== undefined;
   return (
     <div
-      ref={ref}
-      className={`relative overflow-hidden rounded-[24px] border border-[rgba(17,17,17,0.08)] bg-white shadow-lg ${aspect} ${className}`}
+      data-lightbox={dataLightbox}
+      className={`group relative overflow-hidden rounded-[24px] border border-[rgba(17,17,17,0.08)] bg-white shadow-lg ${aspect} ${className} ${
+        isClickable ? "cursor-zoom-in" : ""
+      }`}
     >
-      <motion.div
-        className="absolute inset-0"
-        style={active ? { y, scale: 1.1 } : undefined}
-      >
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          className="object-cover object-top"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-          priority={priority}
-        />
-      </motion.div>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+        priority={priority}
+      />
+      {/* Zoom overlay on hover */}
+      {isClickable && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-200 group-hover:bg-black/10 group-hover:opacity-100">
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            strokeWidth="2"
+            className="drop-shadow-lg"
+            aria-label="Click to zoom image"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="M21 21l-4.35-4.35" />
+            <path d="M11 8v6M8 11h6" />
+          </svg>
+        </div>
+      )}
     </div>
   );
 }
