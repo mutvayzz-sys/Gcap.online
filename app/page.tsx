@@ -15,6 +15,7 @@ import TrustControl from "@/components/TrustControl";
 import UseCases from "@/components/UseCases";
 import ModelAgnostic from "@/components/ModelAgnostic";
 import TayXSection from "@/components/TayXSection";
+import SocialProof from "@/components/SocialProof";
 import FinalCTA from "@/components/FinalCTA";
 
 export default function GCAPLabs() {
@@ -136,6 +137,9 @@ export default function GCAPLabs() {
       {/* MODEL-AGNOSTIC + TAYX TEASER */}
       <ModelAgnostic />
       <TayXSection />
+
+      {/* SOCIAL PROOF */}
+      <SocialProof />
 
       {/* CTA */}
       <FinalCTA />
