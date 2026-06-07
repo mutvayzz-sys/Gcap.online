@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { useParams, notFound } from "next/navigation";
 import SiteNav from "@/components/SiteNav";
 import { useCases } from "@/src/data/useCases";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
@@ -132,14 +132,9 @@ const verticalDetails: Record<string, {
   },
 };
 
-export async function generateStaticParams() {
-  return useCases.map((uc) => ({
-    vertical: (uc.vertical || uc.title).toLowerCase().replace(/\s+/g, "-"),
-  }));
-}
-
-export default function UseCasePage({ params }: { params: { vertical: string } }) {
-  const verticalKey = params.vertical.replace(/-/g, "");
+export default function UseCasePage() {
+  const params = useParams();
+  const verticalKey = (params.vertical as string).replace(/-/g, "");
   const details = verticalDetails[verticalKey];
 
   if (!details) {
