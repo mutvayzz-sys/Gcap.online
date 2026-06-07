@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import HeroSection from "@/components/HeroSection";
 import ProductPillars from "@/components/ProductPillars";
 import ChatSection from "@/components/ChatSection";
+import PinnedScrollSection from "@/components/PinnedScrollSection";
 import GuidedWorkflowSection from "@/components/GuidedWorkflowSection";
 import ApprovalsSection from "@/components/ApprovalsSection";
 import IntegrationsSection from "@/components/IntegrationsSection";
@@ -15,7 +16,10 @@ import TrustControl from "@/components/TrustControl";
 import UseCases from "@/components/UseCases";
 import ModelAgnostic from "@/components/ModelAgnostic";
 import TayXSection from "@/components/TayXSection";
+import SocialProof from "@/components/SocialProof";
 import FinalCTA from "@/components/FinalCTA";
+import TextRevealScroll from "@/components/TextRevealScroll";
+import StatsReveal from "@/components/StatsReveal";
 
 export default function GCAPLabs() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -34,8 +38,8 @@ export default function GCAPLabs() {
   const navItems = [
     { href: "/products/headmaster", label: "Headmaster" },
     { href: "/products/hq", label: "HQ" },
-    { href: "/products/tayx", label: "TayX" },
-    { href: "#use-cases", label: "Use Cases" },
+    { href: "/integrations", label: "Integrations" },
+    { href: "/use-cases", label: "Use Cases" },
     { href: "/contact", label: "Contact" },
   ];
 
@@ -44,20 +48,20 @@ export default function GCAPLabs() {
       {/* Fixed Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/95 backdrop-blur-xl border-b border-[var(--border)]">
         <div className="max-w-[1280px] mx-auto px-8 h-20 flex items-center justify-between">
-          <a href="#top" className="flex items-center gap-3">
+          <a href="#top" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">
             <Image src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} priority />
             <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
           </a>
 
           <div className="hidden md:flex items-center gap-8 text-[15px]">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="hover:text-[var(--text-muted)] transition-colors">
+              <a key={item.href} href={item.href} className="hover:text-[var(--text-muted)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">
                 {item.label}
               </a>
             ))}
             <a
               href="/contact"
-              className="px-6 py-[10px] rounded-full bg-[#111111] text-[#F9F7F3] text-sm hover:bg-black transition-colors active:scale-[0.97]"
+              className="px-6 py-[10px] rounded-full bg-[#111111] text-[#F9F7F3] text-sm hover:bg-black transition-colors active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F7F3]"
             >
               Book a Demo
             </a>
@@ -65,7 +69,7 @@ export default function GCAPLabs() {
 
           <button
             onClick={() => setMobileMenuOpen((p) => !p)}
-            className="md:hidden z-50 relative flex flex-col gap-[5px] p-2"
+            className="md:hidden z-50 relative flex flex-col gap-[5px] p-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded"
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -91,7 +95,7 @@ export default function GCAPLabs() {
                   key={href}
                   href={href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-3xl tracking-tight font-medium hover:text-[var(--text-muted)] transition-colors"
+                  className="text-3xl tracking-tight font-medium hover:text-[var(--text-muted)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded"
                 >
                   {label}
                 </a>
@@ -100,7 +104,7 @@ export default function GCAPLabs() {
             <a
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-10 w-full py-4 rounded-full bg-[#111111] text-[#F9F7F3] text-lg font-medium text-center active:scale-[0.97] transition-transform"
+              className="mt-10 w-full py-4 rounded-full bg-[#111111] text-[#F9F7F3] text-lg font-medium text-center active:scale-[0.97] transition-transform focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F7F3]"
             >
               Book a Demo
             </a>
@@ -116,6 +120,9 @@ export default function GCAPLabs() {
 
       {/* PRODUCT PILLARS — broad system overview */}
       <ProductPillars />
+
+      {/* PINNED SCROLL SECTION — product story with parallax and reveal */}
+      <PinnedScrollSection />
 
       {/* GUIDED WORKFLOW — strongest product proof */}
       <GuidedWorkflowSection />
@@ -136,6 +143,12 @@ export default function GCAPLabs() {
       {/* MODEL-AGNOSTIC + TAYX TEASER */}
       <ModelAgnostic />
       <TayXSection />
+
+      {/* STATS REVEAL — text animation on scroll */}
+      <StatsReveal />
+
+      {/* SOCIAL PROOF */}
+      <SocialProof />
 
       {/* CTA */}
       <FinalCTA />

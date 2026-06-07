@@ -1,0 +1,65 @@
+---
+title: Overview
+description: What is Headmaster and how it works
+---
+
+# What is Headmaster
+
+Headmaster is a persistent AI agent platform designed for enterprise organizations that need autonomous agents to operate reliably at scale. Unlike traditional chatbots that reset with each conversation, Headmaster agents maintain complete memory of past interactions, understand organizational context, and coordinate complex workflows across teams.
+
+## Product Architecture
+
+Headmaster's architecture is built around three core pillars that enable it to be truly production-ready:
+
+### 1. Persistent Memory Layer
+
+Headmaster agents retain complete context of every interaction, decision, and outcome. This enables:
+- **Continuity**: Agents remember previous conversations and build context over time
+- **Reduced Redundancy**: No need to re-explain context or previous decisions
+- **Learning**: Agents improve through interaction history and feedback
+
+The memory layer is fully auditable, meaning organizations can inspect exactly what information agents have retained and used for decisions.
+
+### 2. Multi-Platform Orchestration
+
+Headmaster doesn't lock you into a single communication channel. Deploy the same agent logic across:
+- **Messaging Platforms**: Slack, Teams, Discord, WhatsApp, Telegram, Signal
+- **Email**: Full email integration for workflow automation
+- **Web**: Custom web interfaces and API endpoints
+- **Voice**: Phone and audio integration
+
+One agent, 17+ platforms, zero duplication of logic.
+
+### 3. Human-in-the-Loop Control
+
+Critical operations never happen without human approval. Headmaster's approval framework ensures:
+- **Sensitive Actions**: High-stakes decisions require explicit human sign-off
+- **Audit Trail**: Every action and approval is logged for compliance
+- **Graceful Degradation**: Workflows continue while waiting for approvals, no blocking
+
+## How It Works
+
+When you deploy Headmaster to your organization:
+
+1. **Agent Definition**: Define what your agent should do using natural language prompts or API specifications
+2. **Model Selection**: Choose any LLM—Claude, GPT, Grok, Gemini, or bring your own
+3. **Integration**: Connect to your systems (Slack, email, databases, APIs)
+4. **Memory Setup**: Configure what context the agent should retain and when to archive
+5. **Approvals**: Define approval gates for sensitive operations
+6. **Launch**: Deploy to production with full observability
+
+Your agents then run continuously, handling routine work while escalating exceptions to humans.
+
+## Key Differentiators
+
+- **Model-Agnostic**: Zero vendor lock-in. Switch models without rewriting agent logic
+- **Platform-Agnostic**: Deploy to any messaging system, database, or API
+- **Human-Centric**: No autonomous decisions without oversight
+- **Enterprise-Grade**: Built for compliance, audit, and security from day one
+- **Scalable**: Run one agent or coordinate hundreds working in parallel
+
+## Next Steps
+
+- [Get started with Headmaster](/docs/headmaster) - Learn the core concepts and features
+- [Deploy Headmaster](/docs/deployment) - Setup guide and configuration
+- [Security & Compliance](/docs/security) - Security features, certifications, and data handling

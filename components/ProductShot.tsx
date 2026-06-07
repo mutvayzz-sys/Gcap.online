@@ -44,6 +44,7 @@ export default function ProductShot({
             stroke="white"
             strokeWidth="2"
             className="drop-shadow-lg"
+            aria-label="Click to zoom image"
           >
             <circle cx="11" cy="11" r="7" />
             <path d="M21 21l-4.35-4.35" />

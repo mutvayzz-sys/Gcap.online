@@ -29,7 +29,7 @@ export default function ProductPillars() {
               className="group rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-7 transition hover:border-[var(--border-strong)]"
             >
               <div
-                className="w-12 h-12 rounded-2xl bg-[#111111] text-[#F9F7F3] flex items-center justify-center mb-7 transition-transform duration-300 group-hover:scale-[1.04]"
+                className="product-pillar-icon w-12 h-12 rounded-2xl bg-[#111111] text-[#F9F7F3] flex items-center justify-center mb-7"
                 aria-hidden="true"
               >
                 <Icon size={20} strokeWidth={1.8} />

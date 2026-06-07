@@ -97,14 +97,14 @@ export default function FinalCTA() {
               disabled={loading}
               aria-describedby={error ? "form-error" : undefined}
               data-magnet
-              className="flex-1 py-4 rounded-2xl bg-[#111111] text-[#F9F7F3] text-[15px] font-medium hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 py-4 rounded-2xl bg-[#111111] text-[#F9F7F3] text-[15px] font-medium hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F7F3]"
             >
               {loading ? "Sending..." : "Request a deployment call"}
             </button>
             <button
               type="button"
               onClick={() => window.open("mailto:waitlist@gcap.online?subject=Headmaster Deployment Discussion", "_blank")}
-              className="flex-1 py-4 rounded-2xl border border-[var(--border-strong)] text-[15px] font-medium hover:bg-white transition-all"
+              className="flex-1 py-4 rounded-2xl border border-[var(--border-strong)] text-[15px] font-medium hover:bg-white transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)]"
             >
               Discuss a Deployment
             </button>
@@ -119,7 +119,7 @@ export default function FinalCTA() {
           <p className="text-[var(--text-muted)]">
             Thank you. Our team will review your deployment fit and reach out with next steps.
           </p>
-          <button onClick={() => setSubmitted(false)} className="mt-6 text-sm underline text-[var(--text-muted)] hover:text-[var(--text)]">
+          <button onClick={() => setSubmitted(false)} className="mt-6 text-sm underline text-[var(--text-muted)] hover:text-[var(--text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)]">
             Submit another request
           </button>
         </div>

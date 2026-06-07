@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import {
   SiSlack, SiGmail, SiGithub, SiNotion, SiZoom,
@@ -96,7 +96,16 @@ function fill(items: MarqueeItem[], min = 14): MarqueeItem[] {
 export default function MarqueeStrip({ rows, duration = 34, inverse = false }: MarqueeStripProps) {
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
   const [paused, setPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   const handleEnter = (item: MarqueeItem, e: React.MouseEvent | React.FocusEvent) => {
     const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
@@ -119,7 +128,7 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
     // Render the set twice; translate -50% lands exactly on the second copy → seamless.
     const seq = [...set, ...set];
     return (
-      <div className="marquee-row flex w-max" style={{ animation: `${reverse ? "marquee-reverse" : "marquee"} ${dur}s linear infinite`, animationPlayState: paused ? "paused" : "running" }}>
+      <div className="marquee-row flex w-max" style={{ animation: reducedMotion ? "none" : `${reverse ? "marquee-reverse" : "marquee"} ${dur}s linear infinite`, animationPlayState: reducedMotion ? "running" : paused ? "paused" : "running" }}>
         {seq.map((item, i) => (
           <button
             key={i}
@@ -128,7 +137,7 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
             onMouseLeave={() => setTooltip(null)}
             onFocus={(e) => handleEnter(item, e)}
             onBlur={() => setTooltip(null)}
-            className="flex flex-col items-center gap-2.5 group cursor-default focus:outline-none mr-9 flex-shrink-0"
+            className="flex flex-col items-center gap-2.5 group cursor-default focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] mr-9 flex-shrink-0 rounded-md"
             tabIndex={i < set.length ? 0 : -1}
             aria-label={item.name}
           >

@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
+import SiteNav from "@/components/SiteNav";
 
 const EASE = [0.23, 1, 0.32, 1] as const;
 
@@ -83,21 +83,9 @@ const releases = [
 export default function ChangelogPage() {
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
-      {/* Fixed Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/95 backdrop-blur-xl border-b border-[var(--border)]">
-        <div className="max-w-[1280px] mx-auto px-8 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} priority />
-            <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
-          </Link>
-          <Link href="/" className="text-[15px] hover:text-[var(--text-muted)] transition-colors">
-            Back to home
-          </Link>
-        </div>
-      </nav>
+      <SiteNav />
 
       <main>
-        {/* Hero */}
         <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-[var(--bg)] pt-32 pb-20">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_30%,rgba(0,0,0,0.035),transparent_60%)]" />
 
@@ -118,7 +106,6 @@ export default function ChangelogPage() {
           </div>
         </section>
 
-        {/* Timeline */}
         <section className="max-w-[900px] mx-auto px-8 py-24">
           <div className="space-y-12">
             {releases.map((release, i) => (
@@ -138,7 +125,7 @@ export default function ChangelogPage() {
                 </div>
 
                 <h3 className="text-[24px] font-semibold tracking-[-0.5px] mb-3">
-                  {release.tagline && <span className="italic text-[var(--text-muted)]">"{release.tagline}"</span>}
+                  {release.tagline && <span className="italic text-[var(--text-muted)]">&ldquo;{release.tagline}&rdquo;</span>}
                 </h3>
 
                 <ul className="space-y-2">
@@ -154,7 +141,6 @@ export default function ChangelogPage() {
           </div>
         </section>
 
-        {/* CTA Section */}
         <section className="max-w-[1280px] mx-auto px-8 py-24 border-t border-[var(--border)]">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE }} viewport={{ once: true, margin: "-80px" }} className="rounded-2xl border border-[var(--border-strong)] bg-[#111111] text-[#F9F7F3] p-12 md:p-16 text-center">
             <h2 className="text-[32px] md:text-[42px] font-semibold tracking-[-0.02em] mb-6">Ready to ship with Headmaster?</h2>
@@ -166,28 +152,15 @@ export default function ChangelogPage() {
         </section>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-[var(--border)] py-9 text-xs text-[var(--text-muted)] px-8 flex flex-col md:flex-row gap-y-2 md:items-center justify-between max-w-6xl mx-auto">
         <div>© 2026 GCAP Labs. Headmaster — persistent AI agents for organizations.</div>
         <div className="flex gap-6 flex-wrap">
-          <a href="https://x.com/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--text)] transition-colors">
-            X
-          </a>
-          <a href="https://linkedin.com/company/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--text)] transition-colors">
-            LinkedIn
-          </a>
-          <Link href="/security" className="hover:text-[var(--text)] transition-colors">
-            Security
-          </Link>
-          <Link href="/changelog" className="hover:text-[var(--text)] transition-colors">
-            Changelog
-          </Link>
-          <Link href="/privacy" className="hover:text-[var(--text)] transition-colors">
-            Privacy
-          </Link>
-          <Link href="/terms" className="hover:text-[var(--text)] transition-colors">
-            Terms
-          </Link>
+          <a href="https://x.com/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--text)] transition-colors">X</a>
+          <a href="https://linkedin.com/company/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--text)] transition-colors">LinkedIn</a>
+          <Link href="/security" className="hover:text-[var(--text)] transition-colors">Security</Link>
+          <Link href="/changelog" className="hover:text-[var(--text)] transition-colors">Changelog</Link>
+          <Link href="/privacy" className="hover:text-[var(--text)] transition-colors">Privacy</Link>
+          <Link href="/terms" className="hover:text-[var(--text)] transition-colors">Terms</Link>
         </div>
       </footer>
     </div>

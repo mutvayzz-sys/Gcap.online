@@ -1,0 +1,434 @@
+---
+title: Deployment Guide
+description: How to deploy Headmaster, prerequisites, and configuration
+---
+
+# Deployment Guide
+
+This guide covers deploying Headmaster to your organization, including prerequisites, configuration, and best practices for production environments.
+
+## Prerequisites
+
+### System Requirements
+
+**Minimum Specifications**
+- 2 CPU cores
+- 4 GB RAM
+- 20 GB storage (grows with agent memory)
+- 100 Mbps network connection
+
+**Recommended Production Specifications**
+- 8+ CPU cores
+- 32 GB RAM
+- 500 GB+ SSD storage
+- Redundant 1 Gbps+ network connections
+
+### Required Infrastructure
+
+**Cloud Providers**
+- AWS (EC2, RDS, S3)
+- Google Cloud (Compute Engine, Cloud SQL, Cloud Storage)
+- Microsoft Azure (Virtual Machines, SQL Database, Blob Storage)
+- Private data centers with Docker and Kubernetes support
+
+**Kubernetes** (recommended for production)
+- Kubernetes 1.24 or later
+- Helm 3.x for package management
+- Persistent volume support (EBS, GCE, Azure Disks)
+- Container registry access (ECR, GCR, ACR, or Docker Hub)
+
+### Required Accounts & Credentials
+
+1. **LLM Provider** (choose one or more)
+   - Anthropic API key for Claude models
+   - OpenAI API key for GPT models
+   - Google AI API credentials
+   - Other model providers as needed
+
+2. **Platform Integrations** (optional, as needed)
+   - Slack workspace admin access
+   - Microsoft Teams organization admin
+   - Gmail/Microsoft 365 service account
+   - Salesforce org credentials
+   - AWS/GCP/Azure service accounts
+
+3. **Database**
+   - PostgreSQL 13+ or managed service (RDS, Cloud SQL, Azure Database)
+   - Initial user account with CREATE DATABASE permissions
+
+4. **Email Delivery** (optional)
+   - SMTP server credentials (or use AWS SES, SendGrid, etc.)
+   - Domain verification for email agents
+
+## Deployment Steps
+
+### 1. Prepare Your Environment
+
+Create a deployment directory and clone the Headmaster configuration:
+
+```bash
+mkdir -p /opt/headmaster
+cd /opt/headmaster
+git clone https://github.com/gcaplabs/headmaster-deploy.git
+cd headmaster-deploy
+```
+
+### 2. Configure Environment Variables
+
+Create a `.env` file with your configuration:
+
+```bash
+# Core Configuration
+HEADMASTER_ENV=production
+HEADMASTER_REGION=us-east-1
+HEADMASTER_LOG_LEVEL=info
+
+# LLM Configuration (choose primary model)
+LLM_PROVIDER=anthropic
+ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxx
+# Fallback models (optional)
+OPENAI_API_KEY=sk-xxxxxxxxxxxxx
+GOOGLE_API_KEY=xxxxxxxxxxxxx
+
+# Database Configuration
+DATABASE_URL=postgresql://headmaster:password@db.example.com:5432/headmaster
+DATABASE_POOL_SIZE=20
+DATABASE_MAX_CONNECTIONS=100
+
+# Storage Configuration
+STORAGE_TYPE=s3  # or 'gcs', 'azure', 'local'
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+AWS_S3_BUCKET=headmaster-data
+
+# Security Configuration
+JWT_SECRET=your-very-long-random-secret-key-here
+API_KEY_PREFIX=hm_
+ENCRYPTION_KEY=your-encryption-key-here
+
+# Email Configuration (optional)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=noreply@example.com
+SMTP_PASSWORD=your-app-password
+SMTP_FROM=Headmaster <noreply@example.com>
+
+# Integration Credentials
+SLACK_BOT_TOKEN=xoxb-xxxxxxxxxxxxx
+SLACK_SIGNING_SECRET=xxxxxxxxxxxxx
+TEAMS_APP_ID=xxxxxxxxxxxxx
+TEAMS_APP_PASSWORD=xxxxxxxxxxxxx
+GMAIL_SERVICE_ACCOUNT='{...}'  # JSON service account
+
+# Monitoring & Logging
+DATADOG_API_KEY=xxxxxxxxxxxxx
+SENTRY_DSN=https://xxx@xxx.ingest.sentry.io/xxx
+LOG_DESTINATION=cloudwatch  # or 'datadog', 'sentry'
+
+# Performance Tuning
+CACHE_TYPE=redis
+REDIS_URL=redis://cache.example.com:6379
+MAX_CONCURRENT_AGENTS=100
+MEMORY_RETENTION_DAYS=180
+```
+
+### 3. Database Setup
+
+Create and initialize the database:
+
+```bash
+# Create database and user
+createdb -h db.example.com -U postgres headmaster
+psql -h db.example.com -U postgres headmaster -c \
+  "CREATE USER headmaster WITH PASSWORD 'secure-password';"
+psql -h db.example.com -U postgres headmaster -c \
+  "GRANT ALL PRIVILEGES ON DATABASE headmaster TO headmaster;"
+
+# Run migrations
+npx headmaster db:migrate
+
+# Create initial admin user
+npx headmaster admin:create --email admin@example.com --password securepass
+```
+
+### 4. Deploy Using Docker
+
+Build and run the Headmaster container:
+
+```bash
+# Build image
+docker build -t headmaster:latest .
+
+# Run container
+docker run -d \
+  --name headmaster \
+  --env-file .env \
+  -p 8080:8080 \
+  -v /opt/headmaster/data:/app/data \
+  headmaster:latest
+
+# Verify deployment
+curl http://localhost:8080/health
+```
+
+### 5. Deploy on Kubernetes
+
+Use the provided Helm chart:
+
+```bash
+# Add Headmaster Helm repository
+helm repo add headmaster https://charts.gcaplabs.com
+helm repo update
+
+# Create namespace
+kubectl create namespace headmaster
+
+# Create secrets for sensitive data
+kubectl create secret generic headmaster-api-keys \
+  --from-literal=ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY \
+  --from-literal=DATABASE_URL=$DATABASE_URL \
+  -n headmaster
+
+# Deploy using Helm
+helm install headmaster headmaster/headmaster \
+  --namespace headmaster \
+  --values values.yaml \
+  --set image.tag=latest \
+  --set replicaCount=3
+
+# Verify deployment
+kubectl get pods -n headmaster
+kubectl logs -n headmaster -l app=headmaster --all-containers=true
+```
+
+Example `values.yaml`:
+
+```yaml
+replicaCount: 3
+
+image:
+  repository: gcaplabs/headmaster
+  tag: latest
+  pullPolicy: IfNotPresent
+
+resources:
+  requests:
+    memory: "2Gi"
+    cpu: "1000m"
+  limits:
+    memory: "4Gi"
+    cpu: "2000m"
+
+persistence:
+  enabled: true
+  size: 100Gi
+  storageClass: ebs-sc
+
+database:
+  host: postgres.default.svc.cluster.local
+  port: 5432
+  name: headmaster
+
+redis:
+  enabled: true
+  size: 10Gi
+```
+
+### 6. Configure Platform Integrations
+
+#### Slack Integration
+
+```bash
+# Create Slack app and get tokens
+# 1. Go to https://api.slack.com/apps/new
+# 2. Select "From scratch"
+# 3. Name: "Headmaster", select workspace
+# 4. Under "Add features and functionality" → "Bots"
+# 5. Copy Bot User OAuth Token
+
+# Set environment variable
+export SLACK_BOT_TOKEN=xoxb-xxxxxxxxxxxxx
+
+# Test connection
+npx headmaster slack:test-connection
+```
+
+#### Email Integration
+
+```bash
+# For Gmail
+# 1. Create service account in Google Cloud Console
+# 2. Download JSON key
+# 3. Share Google Group with service account email
+
+export GMAIL_SERVICE_ACCOUNT=$(cat service-account.json)
+npx headmaster email:test-connection
+```
+
+#### Database Integration
+
+```bash
+# Register data sources
+npx headmaster datasource:add \
+  --name "salesforce" \
+  --type "salesforce" \
+  --client-id $SALESFORCE_CLIENT_ID \
+  --client-secret $SALESFORCE_CLIENT_SECRET
+```
+
+### 7. Enable Monitoring & Logging
+
+**Datadog**
+```bash
+# Install Datadog agent
+helm repo add datadog https://helm.datadoghq.com
+helm install datadog datadog/datadog \
+  --set datadog.apiKey=$DD_API_KEY \
+  --set datadog.appKey=$DD_APP_KEY \
+  -n headmaster
+```
+
+**CloudWatch**
+```bash
+# Configure CloudWatch logging
+npx headmaster logs:configure \
+  --provider cloudwatch \
+  --log-group /aws/headmaster/production
+```
+
+**Sentry**
+```bash
+# Enable error tracking
+export SENTRY_DSN=https://xxx@xxx.ingest.sentry.io/xxx
+```
+
+## Post-Deployment Configuration
+
+### 1. Create Your First Agent
+
+```bash
+npx headmaster agent:create \
+  --name "Customer Support Agent" \
+  --model "claude-3-5-sonnet-20241022" \
+  --platform slack \
+  --workspace-id T12345678
+```
+
+### 2. Configure Approval Gates
+
+```bash
+npx headmaster approval:configure \
+  --agent-id agent_123 \
+  --trigger financial_transaction \
+  --threshold 5000 \
+  --approver-group finance_team
+```
+
+### 3. Set Up Monitoring Dashboards
+
+- Access web UI: `https://headmaster.example.com`
+- Create dashboards for:
+  - Agent activity and uptime
+  - Error rates and performance
+  - Model usage and costs
+  - Integration health
+
+### 4. Run Health Checks
+
+```bash
+# System health
+npx headmaster health:check
+
+# Database connectivity
+npx headmaster db:check
+
+# Integration status
+npx headmaster integration:status
+
+# Model connectivity
+npx headmaster model:test --provider anthropic
+```
+
+## Production Best Practices
+
+### High Availability
+
+- Run at least 3 replicas for fault tolerance
+- Use load balancer with health checks
+- Database replication (primary/standby)
+- Automated backups every 6 hours
+- Cross-region failover capability
+
+### Scaling
+
+- Horizontal scaling: increase pod replicas
+- Vertical scaling: increase resource requests/limits
+- Cache layer (Redis) for frequently accessed data
+- Database connection pooling
+- Asynchronous job queue for long-running tasks
+
+### Security
+
+- Enable TLS for all communications
+- Use secrets management (Vault, AWS Secrets Manager)
+- Regular security updates and patches
+- Network policies and firewall rules
+- Audit logging for all operations
+
+### Disaster Recovery
+
+- Regular backup testing (monthly)
+- Recovery time objective (RTO): 4 hours
+- Recovery point objective (RPO): 1 hour
+- Documented runbooks for common scenarios
+- Disaster recovery drills quarterly
+
+## Troubleshooting
+
+### Agent not responding
+
+```bash
+# Check agent status
+npx headmaster agent:status --id agent_123
+
+# View recent logs
+npx headmaster logs:tail --agent-id agent_123 --lines 50
+
+# Restart agent
+npx headmaster agent:restart --id agent_123
+```
+
+### Database connection issues
+
+```bash
+# Test connection
+npx headmaster db:test-connection
+
+# Check migrations
+npx headmaster db:status
+
+# Run migrations
+npx headmaster db:migrate
+```
+
+### Memory issues
+
+```bash
+# Check memory usage
+npx headmaster memory:stats
+
+# Archive old conversations
+npx headmaster memory:archive --days 90
+
+# Optimize memory
+npx headmaster memory:optimize
+```
+
+## Getting Help
+
+- Documentation: https://docs.gcaplabs.com
+- Community: https://community.gcaplabs.com
+- Support Email: support@gcaplabs.com
+- Emergency Hotline: +1-415-555-0147
+- Status Page: https://status.gcaplabs.com
