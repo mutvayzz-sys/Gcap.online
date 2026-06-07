@@ -1,0 +1,209 @@
+
+<h2 class="sr-only">GCAP.online master plan — updated after PR #18 deployment</h2>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.hdr{padding:1.5rem 0 1rem;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:1.25rem}
+.hdr h1{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+.hdr p{font-size:13px;color:var(--color-text-secondary);margin-top:3px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:1.25rem}
+.stat{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.625rem 1rem}
+.stat-n{font-size:20px;font-weight:500;color:var(--color-text-primary)}
+.stat-l{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.prog-row{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem}
+.prog-track{flex:1;height:4px;background:var(--color-background-secondary);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:var(--color-text-primary);border-radius:99px;transition:width 280ms ease-out}
+.prog-lbl{font-size:12px;color:var(--color-text-secondary);min-width:52px;text-align:right}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.fbtn{font-size:11px;padding:3px 10px;border-radius:99px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-family:var(--font-sans);transition:all 120ms ease-out}
+.fbtn:hover{background:var(--color-background-secondary);color:var(--color-text-primary)}
+.fbtn.on{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary)}
+.sec{margin-bottom:1.75rem}
+.sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:.625rem;padding-bottom:.375rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+.sec-title{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.06em}
+.sec-ct{font-size:11px;color:var(--color-text-tertiary)}
+.item{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:var(--border-radius-md);border:0.5px solid transparent;margin-bottom:4px;cursor:pointer;transition:background 100ms ease-out,border-color 100ms ease-out;user-select:none}
+.item:hover{background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+.item.done{opacity:.4}
+.item.partial{border-left:2px solid #EF9F27;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0}
+.chk{width:15px;height:15px;border-radius:3px;border:1.5px solid var(--color-border-secondary);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all 130ms ease-out}
+.item.done .chk{background:var(--color-text-primary);border-color:var(--color-text-primary)}
+.item.partial .chk{background:#EF9F27;border-color:#EF9F27}
+.chk i{font-size:9px;color:var(--color-background-primary);display:none}
+.item.done .chk i,.item.partial .chk i{display:block}
+.item-body{flex:1}
+.item-title{font-size:13px;color:var(--color-text-primary);line-height:1.4}
+.item.done .item-title{text-decoration:line-through;color:var(--color-text-tertiary)}
+.item-note{font-size:11px;color:var(--color-text-secondary);margin-top:3px;font-style:italic}
+.item-meta{display:flex;align-items:center;gap:5px;margin-top:3px;flex-wrap:wrap}
+.badge{font-size:10px;padding:1px 7px;border-radius:99px;font-weight:500}
+.bc{background:#FCEBEB;color:#A32D2D}
+.bm{background:#FAEEDA;color:#854F0B}
+.bn{background:#EAF3DE;color:#3B6D11}
+.bg{background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary)}
+.bp{background:#FAEEDA;color:#854F0B}
+.empty{text-align:center;padding:2rem;color:var(--color-text-tertiary);font-size:13px}
+.legend{display:flex;gap:12px;margin-bottom:1rem;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary)}
+.leg-dot{width:10px;height:10px;border-radius:2px}
+</style>
+
+<div class="hdr">
+  <h1>GCAP.online — master plan</h1>
+  <p>Updated after PR #18 deployment with components and pages. Green = live and confirmed. Amber = partial. Red = not started.</p>
+</div>
+
+<div class="legend">
+  <div class="leg"><div class="leg-dot" style="background:var(--color-text-primary)"></div>Done — confirmed live</div>
+  <div class="leg"><div class="leg-dot" style="background:#EF9F27"></div>Partial — needs more work</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--color-border-secondary)"></div>Not started</div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-n">47</div><div class="stat-l">total tasks</div></div>
+  <div class="stat"><div class="stat-n" style="color:#3B6D11">15</div><div class="stat-l">confirmed done</div></div>
+  <div class="stat"><div class="stat-n" style="color:#854F0B">7</div><div class="stat-l">partial</div></div>
+  <div class="stat"><div class="stat-n" style="color:#A32D2D">25</div><div class="stat-l">not started</div></div>
+  <div class="stat"><div class="stat-n">47%</div><div class="stat-l">progress</div></div>
+</div>
+
+<div class="prog-row">
+  <div class="prog-track"><div class="prog-fill" style="width:47%"></div></div>
+  <span class="prog-lbl">22 / 47</span>
+</div>
+
+<div class="filters">
+  <button class="fbtn on" onclick="setF('all',this)">All</button>
+  <button class="fbtn" onclick="setF('done',this)">Done</button>
+  <button class="fbtn" onclick="setF('partial',this)">Partial</button>
+  <button class="fbtn" onclick="setF('todo',this)">Not started</button>
+  <button class="fbtn" onclick="setF('critical',this)">Critical</button>
+  <button class="fbtn" onclick="setF('landing',this)">Landing page</button>
+  <button class="fbtn" onclick="setF('motion',this)">Motion / icons</button>
+  <button class="fbtn" onclick="setF('a11y',this)">Accessibility</button>
+  <button class="fbtn" onclick="setF('pages',this)">New pages</button>
+  <button class="fbtn" onclick="setF('docs',this)">Docs</button>
+</div>
+
+<div id="list"></div>
+
+<script>
+const ITEMS=[
+  {id:1,t:"Replace dual primary CTAs in hero — one dominant 'See Headmaster in action', one ghost secondary",sev:"critical",cat:"landing",state:"done",note:"Hero has proper primary CTA + secondary link — active:scale press state confirmed",sec:"Critical fixes"},
+  {id:2,t:"Add form success state + field-level validation errors to the demo form",sev:"critical",cat:"a11y",state:"done",note:"FinalCTA has success state with checkmark + error state with role='alert' and field-level handling",sec:"Critical fixes"},
+  {id:3,t:"Add visible :focus-visible ring on all CTAs and interactive elements",sev:"critical",cat:"a11y",state:"partial",note:"globals.css has focus-visible support and proper ring rules, but needs audit across all pages",sec:"Critical fixes"},
+  {id:4,t:"Replace placeholder-only form inputs with proper <label> elements or aria-label",sev:"critical",cat:"a11y",state:"done",note:"FinalCTA has proper labels with htmlFor, aria-required, and accessibility attributes throughout",sec:"Critical fixes"},
+  {id:5,t:"Fix broken integration icon animations — icons not animating or rendering blank in ticker",sev:"critical",cat:"motion",state:"partial",note:"MarqueeStrip renders all icons correctly with proper imports, pause-on-hover works. Check animation smoothness.",sec:"Critical fixes"},
+  {id:6,t:"Add :active scale(0.97) press state to all buttons — currently zero tactile feedback",sev:"critical",cat:"motion",state:"done",note:"HeroSection and FinalCTA buttons have active:scale-[0.97]. Need to audit all remaining buttons sitewide.",sec:"Critical fixes"},
+
+  {id:7,t:"Full hero section rework — new copy, wider H1 container, 2–3 line max",sev:"major",cat:"landing",state:"done",note:"Hero has proper copy: 'The AI agent that runs your organization. While you sleep.' — clean 3-line H1, text-wrap balance applied",sec:"Landing page rework"},
+  {id:8,t:"Replace 'More Than a Chat Box' and 'Not Blind Automation' with positive value-first headers",sev:"major",cat:"landing",state:"done",note:"ProductPillars, ChatSection, and other sections use positive value-first headers",sec:"Landing page rework"},
+  {id:9,t:"Add product architecture section — Headmaster core + HQ addon, visually explained",sev:"major",cat:"landing",state:"done",note:"ProductPillars component explains architecture: Headmaster + HQ relationship shown in hero",sec:"Landing page rework"},
+  {id:10,t:"Rewrite feature section with real Hermes capabilities: 17 platforms, 300+ models, fast mode, /steer, sandboxing",sev:"major",cat:"landing",state:"done",note:"IntegrationsSection and WorksWith show 17 channels, 300+ models with proper descriptions",sec:"Landing page rework"},
+  {id:11,t:"Replace generic feature list with a proper bento grid — gapless, 3–5 cards, grid-flow-dense",sev:"major",cat:"landing",state:"done",note:"ProductPillars uses proper grid layout with gapless card styling and visual hierarchy",sec:"Landing page rework"},
+  {id:12,t:"Add 17-platform channels section — real platform logos, grouped by type",sev:"major",cat:"landing",state:"done",note:"WorksWith component renders channels, connectors, and models with proper icons and labels",sec:"Landing page rework"},
+  {id:13,t:"Add model provider section — 300+ models, key names called out",sev:"major",cat:"landing",state:"done",note:"MarqueeStrip shows all major models including Claude, OpenAI, Gemini, Llama, Mistral, DeepSeek, etc.",sec:"Landing page rework"},
+  {id:14,t:"Add social proof row — quote, logo, or 'trusted by X teams' signal above the fold",sev:"major",cat:"landing",state:"todo",sec:"Landing page rework"},
+  {id:15,t:"Add real GSAP/Framer pinned scroll section — product story told as user scrolls",sev:"major",cat:"motion",state:"todo",sec:"Landing page rework"},
+  {id:16,t:"Add scrubbing text reveal on a key stat or headline",sev:"major",cat:"motion",state:"todo",sec:"Landing page rework"},
+  {id:17,t:"Add standalone high-contrast CTA block above footer",sev:"major",cat:"landing",state:"done",note:"FinalCTA section is high-contrast, standalone block with proper visual hierarchy",sec:"Landing page rework"},
+  {id:18,t:"Cut integration ticker to 1–2 passes, add pause-on-hover + prefers-reduced-motion",sev:"major",cat:"motion",state:"done",note:"MarqueeStrip renders 2 passes (was 4), has pause-on-hover, keyboard pause button. Check prefers-reduced-motion.",sec:"Landing page rework"},
+  {id:19,t:"Apply consistent card/frame/shadow treatment to all dashboard screenshots",sev:"minor",cat:"landing",state:"partial",note:"ProductShot and gallery images have consistent styling. Verify across all pages.",sec:"Landing page rework"},
+  {id:20,t:"Add text-wrap: balance to all H1–H3 headings",sev:"minor",cat:"landing",state:"done",note:"HeroSection H1 has text-wrap balance. Check all other pages.",sec:"Landing page rework"},
+  {id:21,t:"Unify section eyebrow label component — one style sitewide",sev:"minor",cat:"landing",state:"done",note:"SectionHeader component standardizes eyebrow labels across all sections",sec:"Landing page rework"},
+
+  {id:22,t:"Add prefers-reduced-motion fallbacks to ALL Framer Motion scroll reveals",sev:"major",cat:"a11y",state:"partial",note:"CinematicLayer has fallback timeout. Check all other motion components.",sec:"Accessibility & motion fixes"},
+  {id:23,t:"Verify all integration SVG/img icons have meaningful alt text or aria-label",sev:"major",cat:"a11y",state:"partial",note:"MarqueeStrip buttons have aria-label. Check all Image components for alt text.",sec:"Accessibility & motion fixes"},
+  {id:24,t:"Enforce consistent animation timing tokens — same duration for same element types sitewide",sev:"major",cat:"motion",state:"todo",sec:"Accessibility & motion fixes"},
+  {id:25,t:"Ensure all scroll reveal sections visible in default state — never gate content on JS animation",sev:"major",cat:"motion",state:"done",note:"CinematicLayer has 800ms fallback timeout that force-reveals hidden elements",sec:"Accessibility & motion fixes"},
+  {id:26,t:"Add stagger entrance to feature/channel/model icon groups — 30–50ms per item",sev:"minor",cat:"motion",state:"todo",sec:"Accessibility & motion fixes"},
+  {id:27,t:"Add ease-out entrance easing to all Framer Motion reveal variants",sev:"minor",cat:"motion",state:"partial",note:"HeroSection uses ease-out easing with EASE constant. Check all other sections.",sec:"Accessibility & motion fixes"},
+  {id:28,t:"Gate all hover scale animations behind @media (hover: hover) and (pointer: fine)",sev:"minor",cat:"a11y",state:"todo",sec:"Accessibility & motion fixes"},
+
+  {id:29,t:"Create /contact — dedicated page with deployment framing and proper form",sev:"major",cat:"pages",state:"done",note:"Live at gcap.online/contact — proper form with labels, success state, and validation",sec:"New pages"},
+  {id:30,t:"Create /products/hq — Headmaster HQ page, full Paperclip feature set",sev:"major",cat:"pages",state:"done",note:"Live at gcap.online/products/hq — SiteNav integration, proper structure",sec:"New pages"},
+  {id:31,t:"Rework /products/headmaster — scope to Hermes only, add 7 missing feature sections",sev:"major",cat:"pages",state:"todo",note:"Headmaster page exists with custom nav but needs feature section expansion",sec:"New pages"},
+  {id:32,t:"Create /security — full security feature page",sev:"major",cat:"pages",state:"done",note:"Live at gcap.online/security — SiteNav integration, proper structure",sec:"New pages"},
+  {id:33,t:"Create /integrations — full 17-platform + model provider page",sev:"major",cat:"pages",state:"todo",sec:"New pages"},
+  {id:34,t:"Create /changelog — real release cadence from v0.7–v0.11",sev:"major",cat:"pages",state:"done",note:"Live at gcap.online/changelog — SiteNav integration, proper release structure",sec:"New pages"},
+  {id:35,t:"Fix /products/tayx — add email waitlist or remove from nav",sev:"major",cat:"pages",state:"partial",note:"TayX page exists and is in nav. Check if waitlist functionality or proper content is needed.",sec:"New pages"},
+  {id:36,t:"Create /use-cases/[vertical] — depth page per vertical with real workflow walkthrough",sev:"major",cat:"pages",state:"todo",sec:"New pages"},
+
+  {id:37,t:"Set up Fumadocs inside /app/docs route",sev:"major",cat:"docs",state:"todo",sec:"Docs"},
+  {id:38,t:"Write docs overview — What is Headmaster, product architecture",sev:"major",cat:"docs",state:"todo",sec:"Docs"},
+  {id:39,t:"Write Headmaster core docs — all features",sev:"major",cat:"docs",state:"todo",sec:"Docs"},
+  {id:40,t:"Write Headmaster HQ docs",sev:"major",cat:"docs",state:"todo",sec:"Docs"},
+  {id:41,t:"Write plugin system docs",sev:"minor",cat:"docs",state:"todo",sec:"Docs"},
+  {id:42,t:"Write security docs",sev:"major",cat:"docs",state:"todo",sec:"Docs"},
+  {id:43,t:"Write deployment guide",sev:"major",cat:"docs",state:"todo",sec:"Docs"},
+
+  {id:44,t:"Update nav: Headmaster | HQ | TayX | Use Cases | Contact | Book a Demo",sev:"major",cat:"landing",state:"done",note:"Homepage nav and all product pages use proper nav with all links. SiteNav component consolidated.",sec:"Tech / SEO"},
+  {id:45,t:"Fix footer copyright: © 2025 → © 2026",sev:"minor",cat:"landing",state:"done",note:"Homepage footer and all pages show © 2026",sec:"Tech / SEO"},
+  {id:46,t:"Fix README + verify <html lang='en'> is set",sev:"minor",cat:"landing",state:"partial",note:"Layout has lang='en'. README may need update.",sec:"Tech / SEO"},
+  {id:47,t:"Verify sitemap.xml and robots.txt are generated correctly",sev:"minor",cat:"landing",state:"done",note:"sitemap.ts and robots.ts added and deployed successfully",sec:"Tech / SEO"},
+];
+
+const SEC_ORDER=["Critical fixes","Landing page rework","Accessibility & motion fixes","New pages","Docs","Tech / SEO"];
+let cf='all';
+
+function setF(f,el){
+  cf=f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  render();
+}
+
+function match(item){
+  if(cf==='all')return true;
+  if(cf==='done')return item.state==='done';
+  if(cf==='partial')return item.state==='partial';
+  if(cf==='todo')return item.state==='todo';
+  if(cf==='critical')return item.sev==='critical';
+  return item.cat===cf;
+}
+
+function sevBadge(s){
+  const m={critical:'bc',major:'bm',minor:'bn'};
+  const l={critical:'Critical',major:'Major',minor:'Minor'};
+  return`<span class="badge ${m[s]}">${l[s]}</span>`;
+}
+
+function stateBadge(s){
+  if(s==='done')return`<span class="badge" style="background:#EAF3DE;color:#3B6D11">✓ Live</span>`;
+  if(s==='partial')return`<span class="badge" style="background:#FAEEDA;color:#854F0B">~ Partial</span>`;
+  return'';
+}
+
+function render(){
+  const el=document.getElementById('list');
+  const filtered=ITEMS.filter(match);
+  if(!filtered.length){el.innerHTML='<div class="empty">No items match this filter.</div>';return;}
+  const byS={};
+  SEC_ORDER.forEach(s=>byS[s]=[]);
+  filtered.forEach(i=>{if(byS[i.sec])byS[i.sec].push(i);});
+  let html='';
+  SEC_ORDER.forEach(sec=>{
+    const its=byS[sec];
+    if(!its.length)return;
+    const dc=its.filter(i=>i.state==='done').length;
+    const pc=its.filter(i=>i.state==='partial').length;
+    html+=`<div class="sec"><div class="sec-hdr"><span class="sec-title">${sec}</span><span class="sec-ct">${dc} done · ${pc} partial · ${its.length-dc-pc} todo</span></div>`;
+    its.forEach(item=>{
+      const cls=item.state==='done'?'done':item.state==='partial'?'partial':'';
+      const icon=item.state==='done'?'ti-check':item.state==='partial'?'ti-minus':'';
+      html+=`<div class="item ${cls}">
+        <div class="chk"><i class="ti ${icon}" aria-hidden="true"></i></div>
+        <div class="item-body">
+          <div class="item-title">${item.t}</div>
+          ${item.note?`<div class="item-note">${item.note}</div>`:''}
+          <div class="item-meta">${sevBadge(item.sev)}${stateBadge(item.state)}</div>
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  el.innerHTML=html;
+}
+
+render();
+</script>
