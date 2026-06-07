@@ -17,9 +17,11 @@ export default function HeroSection() {
       id="top"
       data-chapter="top"
       data-label="Start"
-      className="relative min-h-[100dvh] flex items-center overflow-hidden bg-[var(--bg)] pt-20 pb-16"
+      className="relative min-h-[100dvh] flex items-center overflow-hidden bg-[var(--bg)] pt-24 pb-16"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_30%,rgba(0,0,0,0.035),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_35%_22%,rgba(17,17,17,0.16),transparent_34%),radial-gradient(circle_at_78%_18%,rgba(120,105,80,0.18),transparent_30%),radial-gradient(circle_at_58%_78%,rgba(255,255,255,0.74),transparent_36%)]" />
+      <div className="absolute inset-0 opacity-[0.42] bg-[linear-gradient(115deg,transparent_0%,rgba(255,255,255,0.64)_35%,transparent_62%),radial-gradient(circle_at_18%_72%,rgba(17,17,17,0.10),transparent_24%)]" />
+      <div className="absolute inset-0 opacity-[0.06] mix-blend-multiply [background-image:radial-gradient(circle_at_1px_1px,#111_1px,transparent_0)] [background-size:18px_18px]" />
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-8 grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">
         {/* Copy */}

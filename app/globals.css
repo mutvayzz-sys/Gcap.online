@@ -17,9 +17,9 @@
 
   --dur-instant: 100ms;
   --dur-fast: 200ms;
-  --dur-base: 360ms;
-  --dur-leave: 360ms;
-  --dur-considered: 480ms;
+  --dur-base: 280ms;
+  --dur-leave: 280ms;
+  --dur-considered: 300ms;
   --dur-slow: 600ms;
   --dur-cinematic: 1400ms;
 
@@ -37,7 +37,33 @@
   --shadow-subtle: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.06);
   --shadow-card: 0 4px 24px rgba(0,0,0,.08);
   --shadow-elevated: 0 12px 48px rgba(0,0,0,.12);
+
+  --step--1: clamp(0.875rem, 0.84rem + 0.16vw, 0.95rem);
+  --step-0: clamp(1rem, 0.96rem + 0.18vw, 1.1rem);
+  --step-1: clamp(1.18rem, 1.08rem + 0.45vw, 1.4rem);
+  --step-2: clamp(1.5rem, 1.28rem + 0.95vw, 2rem);
+  --step-3: clamp(2rem, 1.55rem + 1.9vw, 3rem);
+  --step-4: clamp(2.8rem, 2rem + 3.4vw, 5.5rem);
+  --measure-copy: 70ch;
+  --measure-narrow: 58ch;
 }
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 10000;
+  transform: translateY(-150%);
+  border-radius: 9999px;
+  background: #111111;
+  color: #F9F7F3;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-elevated);
+  transition: transform var(--dur-fast) var(--ease-confident);
+}
+.skip-link:focus-visible { transform: translateY(0); }
 
 @theme inline {
   --color-background: var(--bg);
@@ -93,6 +119,12 @@ h1, h2, h3 {
   font-feature-settings: "tnum" 1;
   letter-spacing: -0.02em;
 }
+
+p, li { max-width: var(--measure-copy); }
+.text-measure, .prose p, .prose li { max-width: var(--measure-copy); }
+.text-measure-narrow { max-width: var(--measure-narrow); }
+.prose { max-width: var(--measure-copy); }
+.prose h1, .prose h2, .prose h3, .prose h4, .prose pre, .prose table { max-width: none; }
 
 .field {
   width: 100%; border: 1px solid var(--border); background: var(--bg-elevated); border-radius: 16px;

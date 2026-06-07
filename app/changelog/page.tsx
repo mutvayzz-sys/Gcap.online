@@ -124,9 +124,9 @@ export default function ChangelogPage() {
                   <div className="text-[13px] text-[var(--text-muted)]">{release.date}</div>
                 </div>
 
-                <h3 className="text-[24px] font-semibold tracking-[-0.5px] mb-3">
+                <h2 className="text-[24px] font-semibold tracking-[-0.5px] mb-3">
                   {release.tagline && <span className="italic text-[var(--text-muted)]">&ldquo;{release.tagline}&rdquo;</span>}
-                </h3>
+                </h2>
 
                 <ul className="space-y-2">
                   {release.highlights.map((highlight, j) => (
