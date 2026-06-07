@@ -8,7 +8,7 @@ export default function InlineImageHeading() {
   return (
     <section className="py-24 max-w-[1280px] mx-auto px-8">
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
+        initial={{ opacity: 1, y: 0 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: EASE }}
         viewport={{ once: true, margin: "-80px" }}

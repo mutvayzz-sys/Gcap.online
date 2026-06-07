@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Brain, Zap, ShieldCheck, GitMerge } from "lucide-react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -9,25 +10,25 @@ gsap.registerPlugin(ScrollTrigger);
 const STACKED_FEATURES = [
   {
     id: "memory",
-    icon: "🧠",
+    Icon: Brain,
     title: "Persistent Memory",
     description: "Agents retain complete context of past interactions, enabling continuity across conversations.",
   },
   {
     id: "parallel",
-    icon: "⚡",
+    Icon: Zap,
     title: "Parallel Execution",
     description: "Multiple specialized agents work simultaneously on different problem dimensions.",
   },
   {
     id: "control",
-    icon: "✋",
+    Icon: ShieldCheck,
     title: "Human Control",
     description: "Critical actions wait for human sign-off. You stay in control of every decision.",
   },
   {
     id: "coordination",
-    icon: "🔗",
+    Icon: GitMerge,
     title: "Result Coordination",
     description: "Outputs from parallel agents are intelligently aggregated into cohesive results.",
   },
@@ -97,24 +98,24 @@ export default function StackedCardsSection() {
         </div>
 
         {/* Stacked cards container */}
-        <div className="relative min-h-[2400px]">
+        <div className="relative">
           {STACKED_FEATURES.map((feature, index) => (
             <div
               key={feature.id}
               ref={(el) => {
                 cardsRef.current[index] = el;
               }}
-              className="sticky rounded-[var(--radius-lg)] bg-[var(--bg-elevated)] border border-[var(--border)] p-8 lg:p-12 min-h-[320px] flex flex-col justify-center shadow-[var(--shadow-subtle)] transform-gpu origin-center"
+              className="sticky rounded-[var(--radius-lg)] bg-[var(--bg-elevated)] border border-[var(--border)] p-8 lg:p-12 min-h-[280px] flex flex-col justify-center shadow-[var(--shadow-subtle)] transform-gpu origin-center mb-4"
               style={{
                 top: `calc(6rem + ${index} * 1.5rem)`,
               }}
             >
               <div className="space-y-6">
-                <div className="text-[clamp(2rem,4vw,3rem)]">
-                  {feature.icon}
+                <div className="w-11 h-11 rounded-xl bg-[var(--text)] text-[var(--bg)] flex items-center justify-center" aria-hidden="true">
+                  <feature.Icon size={20} strokeWidth={1.8} />
                 </div>
                 <div className="space-y-3">
-                  <h3 className="text-[clamp(1.3rem,2.5vw,2rem)] tracking-[-0.02em] font-semibold text-[var(--text)]">
+                  <h3 className="text-[clamp(1.3rem,2.5vw,2rem)] tracking-[-0.02em] font-semibold text-[var(--text)] text-balance">
                     {feature.title}
                   </h3>
                   <p className="text-[17px] text-[var(--text-muted)] max-w-[55ch] leading-relaxed">

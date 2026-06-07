@@ -63,13 +63,14 @@ export default function PinnedSplitSection() {
         },
       });
 
-      // Fade in right column items as they scroll
+      // Fade in right column items as they scroll — start from visible so content
+      // is never completely hidden if ScrollTrigger fires late
       const rightItems = rightColRef.current?.querySelectorAll(".right-item");
       if (rightItems) {
-        rightItems.forEach((item, index) => {
+        rightItems.forEach((item) => {
           gsap.fromTo(
             item,
-            { opacity: 0, y: 40 },
+            { opacity: 0.2, y: 24 },
             {
               opacity: 1,
               y: 0,
@@ -96,10 +97,7 @@ export default function PinnedSplitSection() {
       className="relative bg-[var(--bg)]"
       id="how-it-works"
     >
-      {/* Spacer to make the section scrollable */}
-      <div className="h-screen" />
-
-      <div className="relative max-w-[1280px] mx-auto px-8 py-32 min-h-screen">
+      <div className="relative max-w-[1280px] mx-auto px-8 py-32">
         <div className="grid lg:grid-cols-[40%_60%] gap-12 lg:gap-20 items-start">
           {/* Left column: pinned */}
           <div
@@ -134,8 +132,6 @@ export default function PinnedSplitSection() {
         </div>
       </div>
 
-      {/* Spacer to enable scroll past the section */}
-      <div className="h-screen" />
     </section>
   );
 }

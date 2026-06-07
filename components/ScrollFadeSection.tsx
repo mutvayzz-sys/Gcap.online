@@ -51,10 +51,11 @@ export default function ScrollFadeSection() {
       if (!cards) return;
 
       cards.forEach((card) => {
-        // Entry animation: scale up and fade in
+        // Entry animation: scale up and fade in — start from nearly-visible so content
+        // is never completely hidden if the ScrollTrigger fires late or not at all
         gsap.fromTo(
           card,
-          { scale: 0.88, opacity: 0 },
+          { scale: 0.94, opacity: 0.25 },
           {
             scale: 1,
             opacity: 1,
