@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import HeroSection from "@/components/HeroSection";
 import ProductPillars from "@/components/ProductPillars";
 import ChatSection from "@/components/ChatSection";
+import PinnedScrollSection from "@/components/PinnedScrollSection";
 import GuidedWorkflowSection from "@/components/GuidedWorkflowSection";
 import ApprovalsSection from "@/components/ApprovalsSection";
 import IntegrationsSection from "@/components/IntegrationsSection";
@@ -17,6 +18,8 @@ import ModelAgnostic from "@/components/ModelAgnostic";
 import TayXSection from "@/components/TayXSection";
 import SocialProof from "@/components/SocialProof";
 import FinalCTA from "@/components/FinalCTA";
+import TextRevealScroll from "@/components/TextRevealScroll";
+import StatsReveal from "@/components/StatsReveal";
 
 export default function GCAPLabs() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -118,6 +121,9 @@ export default function GCAPLabs() {
       {/* PRODUCT PILLARS — broad system overview */}
       <ProductPillars />
 
+      {/* PINNED SCROLL SECTION — product story with parallax and reveal */}
+      <PinnedScrollSection />
+
       {/* GUIDED WORKFLOW — strongest product proof */}
       <GuidedWorkflowSection />
 
@@ -137,6 +143,9 @@ export default function GCAPLabs() {
       {/* MODEL-AGNOSTIC + TAYX TEASER */}
       <ModelAgnostic />
       <TayXSection />
+
+      {/* STATS REVEAL — text animation on scroll */}
+      <StatsReveal />
 
       {/* SOCIAL PROOF */}
       <SocialProof />
