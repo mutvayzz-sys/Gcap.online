@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 import ProductShot from "./ProductShot";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+const EASE = [0.23, 1, 0.32, 1] as const;
 
 const t = (delay: number) => ({
-  initial: { opacity: 0, y: 28 },
+  initial: { opacity: 0, y: 16 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, ease: EASE, delay },
+  transition: { duration: 0.6, ease: EASE, delay },
 });
 
 export default function HeroSection() {
@@ -32,35 +32,35 @@ export default function HeroSection() {
           </motion.div>
 
           <motion.h1
-            {...t(0.1)}
-            className="text-[42px] sm:text-[56px] md:text-[64px] leading-[0.94] tracking-[-2.8px] md:tracking-[-3.8px] font-semibold mb-6 text-[var(--text)]"
+            {...t(0.05)}
+            className="text-wrap balance text-[clamp(2.8rem,4.5vw,5.5rem)] leading-[0.94] tracking-[-0.03em] font-semibold mb-6 text-[var(--text)]"
           >
-            Persistent AI agents<br />for organizations that<br />run on repeat work.
+            The AI agent that runs<br />your organization.<br />While you sleep.
           </motion.h1>
 
           <motion.p
-            {...t(0.2)}
-            className="text-[19px] md:text-[21px] tracking-[-0.3px] mb-9 text-[var(--text-muted)] max-w-[38ch] leading-snug"
+            {...t(0.1)}
+            className="text-wrap balance text-[19px] md:text-[21px] tracking-[-0.3px] mb-9 text-[var(--text-muted)] max-w-[55ch] leading-snug"
           >
-            Headmaster remembers context, learns workflows, connects to tools, schedules recurring work, and routes sensitive actions through human approval.
+            Persistent memory. 17 messaging platforms. 300+ models. Subagent delegation. Human approvals. Headmaster works unattended — and waits for your sign-off before anything important leaves the workspace.
           </motion.p>
 
           <motion.div
-            {...t(0.3)}
+            {...t(0.15)}
             className="flex flex-col sm:flex-row gap-3"
           >
             <a
-              href="#contact"
-              className="inline-flex items-center justify-center px-9 py-3.5 rounded-full bg-[#111111] text-[#F9F7F3] text-[15px] font-medium hover:bg-black active:scale-[0.985] transition-all"
+              href="/contact"
+              className="inline-flex items-center justify-center px-9 py-3.5 rounded-full bg-[#111111] text-[#F9F7F3] text-[15px] font-medium hover:bg-black active:scale-[0.97] transition-all"
               data-magnet
             >
-              Book a Demo
+              See Headmaster in action
             </a>
             <a
               href="#product"
               className="inline-flex items-center justify-center px-9 py-3.5 rounded-full border border-[var(--border-strong)] text-[15px] font-medium hover:bg-white transition-all"
             >
-              Explore the System
+              Walk through a live run
             </a>
           </motion.div>
         </div>

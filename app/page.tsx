@@ -32,11 +32,11 @@ export default function GCAPLabs() {
   };
 
   const navItems = [
-    { href: "#product", label: "Product" },
     { href: "/products/headmaster", label: "Headmaster" },
+    { href: "/products/hq", label: "HQ" },
     { href: "/products/tayx", label: "TayX" },
     { href: "#use-cases", label: "Use Cases" },
-    { href: "#contact", label: "Contact" },
+    { href: "/contact", label: "Contact" },
   ];
 
   return (
@@ -55,13 +55,12 @@ export default function GCAPLabs() {
                 {item.label}
               </a>
             ))}
-            <button
-              onClick={() => scrollTo("contact")}
-              className="px-6 py-[10px] rounded-full bg-[#111111] text-[#F9F7F3] text-sm hover:bg-black transition-colors"
-              aria-label="Book a demo"
+            <a
+              href="/contact"
+              className="px-6 py-[10px] rounded-full bg-[#111111] text-[#F9F7F3] text-sm hover:bg-black transition-colors active:scale-[0.97]"
             >
               Book a Demo
-            </button>
+            </a>
           </div>
 
           <button
@@ -98,13 +97,13 @@ export default function GCAPLabs() {
                 </a>
               ))}
             </nav>
-            <button
-              onClick={() => scrollTo("contact")}
-              className="mt-10 w-full py-4 rounded-full bg-[#111111] text-[#F9F7F3] text-lg font-medium"
-              aria-label="Book a demo"
+            <a
+              href="/contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="mt-10 w-full py-4 rounded-full bg-[#111111] text-[#F9F7F3] text-lg font-medium text-center active:scale-[0.97] transition-transform"
             >
               Book a Demo
-            </button>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
@@ -143,10 +142,12 @@ export default function GCAPLabs() {
 
       {/* Footer */}
       <footer className="border-t border-[var(--border)] py-9 text-xs text-[var(--text-muted)] px-8 flex flex-col md:flex-row gap-y-2 md:items-center justify-between max-w-6xl mx-auto">
-        <div>© 2025 GCAP Labs. Headmaster is a persistent AI workforce layer.</div>
+        <div>© 2026 GCAP Labs. Headmaster — persistent AI agents for organizations.</div>
         <div className="flex gap-6 flex-wrap">
           <a href="https://x.com/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--text)] transition-colors">X</a>
           <a href="https://linkedin.com/company/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--text)] transition-colors">LinkedIn</a>
+          <a href="/security" className="hover:text-[var(--text)] transition-colors">Security</a>
+          <a href="/changelog" className="hover:text-[var(--text)] transition-colors">Changelog</a>
           <a href="/privacy" className="hover:text-[var(--text)] transition-colors">Privacy</a>
           <a href="/terms" className="hover:text-[var(--text)] transition-colors">Terms</a>
         </div>

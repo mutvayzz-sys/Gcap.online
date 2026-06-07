@@ -95,6 +95,7 @@ function fill(items: MarqueeItem[], min = 14): MarqueeItem[] {
 
 export default function MarqueeStrip({ rows, duration = 34, inverse = false }: MarqueeStripProps) {
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
+  const [paused, setPaused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleEnter = (item: MarqueeItem, e: React.MouseEvent | React.FocusEvent) => {
@@ -118,7 +119,7 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
     // Render the set twice; translate -50% lands exactly on the second copy → seamless.
     const seq = [...set, ...set];
     return (
-      <div className="marquee-row flex w-max" style={{ animation: `${reverse ? "marquee-reverse" : "marquee"} ${dur}s linear infinite` }}>
+      <div className="marquee-row flex w-max" style={{ animation: `${reverse ? "marquee-reverse" : "marquee"} ${dur}s linear infinite`, animationPlayState: paused ? "paused" : "running" }}>
         {seq.map((item, i) => (
           <button
             key={i}
@@ -150,7 +151,14 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
   };
 
   return (
-    <div ref={containerRef} className="relative overflow-hidden py-2">
+    <div ref={containerRef} className="relative overflow-hidden py-2 group" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <button
+        className="sr-only focus:not-sr-only fixed bottom-4 right-4 z-40 px-4 py-2 bg-[var(--text)] text-[var(--bg)] rounded-full text-sm font-medium"
+        onClick={() => setPaused(p => !p)}
+        aria-label={paused ? 'Resume integration ticker' : 'Pause integration ticker'}
+      >
+        {paused ? 'Resume' : 'Pause'}
+      </button>
       <div className="flex flex-col gap-9">
         {rows.map((row, idx) => {
           const set = fill(ALL_ITEMS.filter((i) => i.category === row.filter));

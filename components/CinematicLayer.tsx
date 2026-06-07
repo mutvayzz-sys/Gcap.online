@@ -198,17 +198,27 @@ export default function CinematicLayer() {
     }
 
     function initReveals() {
+      if (REDUCED) {
+        // Skip animations if prefers-reduced-motion
+        document.querySelectorAll("[data-reveal], [data-reveal-item]").forEach((el) => {
+          const elem = el as HTMLElement;
+          elem.style.opacity = "1";
+          elem.style.transform = "none";
+        });
+        return;
+      }
+
       const io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const el = entry.target as HTMLElement;
-          el.style.transition = "opacity 1.3s cubic-bezier(0.16,1,0.30,1), transform 1.3s cubic-bezier(0.16,1,0.30,1)";
+          el.style.transition = "opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)";
           el.style.opacity = "1";
           el.style.transform = "translateY(0)";
           el.style.willChange = "auto";
           io.unobserve(el);
         });
-      }, { threshold: 0, rootMargin: "0px 0px -16% 0px" });
+      }, { threshold: 0, rootMargin: "0px 0px -80px 0px" });
 
       const groupIo = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -217,19 +227,19 @@ export default function CinematicLayer() {
           const items = group.querySelectorAll("[data-reveal-item]") as NodeListOf<HTMLElement>;
           items.forEach((item, i) => {
             setTimeout(() => {
-              item.style.transition = "opacity 1.2s cubic-bezier(0.16,1,0.30,1), transform 1.2s cubic-bezier(0.16,1,0.30,1)";
+              item.style.transition = "opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)";
               item.style.opacity = "1";
               item.style.transform = "translateY(0)";
-            }, i * 110);
+            }, i * 50);
           });
           groupIo.unobserve(group);
         });
-      }, { threshold: 0, rootMargin: "0px 0px -20% 0px" });
+      }, { threshold: 0, rootMargin: "0px 0px -80px 0px" });
 
       document.querySelectorAll("[data-reveal]").forEach((el) => {
         const elem = el as HTMLElement;
         elem.style.opacity = "0";
-        elem.style.transform = "translateY(40px)";
+        elem.style.transform = "translateY(16px)";
         elem.style.willChange = "transform, opacity";
         io.observe(elem);
       });
@@ -238,7 +248,7 @@ export default function CinematicLayer() {
         const items = group.querySelectorAll("[data-reveal-item]") as NodeListOf<HTMLElement>;
         items.forEach((item) => {
           item.style.opacity = "0";
-          item.style.transform = "translateY(34px)";
+          item.style.transform = "translateY(12px)";
         });
         groupIo.observe(group);
       });
