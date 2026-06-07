@@ -4,7 +4,6 @@
   --font-sans: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-  /* GCAP warm light brand — off-white page, white surfaces, near-black text */
   --bg: #F8F7F4;
   --bg-elevated: #FFFFFF;
   --text: #111111;
@@ -16,7 +15,6 @@
   --success: #16a34a;
   --on-dark: #F9F7F3;
 
-  /* Motion durations */
   --dur-instant: 100ms;
   --dur-fast: 200ms;
   --dur-base: 360ms;
@@ -25,20 +23,17 @@
   --dur-slow: 600ms;
   --dur-cinematic: 1400ms;
 
-  /* Easings */
   --ease-default: cubic-bezier(0.25, 0.1, 0.25, 1);
   --ease-confident: cubic-bezier(0.16, 1, 0.30, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-playful: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Radii */
   --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-xl: 32px;
 
-  /* Shadows (restrained) */
   --shadow-subtle: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.06);
   --shadow-card: 0 4px 24px rgba(0,0,0,.08);
   --shadow-elevated: 0 12px 48px rgba(0,0,0,.12);
@@ -64,7 +59,6 @@ body {
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; }
 
-/* Focus visible rings for accessibility */
 *:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 3px;
@@ -73,7 +67,6 @@ button { font-family: inherit; }
   outline: none;
 }
 
-/* Accessibility: screen reader only text */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -85,7 +78,7 @@ button { font-family: inherit; }
   white-space: nowrap;
   border-width: 0;
 }
-.sr-only.focus\:not-sr-only:focus {
+.sr-only:focus:not(.sr-only) {
   position: static;
   width: auto;
   height: auto;
@@ -101,7 +94,6 @@ h1, h2, h3 {
   letter-spacing: -0.02em;
 }
 
-/* Form fields — light GCAP */
 .field {
   width: 100%; border: 1px solid var(--border); background: var(--bg-elevated); border-radius: 16px;
   padding: 15px 22px; font-size: 17px; font-family: var(--font-sans); color: var(--ink);
@@ -110,24 +102,19 @@ h1, h2, h3 {
 .field::placeholder { color: var(--text-muted); }
 .field:focus { outline: none; border-color: var(--border-strong); }
 
-/* ---- Layout ---- */
 .wrap { max-width: 1024px; margin: 0 auto; padding: 0 32px; }
 .wrap-wide { max-width: 1152px; margin: 0 auto; padding: 0 32px; }
 
-/* ---- Sections ---- */
 .section { padding: 80px 0; }
 .hairline { border-top: 1px solid var(--border); }
 .band { background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 
-/* ---- Cards ---- */
 .card { background: #fff; border: 1px solid var(--border); border-radius: 24px; }
 .card-dark { background: #111; color: var(--on-dark); border: 1px solid rgba(255,255,255,.1); border-radius: 24px; }
 
-/* ---- Eyebrow ---- */
 .eyebrow { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
 .chip { display: inline-block; padding: 6px 16px; border-radius: 9999px; background: #111; color: var(--on-dark); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
 
-/* ---- Buttons (light GCAP) ---- */
 button, a[role="button"] {
   transition: transform 100ms ease-out;
 }
@@ -149,9 +136,6 @@ button:active, a[role="button"]:active {
 .btn-ghost { background: transparent; color: #111; border: 2px solid var(--border-strong); padding: 13px 42px; font-size: 19px; }
 .btn-ghost:hover { background: rgba(0,0,0,.04); }
 
-/* Form fields already defined above for light GCAP */
-
-/* ---- Nav (light GCAP) ---- */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;
   background: rgba(248,247,244,.95); backdrop-filter: blur(20px);
@@ -166,12 +150,10 @@ button:active, a[role="button"]:active {
 .nav-links a { transition: color .2s; }
 .nav-links a:hover { color: var(--text-muted); }
 
-/* ---- Terminal ---- */
 .term { border-radius: 16px; border: 1px solid var(--border); background: #0D0D0D; overflow: hidden; }
 .term-bar { border-bottom: 1px solid rgba(255,255,255,.06); padding: 10px 16px; display: flex; align-items: center; gap: 7px; }
 .tdot { width: 10px; height: 10px; border-radius: 50%; }
 
-/* ---- Cinematic cursor ---- */
 .cursor-ring {
   position: fixed; top: 0; left: 0; width: 34px; height: 34px;
   border: 1.5px solid rgba(17,17,17,.45); border-radius: 50%;
@@ -188,10 +170,8 @@ button:active, a[role="button"]:active {
 }
 body.has-cursor, body.has-cursor * { cursor: none !important; }
 
-/* ---- Film grain ---- */
 .grain { position: fixed; inset: 0; z-index: 9000; pointer-events: none; opacity: .045; mix-blend-mode: multiply; }
 
-/* ---- Chapter nav ---- */
 .chapters {
   position: fixed; right: 26px; top: 50%; transform: translateY(-50%);
   z-index: 60; display: flex; flex-direction: column; gap: 18px; align-items: flex-end;
@@ -214,14 +194,7 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
 .chapters.on-dark .chapter-label { color: rgba(255,255,255,.6); }
 .chapters.on-dark .chapter.active .chapter-label { color: #fff; }
 
-/* ---- Scroll progress bar ---- */
 .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--ink); z-index: 55; width: 0%; }
-
-/* ---- Animations ---- */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
 
 @keyframes pulse-dot {
   0%, 100% { opacity: 0.3; }
@@ -238,18 +211,15 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ---- Connected Tool Layer (calm marquee, multi-row parallax feel) ---- */
 .integrations-marquee {
-  /* container */
 }
 .integration-row {
-  /* base row; duration overridden inline for stagger (55s-75s range) */
   animation: marquee 68s linear infinite;
   will-change: transform;
 }
 .integration-row:nth-child(2) {
   animation-duration: 61s;
-  animation-direction: reverse; /* slight opposing motion for calm parallax */
+  animation-direction: reverse;
 }
 .integration-row:nth-child(3) {
   animation-duration: 74s;
@@ -264,7 +234,6 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
   color: var(--text);
 }
 
-/* ---- Reduced motion (strong support everywhere) ---- */
 @media (max-width: 880px) { .chapters { display: none; } }
 @media (hover: none), (pointer: coarse) {
   .cursor-ring, .cursor-dot { display: none; }
