@@ -37,6 +37,7 @@ function PageNav() {
         <div className="hidden items-center gap-8 text-[15px] md:flex">
           <Link href="/products/headmaster" className="text-[var(--text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">Headmaster</Link>
           <Link href="/products/hq" className="transition-colors hover:text-[var(--text-muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">HQ</Link>
+          <Link href="/integrations" className="transition-colors hover:text-[var(--text-muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">Integrations</Link>
           <Link href="/products/tayx" className="transition-colors hover:text-[var(--text-muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">TayX</Link>
           <Link href="/#use-cases" className="transition-colors hover:text-[var(--text-muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">Use Cases</Link>
           <Link href="/contact" className="rounded-full bg-[#111111] px-6 py-[10px] text-sm text-[#F9F7F3] transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F7F3]">Book a Demo</Link>
@@ -64,10 +65,10 @@ export default function HeadmasterProductPage() {
               Headmaster is GCAP&apos;s persistent AI workforce layer for organizations that need memory, tools, workflows, approvals, channels, automations, and model routing in one governed product.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a href="#contact" className="inline-flex justify-center rounded-full bg-[#111111] px-9 py-3.5 text-[15px] font-medium text-[#F9F7F3] transition-all hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F7F3]">
+              <a href="#contact" className="inline-flex justify-center rounded-full bg-[#111111] px-9 py-3.5 text-[15px] font-medium text-[#F9F7F3] transition-all hover:bg-black active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F7F3]">
                 Book a Demo
               </a>
-              <a href="#guided-run" className="inline-flex justify-center rounded-full border border-[var(--border-strong)] px-9 py-3.5 text-[15px] font-medium transition-all hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)]">
+              <a href="#guided-run" className="inline-flex justify-center rounded-full border border-[var(--border-strong)] px-9 py-3.5 text-[15px] font-medium transition-all hover:bg-white active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)]">
                 View workflow proof
               </a>
             </div>
