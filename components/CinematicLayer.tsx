@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 type LenisController = {
   raf: (time: number) => void;
@@ -92,7 +93,7 @@ export default function CinematicLayer() {
         const btn = document.createElement("button");
         btn.className = "chapter";
         btn.setAttribute("data-goto", id);
-        btn.innerHTML = `<span class="chapter-label">${label}</span><span class="chapter-dot"></span>`;
+        btn.innerHTML = `<span class="chapter-label">${label}</span><div class="chapter-dot-container"><span class="chapter-dot"></span></div>`;
         btn.addEventListener("click", () => {
           const target = document.getElementById(id);
           if (!target) return;
@@ -113,9 +114,15 @@ export default function CinematicLayer() {
           const sec = entry.target as HTMLElement;
           const id = sec.getAttribute("data-chapter");
           const isDark = sec.getAttribute("data-theme") === "dark";
-          document.querySelectorAll(".chapter").forEach((c) =>
-            c.classList.toggle("active", c.getAttribute("data-goto") === id)
-          );
+          document.querySelectorAll(".chapter").forEach((c) => {
+            const isActive = c.getAttribute("data-goto") === id;
+            c.classList.toggle("active", isActive);
+            const dotContainer = c.querySelector(".chapter-dot-container") as HTMLElement;
+            if (dotContainer) {
+              dotContainer.style.transform = isActive ? "scale(1.3)" : "scale(1)";
+              dotContainer.style.transition = "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)";
+            }
+          });
           rail.classList.toggle("on-dark", isDark);
         });
       }, { threshold: 0, rootMargin: "-45% 0px -45% 0px" });

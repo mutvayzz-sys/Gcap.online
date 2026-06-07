@@ -16,9 +16,13 @@ import TrustControl from "@/components/TrustControl";
 import UseCases from "@/components/UseCases";
 import ModelAgnostic from "@/components/ModelAgnostic";
 import TayXSection from "@/components/TayXSection";
-import SocialProof from "@/components/SocialProof";
 import FinalCTA from "@/components/FinalCTA";
 import StatsReveal from "@/components/StatsReveal";
+import PinnedSplitSection from "@/components/PinnedSplitSection";
+import ScrollFadeSection from "@/components/ScrollFadeSection";
+import StackedCardsSection from "@/components/StackedCardsSection";
+import InlineImageHeading from "@/components/InlineImageHeading";
+import TestimonialCarousel from "@/components/TestimonialCarousel";
 
 export default function GCAPLabs() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -109,11 +113,24 @@ export default function GCAPLabs() {
       {/* PRODUCT PILLARS — broad system overview */}
       <ProductPillars />
 
+      {/* EDITORIAL CHAPTER BREAK */}
+      <InlineImageHeading />
+
+      {/* HOW IT WORKS — pinned left title, steps scroll right */}
+      <PinnedSplitSection />
+
       {/* PINNED SCROLL SECTION — product story with parallax and reveal */}
       <PinnedScrollSection />
 
+      {/* PROOF NUMBERS — key stats scale in and fade on scroll */}
+      <ScrollFadeSection />
+
       {/* GUIDED WORKFLOW — strongest product proof */}
       <GuidedWorkflowSection />
+
+      {/* FEATURE STACK — additional capabilities in stacking cards */}
+      <StackedCardsSection />
+
 
       {/* INTEGRATIONS — visual proof only on the homepage */}
       <IntegrationsSection />
@@ -135,8 +152,8 @@ export default function GCAPLabs() {
       {/* STATS REVEAL — text animation on scroll */}
       <StatsReveal />
 
-      {/* SOCIAL PROOF */}
-      <SocialProof />
+      {/* TESTIMONIAL CAROUSEL — overlapping avatars + quote navigation */}
+      <TestimonialCarousel />
 
       {/* CTA */}
       <FinalCTA />

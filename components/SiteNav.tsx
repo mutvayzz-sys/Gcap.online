@@ -31,7 +31,7 @@ export default function SiteNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-full px-4 py-2 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] ${isActive ? "bg-white text-[var(--text)] shadow-sm" : "text-[var(--text-muted)] hover:bg-white hover:text-[var(--text)]"}`}
+                className={`rounded-full px-4 py-2 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] ${isActive ? "bg-white text-[var(--text)] shadow-sm" : "text-[var(--text-muted)] [@media(hover:hover)_and_(pointer:fine)]:hover:bg-white [@media(hover:hover)_and_(pointer:fine)]:hover:text-[var(--text)]"}`}
               >
                 {item.label}
               </Link>

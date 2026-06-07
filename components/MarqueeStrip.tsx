@@ -192,7 +192,7 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
           className="absolute z-30 pointer-events-none"
           style={{ left: tooltip.x, top: tooltip.y - 10, transform: "translate(-50%, -100%)" }}
         >
-          <div className="bg-white border border-[var(--border)] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-4 w-[220px]">
+          <div className="bg-white rounded-2xl shadow-[0_4px_14px_rgba(0,0,0,0.10)] p-4 w-[220px]">
             <div className="flex items-center gap-2.5 mb-2">
               <div className="w-8 h-8 rounded-xl border border-[var(--border)] bg-[var(--bg)] flex items-center justify-center flex-shrink-0">
                 {tooltip.item.Icon ? (

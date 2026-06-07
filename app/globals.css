@@ -4,7 +4,7 @@
   --font-sans: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-  --bg: #F8F7F4;
+  --bg: #F5F5F5;
   --bg-elevated: #FFFFFF;
   --text: #111111;
   --ink: #111111;
@@ -46,13 +46,20 @@
   --step-4: clamp(2.8rem, 2rem + 3.4vw, 5.5rem);
   --measure-copy: 70ch;
   --measure-narrow: 58ch;
+
+  --z-fixed: 40;
+  --z-nav: 50;
+  --z-chapters: 60;
+  --z-grain: 70;
+  --z-cursor: 80;
+  --z-critical: 90;
 }
 
 .skip-link {
   position: fixed;
   left: 1rem;
   top: 1rem;
-  z-index: 10000;
+  z-index: var(--z-critical);
   transform: translateY(-150%);
   border-radius: 9999px;
   background: #111111;
@@ -149,7 +156,9 @@ p, li { max-width: var(--measure-copy); }
 .chip { display: inline-block; padding: 6px 16px; border-radius: 9999px; background: #111; color: var(--on-dark); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
 
 button, a[role="button"], a[href] {
-  transition: transform 100ms ease-out;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform var(--dur-fast) var(--ease-confident);
 }
 button:active, a[role="button"]:active {
   transform: scale(0.97);
@@ -163,7 +172,7 @@ a[href]:focus-visible {
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   border: none; cursor: pointer; border-radius: 9999px; font-weight: 500;
-  transition: background var(--dur-leave) var(--ease-confident), transform var(--dur-leave) var(--ease-confident);
+  transition: background var(--dur-leave) var(--ease-confident), transform var(--dur-fast) var(--ease-confident);
 }
 .btn:hover { transition-duration: var(--dur-fast); }
 .btn:active { transform: scale(.97); }
@@ -195,7 +204,7 @@ a[href]:focus-visible {
 .cursor-ring {
   position: fixed; top: 0; left: 0; width: 34px; height: 34px;
   border: 1.5px solid rgba(17,17,17,.45); border-radius: 50%;
-  pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
+  pointer-events: none; z-index: var(--z-cursor); transform: translate(-50%,-50%);
   mix-blend-mode: difference; will-change: transform;
   transition: transform var(--dur-fast) var(--ease-confident),
               border-color var(--dur-fast) var(--ease-confident);
@@ -203,16 +212,16 @@ a[href]:focus-visible {
 .cursor-ring.is-magnet { transform: translate(-50%,-50%) scale(1.6); border-color: rgba(255,255,255,.9); }
 .cursor-dot {
   position: fixed; top: 0; left: 0; width: 5px; height: 5px;
-  background: #111; border-radius: 50%; pointer-events: none; z-index: 9999;
+  background: #111; border-radius: 50%; pointer-events: none; z-index: var(--z-cursor);
   transform: translate(-50%,-50%); will-change: transform;
 }
 body.has-cursor, body.has-cursor * { cursor: none !important; }
 
-.grain { position: fixed; inset: 0; z-index: 9000; pointer-events: none; opacity: .045; mix-blend-mode: multiply; }
+.grain { position: fixed; inset: 0; z-index: var(--z-grain); pointer-events: none; opacity: .045; mix-blend-mode: multiply; }
 
 .chapters {
   position: fixed; right: 26px; top: 50%; transform: translateY(-50%);
-  z-index: 60; display: flex; flex-direction: column; gap: 18px; align-items: flex-end;
+  z-index: var(--z-chapters); display: flex; flex-direction: column; gap: 18px; align-items: flex-end;
 }
 .chapter { display: flex; align-items: center; gap: 10px; cursor: pointer; background: none; border: none; padding: 0; }
 .chapter-label {
@@ -221,11 +230,15 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
   transition: opacity var(--dur-fast), transform var(--dur-fast); white-space: nowrap;
 }
 .chapter:hover .chapter-label { opacity: 1; transform: translateX(0); }
+.chapter-dot-container {
+  display: flex; align-items: center; justify-content: center;
+  transform-origin: center;
+}
 .chapter-dot {
   width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong);
-  transition: transform var(--dur-considered) var(--ease-playful), background var(--dur-considered) var(--ease-confident);
+  transition: background var(--dur-considered) var(--ease-confident);
 }
-.chapter.active .chapter-dot { background: var(--ink); transform: scale(1.55); }
+.chapter.active .chapter-dot { background: var(--ink); }
 .chapter.active .chapter-label { opacity: 1; transform: translateX(0); color: var(--ink); }
 .chapters.on-dark .chapter-dot { background: rgba(255,255,255,.3); }
 .chapters.on-dark .chapter.active .chapter-dot { background: #fff; }
@@ -264,7 +277,7 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
 }
 .integration-icon {
   opacity: 0.82;
-  transition: transform 280ms ease, opacity 280ms ease, filter 280ms ease, color 280ms ease;
+  transition: transform 280ms var(--ease-confident), opacity 280ms var(--ease-confident), filter 280ms var(--ease-confident), color 280ms var(--ease-confident);
 }
 @media (hover: hover) and (pointer: fine) {
   .integration-icon:hover {
@@ -319,7 +332,7 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
 
 /* Hover effects gated behind media queries */
 .system-card {
-  transition: all 300ms ease;
+  transition: transform 300ms var(--ease-confident), border-color 300ms var(--ease-confident), box-shadow 300ms var(--ease-confident);
 }
 @media (hover: hover) and (pointer: fine) {
   .system-card:hover {
@@ -330,7 +343,7 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
 }
 
 .product-pillar-icon {
-  transition: transform 300ms ease;
+  transition: transform 300ms var(--ease-confident);
 }
 @media (hover: hover) and (pointer: fine) {
   .product-pillar-icon:hover {
@@ -339,7 +352,7 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
 }
 
 .marquee-item-icon {
-  transition: all 200ms ease;
+  transition: transform 200ms var(--ease-confident), box-shadow 200ms var(--ease-confident);
 }
 @media (hover: hover) and (pointer: fine) {
   .marquee-item-icon:hover {

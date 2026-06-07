@@ -6,8 +6,8 @@ import ProductShot from "./ProductShot";
 const EASE = [0.23, 1, 0.32, 1] as const;
 
 const t = (delay: number) => ({
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0 },
+  initial: { opacity: 0, transform: "translateY(16px)" },
+  animate: { opacity: 1, transform: "translateY(0px)" },
   transition: { duration: 0.6, ease: EASE, delay },
 });
 
@@ -28,7 +28,7 @@ export default function HeroSection() {
         <div>
           <motion.div
             {...t(0)}
-            className="inline-flex items-center border border-[var(--border-strong)] px-3 py-1.5 text-[11px] tracking-[0.14em] uppercase text-[var(--text-muted)] mb-6"
+            className="text-[11px] tracking-[0.14em] uppercase text-[var(--text-muted)] mb-6"
           >
             Headmaster by GCAP Labs
           </motion.div>
@@ -42,9 +42,9 @@ export default function HeroSection() {
 
           <motion.p
             {...t(0.1)}
-            className="text-wrap balance text-[19px] md:text-[21px] tracking-[-0.3px] mb-9 text-[var(--text-muted)] max-w-[55ch] leading-snug"
+            className="text-wrap balance text-[19px] md:text-[21px] tracking-[-0.3px] mb-9 text-[var(--text-muted)] max-w-[55ch] leading-relaxed"
           >
-            Persistent memory. 17 messaging platforms. 300+ models. Subagent delegation. Human approvals. Headmaster works unattended — and waits for your sign-off before anything important leaves the workspace.
+            Persistent memory. Multi-platform reach. Model-agnostic by design. Subagent delegation. Human approvals. Headmaster works unattended — and waits for your sign-off before anything important leaves the workspace.
           </motion.p>
 
           <motion.div
@@ -69,8 +69,8 @@ export default function HeroSection() {
 
         {/* Product proof — real dashboard screenshot */}
         <motion.div
-          initial={{ opacity: 0, y: 36, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, transform: "translateY(36px) scale(0.98)" }}
+          animate={{ opacity: 1, transform: "translateY(0px) scale(1)" }}
           transition={{ duration: 0.9, ease: EASE, delay: 0.45 }}
           className="relative mx-auto w-full max-w-[640px]"
         >

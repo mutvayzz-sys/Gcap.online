@@ -41,7 +41,7 @@ const STORY_SECTIONS = [
     title: "Human-in-the-Loop",
     description: "Critical actions wait for human sign-off. No autonomous decisions on sensitive operations. You stay in control.",
     stat: "100%",
-    statLabel: "Mission-critical tasks approved",
+    statLabel: "High-stakes actions approved before sending",
   },
 ];
 
@@ -70,6 +70,8 @@ export default function PinnedScrollSection() {
       const sections = contentRef.current?.querySelectorAll(".story-section");
       if (!sections) return;
 
+      gsap.set(sections, { opacity: 0 });
+
       sections.forEach((section, index) => {
         gsap.fromTo(
           section,
@@ -77,6 +79,7 @@ export default function PinnedScrollSection() {
           {
             opacity: 1,
             y: 0,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: section,
               start: "top 70%",
@@ -118,7 +121,7 @@ export default function PinnedScrollSection() {
             transition={{ duration: 0.6 }}
             viewport={{ once: false, margin: "-100px" }}
           >
-            <h2 className="text-[clamp(1.5rem,3vw,2.5rem)] tracking-[-0.02em] font-semibold text-[var(--text)] mb-4">
+            <h2 className="text-[clamp(1.5rem,3vw,2.5rem)] tracking-[-0.02em] font-semibold text-[var(--text)] mb-4 text-balance">
               Built for what matters
             </h2>
             <p className="text-[17px] text-[var(--text-muted)] max-w-[65ch]">
@@ -132,17 +135,14 @@ export default function PinnedScrollSection() {
           {STORY_SECTIONS.map((section, idx) => (
             <div
               key={section.id}
-              className="story-section grid lg:grid-cols-[1fr_1fr] gap-12 items-center opacity-0"
+              className="story-section grid lg:grid-cols-[1fr_1fr] gap-12 items-center"
             >
               {/* Left: Text content */}
               <div className={idx % 2 === 1 ? "lg:order-2" : ""}>
-                <div className="inline-block mb-4 px-3 py-1 rounded-full bg-[var(--border)] text-[11px] tracking-[0.14em] uppercase text-[var(--text-muted)]">
-                  Feature {idx + 1}
-                </div>
                 <h3 className="text-[clamp(1.3rem,2.5vw,2rem)] tracking-[-0.02em] font-semibold text-[var(--text)] mb-4">
                   {section.title}
                 </h3>
-                <p className="text-[17px] leading-relaxed text-[var(--text-muted)] mb-6 max-w-[55ch]">
+                <p className="text-[17px] leading-relaxed text-[var(--text-muted)] mb-6 max-w-[55ch] text-pretty">
                   {section.description}
                 </p>
                 <div className="inline-flex items-baseline gap-3">
