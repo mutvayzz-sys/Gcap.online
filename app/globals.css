@@ -97,10 +97,11 @@ h1, h2, h3 {
 .field {
   width: 100%; border: 1px solid var(--border); background: var(--bg-elevated); border-radius: 16px;
   padding: 15px 22px; font-size: 17px; font-family: var(--font-sans); color: var(--ink);
-  transition: border-color .2s;
+  transition: border-color 0.2s, outline 0.2s;
 }
 .field::placeholder { color: var(--text-muted); }
 .field:focus { outline: none; border-color: var(--border-strong); }
+.field:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
 
 .wrap { max-width: 1024px; margin: 0 auto; padding: 0 32px; }
 .wrap-wide { max-width: 1152px; margin: 0 auto; padding: 0 32px; }
@@ -115,11 +116,16 @@ h1, h2, h3 {
 .eyebrow { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
 .chip { display: inline-block; padding: 6px 16px; border-radius: 9999px; background: #111; color: var(--on-dark); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
 
-button, a[role="button"] {
+button, a[role="button"], a[href] {
   transition: transform 100ms ease-out;
 }
 button:active, a[role="button"]:active {
   transform: scale(0.97);
+}
+a[href]:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .btn {
@@ -234,11 +240,18 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
   color: var(--text);
 }
 
-@media (max-width: 880px) { .chapters { display: none; } }
+/* Touch device styles */
 @media (hover: none), (pointer: coarse) {
   .cursor-ring, .cursor-dot { display: none; }
   body.has-cursor, body.has-cursor * { cursor: auto !important; }
+  /* Ensure touch targets are appropriately sized */
+  button, a[role="button"], input[type="button"], input[type="submit"], input[type="reset"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
+
+@media (max-width: 880px) { .chapters { display: none; } }
 @media (prefers-reduced-motion: reduce) {
   .grain, .cursor-ring, .cursor-dot { display: none !important; }
   body.has-cursor, body.has-cursor * { cursor: auto !important; }

@@ -128,7 +128,7 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
             onMouseLeave={() => setTooltip(null)}
             onFocus={(e) => handleEnter(item, e)}
             onBlur={() => setTooltip(null)}
-            className="flex flex-col items-center gap-2.5 group cursor-default focus:outline-none mr-9 flex-shrink-0"
+            className="flex flex-col items-center gap-2.5 group cursor-default focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] mr-9 flex-shrink-0 rounded-md"
             tabIndex={i < set.length ? 0 : -1}
             aria-label={item.name}
           >
