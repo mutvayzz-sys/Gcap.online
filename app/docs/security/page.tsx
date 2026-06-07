@@ -5,7 +5,7 @@ export const metadata = {
 
 export default function SecurityPage() {
   return (
-    <article className="prose max-w-4xl">
+    <article className="prose prose-invert max-w-4xl">
       <h1>Security & Compliance</h1>
       <p>
         Headmaster is designed around least-privilege access, human approval gates, auditable agent runs, and clear deployment boundaries. This page describes the security model and the compliance evidence organizations should collect during rollout.

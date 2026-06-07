@@ -5,7 +5,7 @@ export const metadata = {
 
 export default function HQDocsPage() {
   return (
-    <article className="prose max-w-4xl">
+    <article className="prose prose-invert max-w-4xl">
       <h1>Headmaster HQ</h1>
       <p>
         Headmaster HQ is the operator console for supervising agents, approving sensitive work, reviewing runs, and coordinating team-level workflows.

@@ -26,13 +26,6 @@ export default function HeroSection() {
       <div className="relative z-10 max-w-[1280px] mx-auto px-8 grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">
         {/* Copy */}
         <div>
-          <motion.div
-            {...t(0)}
-            className="text-[11px] tracking-[0.14em] uppercase text-[var(--text-muted)] mb-6"
-          >
-            Headmaster by GCAP Labs
-          </motion.div>
-
           <motion.h1
             {...t(0.05)}
             className="text-wrap balance text-[clamp(2.8rem,4.5vw,5.5rem)] leading-[0.94] tracking-[-0.03em] font-semibold mb-6 text-[var(--text)]"
@@ -82,15 +75,6 @@ export default function HeroSection() {
           />
         </motion.div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.1, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] tracking-[3px] uppercase text-[var(--text-muted)] z-10"
-      >
-        Scroll to explore
-      </motion.div>
     </section>
   );
 }

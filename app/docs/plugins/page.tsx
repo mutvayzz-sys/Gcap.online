@@ -5,7 +5,7 @@ export const metadata = {
 
 export default function PluginDocsPage() {
   return (
-    <article className="prose max-w-4xl">
+    <article className="prose prose-invert max-w-4xl">
       <h1>Plugin System</h1>
       <p>
         Headmaster plugins extend the agent runtime with commands, hooks, tools, dashboard surfaces, and policy checks without changing core agent code.
