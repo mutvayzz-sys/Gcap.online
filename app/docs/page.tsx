@@ -19,8 +19,20 @@ const docs = [
     icon: "⚙️",
   },
   {
+    title: "Headmaster HQ",
+    description: "HQ functionality, setup, usage, approvals, and run supervision",
+    href: "/docs/hq",
+    icon: "🕹️",
+  },
+  {
+    title: "Plugin System",
+    description: "Plugin architecture and development guide for extending Headmaster",
+    href: "/docs/plugins",
+    icon: "🧩",
+  },
+  {
     title: "Security & Compliance",
-    description: "Security features, compliance certifications, and data handling",
+    description: "Security features, permissions, compliance, and data handling",
     href: "/docs/security",
     icon: "🔒",
   },
@@ -47,8 +59,8 @@ export default function DocsIndex() {
         </div>
 
         {/* Docs Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {docs.map((doc, idx) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {docs.map((doc) => (
             <Link
               key={doc.href}
               href={doc.href}

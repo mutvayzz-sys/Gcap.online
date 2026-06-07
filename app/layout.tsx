@@ -47,8 +47,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`h-full antialiased ${GeistSans.variable}`}>
       <body className="min-h-screen flex flex-col">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <CinematicLayer />
-        {children}
+        <div id="main-content" className="contents">
+          {children}
+        </div>
         <Analytics />
       </body>
     </html>
