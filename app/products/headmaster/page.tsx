@@ -30,16 +30,16 @@ function PageNav() {
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 border-b border-[var(--border)] bg-[var(--bg)]/95 backdrop-blur-xl">
       <div className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-8">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">
           <Image src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} priority />
           <span className="text-[21px] font-medium tracking-[-0.8px]">GCAP</span>
         </Link>
         <div className="hidden items-center gap-8 text-[15px] md:flex">
-          <Link href="/products/headmaster" className="text-[var(--text)]">Headmaster</Link>
-          <Link href="/products/hq" className="transition-colors hover:text-[var(--text-muted)]">HQ</Link>
-          <Link href="/products/tayx" className="transition-colors hover:text-[var(--text-muted)]">TayX</Link>
-          <Link href="/#use-cases" className="transition-colors hover:text-[var(--text-muted)]">Use Cases</Link>
-          <Link href="/contact" className="rounded-full bg-[#111111] px-6 py-[10px] text-sm text-[#F9F7F3] transition-colors hover:bg-black">Book a Demo</Link>
+          <Link href="/products/headmaster" className="text-[var(--text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">Headmaster</Link>
+          <Link href="/products/hq" className="transition-colors hover:text-[var(--text-muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">HQ</Link>
+          <Link href="/products/tayx" className="transition-colors hover:text-[var(--text-muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">TayX</Link>
+          <Link href="/#use-cases" className="transition-colors hover:text-[var(--text-muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">Use Cases</Link>
+          <Link href="/contact" className="rounded-full bg-[#111111] px-6 py-[10px] text-sm text-[#F9F7F3] transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F7F3]">Book a Demo</Link>
         </div>
       </div>
     </nav>
@@ -64,10 +64,10 @@ export default function HeadmasterProductPage() {
               Headmaster is GCAP&apos;s persistent AI workforce layer for organizations that need memory, tools, workflows, approvals, channels, automations, and model routing in one governed product.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a href="#contact" className="inline-flex justify-center rounded-full bg-[#111111] px-9 py-3.5 text-[15px] font-medium text-[#F9F7F3] transition-all hover:bg-black">
+              <a href="#contact" className="inline-flex justify-center rounded-full bg-[#111111] px-9 py-3.5 text-[15px] font-medium text-[#F9F7F3] transition-all hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F7F3]">
                 Book a Demo
               </a>
-              <a href="#guided-run" className="inline-flex justify-center rounded-full border border-[var(--border-strong)] px-9 py-3.5 text-[15px] font-medium transition-all hover:bg-white">
+              <a href="#guided-run" className="inline-flex justify-center rounded-full border border-[var(--border-strong)] px-9 py-3.5 text-[15px] font-medium transition-all hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)]">
                 View workflow proof
               </a>
             </div>
@@ -231,11 +231,11 @@ export default function HeadmasterProductPage() {
       <footer className="mx-auto flex max-w-6xl flex-col justify-between gap-y-2 border-t border-[var(--border)] px-8 py-9 text-xs text-[var(--text-muted)] md:flex-row md:items-center">
         <div>© 2026 GCAP Labs. Headmaster — persistent AI agents for organizations.</div>
         <div className="flex flex-wrap gap-6">
-          <Link href="/" className="transition-colors hover:text-[var(--text)]">Home</Link>
-          <Link href="/security" className="transition-colors hover:text-[var(--text)]">Security</Link>
-          <Link href="/changelog" className="transition-colors hover:text-[var(--text)]">Changelog</Link>
-          <a href="/privacy" className="transition-colors hover:text-[var(--text)]">Privacy</a>
-          <a href="/terms" className="transition-colors hover:text-[var(--text)]">Terms</a>
+          <Link href="/" className="transition-colors hover:text-[var(--text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">Home</Link>
+          <Link href="/security" className="transition-colors hover:text-[var(--text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">Security</Link>
+          <Link href="/changelog" className="transition-colors hover:text-[var(--text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">Changelog</Link>
+          <a href="/privacy" className="transition-colors hover:text-[var(--text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">Privacy</a>
+          <a href="/terms" className="transition-colors hover:text-[var(--text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">Terms</a>
         </div>
       </footer>
     </div>
