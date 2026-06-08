@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 export const metadata = {
   title: "Headmaster Core - Documentation",
   description: "Complete feature guide, capabilities, and configuration",
@@ -41,17 +42,10 @@ memory:
       <h3>Model Support</h3>
 
       <p>
-        Deploy on any LLM without changing agent logic:
+        Headmaster supports current models from Anthropic, OpenAI, Google, Meta, Mistral, DeepSeek, Qwen, Kimi, MiniMax, and 300+ providers via OpenRouter. Model availability changes often, so production deployments should verify each provider's current lineup before locking workflow policy.
       </p>
-      <ul>
-        <li><strong>Anthropic</strong>: Claude 3.5 Sonnet, Claude 3 Opus, Claude 3 Haiku</li>
-        <li><strong>OpenAI</strong>: GPT-4, GPT-4 Turbo, GPT-3.5 Turbo</li>
-        <li><strong>Google</strong>: Gemini Pro, Gemini Ultra</li>
-        <li><strong>Other</strong>: Grok, Llama 2/3, Mistral, and custom endpoints</li>
-      </ul>
-
       <p>
-        Switch models by updating configuration—no code changes required.
+        Routing is configurable per workflow: specify a model family, set a preferred provider, or let Headmaster select based on task type, context length, tool use, cost policy, and deployment boundary. Switch models by updating configuration—no code changes required.
       </p>
 
       <h3>Multi-Platform Deployment</h3>
@@ -279,6 +273,10 @@ approvals:
       <p>
         See <a href="/docs/security">Security & Compliance</a> for detailed information.
       </p>
+          <div className="mt-16 border-t pt-8">
+        <p><strong>Next:</strong></p>
+        <p><a href="/docs/hq">Headmaster HQ</a> · <a href="/docs/plugins">Plugin System</a> · <a href="/docs/security">Security & Compliance</a></p>
+      </div>
     </article>
   );
 }

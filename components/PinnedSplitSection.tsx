@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import ProductShot from "./ProductShot";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,22 +11,30 @@ const HEADMASTER_STEPS = [
   {
     id: "mission",
     title: "You give the mission",
-    description: "Describe your goal in natural language. The system understands context and nuance.",
+    description: "Describe the goal in plain language. Headmaster automatically loads relevant memory, approved files, past decisions, and prior formats from your workspace — no re-briefing required.",
+    shot: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/02-chat-ask-headmaster.png",
+    alt: "Chat screen where a user asks Headmaster to prepare a workspace-aware plan.",
   },
   {
     id: "plan",
     title: "Headmaster plans and delegates",
-    description: "Complex tasks are decomposed into specialized subtasks assigned to capable agents.",
+    description: "Headmaster identifies the needed steps, selects tools and channels, and assigns specialist agents to parts of the work before execution begins.",
+    shot: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/12-guided-workflow-run.png",
+    alt: "Guided workflow run showing context, tools, output preview, and an approval checkpoint.",
   },
   {
     id: "execute",
     title: "Subagents execute in parallel",
-    description: "Multiple agents work simultaneously on different parts of the problem, maximizing efficiency.",
+    description: "Research, writing, analysis, code, and operations agents can run in parallel with the right model and toolset, then report back to the parent agent for assembly.",
+    shot: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/09-agents-profiles.png",
+    alt: "Agents page showing specialist profiles with models, memory, skills, and tools.",
   },
   {
     id: "review",
     title: "You review and approve",
-    description: "Results are aggregated and presented for human review before any final action.",
+    description: "The finished draft appears with a clear approval checkpoint. Reviewers can approve, edit, reject, or request another pass before anything leaves the workspace.",
+    shot: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/04-approvals-queue.png",
+    alt: "Approvals queue showing outputs awaiting human review.",
   },
 ];
 
@@ -33,11 +42,12 @@ export default function PinnedSplitSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const leftColRef = useRef<HTMLDivElement>(null);
   const rightColRef = useRef<HTMLDivElement>(null);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() =>
+    typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
+  );
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
 
     const handleChange = (e: MediaQueryListEvent) => {
       setPrefersReducedMotion(e.matches);
@@ -125,6 +135,12 @@ export default function PinnedSplitSection() {
                   <p className="text-[17px] text-[var(--text-muted)] max-w-[50ch]">
                     {step.description}
                   </p>
+                  <ProductShot
+                    src={step.shot}
+                    alt={step.alt}
+                    aspect="aspect-[16/10]"
+                    className="mt-8"
+                  />
                 </div>
               </div>
             ))}

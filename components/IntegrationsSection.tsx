@@ -1,6 +1,7 @@
 import WorksWith from "./WorksWith";
 import Link from "next/link";
 import SectionHeader from "./SectionHeader";
+import { communicationPlatforms, modelProviders } from "@/src/data/platforms";
 
 export default function IntegrationsSection() {
   return (
@@ -14,7 +15,7 @@ export default function IntegrationsSection() {
         <div className="max-w-[920px]">
           <SectionHeader
             eyebrow="Meets your team where they already work"
-            title="17 platforms. 300+ models. One workspace."
+            title={`${communicationPlatforms.length} platforms. ${modelProviders.length} named model providers plus 300+ via OpenRouter. One workspace.`}
             body="Headmaster connects across communication channels, documents, calendars, browsers, tools, connectors, and model providers so workflows can reach the places your team already works."
           />
         </div>

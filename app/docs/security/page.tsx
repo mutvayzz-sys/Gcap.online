@@ -5,7 +5,7 @@ export const metadata = {
 
 export default function SecurityPage() {
   return (
-    <article className="prose max-w-4xl">
+    <article className="prose prose-invert max-w-4xl">
       <h1>Security & Compliance</h1>
       <p>
         Headmaster is designed around least-privilege access, human approval gates, auditable agent runs, and clear deployment boundaries. This page describes the security model and the compliance evidence organizations should collect during rollout.
@@ -43,6 +43,10 @@ export default function SecurityPage() {
         <li>Review plugin permissions before installation.</li>
         <li>Document incident response and rollback procedures.</li>
       </ul>
+          <div className="mt-16 border-t pt-8">
+        <p><strong>Next:</strong></p>
+        <p><a href="/docs/deployment">Deployment</a> · <a href="/docs/hq">HQ</a> · <a href="/docs/plugins">Plugins</a></p>
+      </div>
     </article>
   );
 }

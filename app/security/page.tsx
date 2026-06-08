@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { motion } from "framer-motion";
@@ -89,6 +90,29 @@ export default function SecurityPage() {
                 </Link>
               </div>
             </motion.div>
+          </div>
+        </section>
+
+
+        <section className="max-w-[1280px] mx-auto px-8 py-24 border-b border-[var(--border)]">
+          <div className="mb-12 max-w-3xl">
+            <h2 className="text-wrap balance text-[2rem] sm:text-[2.5rem] leading-tight tracking-[-0.02em] font-semibold mb-4">Trust boundary</h2>
+            <p className="text-[17px] text-[var(--text-muted)] leading-relaxed">The approval gate sits between workspace-internal agent work and anything that can leave through external tools, APIs, or communication channels.</p>
+          </div>
+          <div className="rounded-3xl border border-[var(--border)] bg-[#0D0D0D] p-6 text-[#F9F7F3]">
+            <div className="grid gap-4 lg:grid-cols-4 lg:items-stretch">
+              {["User / Operator", "Approval Gate", "Headmaster Agent", "Sandboxed tools & approved integrations"].map((label, index) => (
+                <div key={label} className="relative rounded-2xl border border-white/15 bg-white/[0.06] p-5">
+                  <div className="text-xs uppercase tracking-[0.18em] text-white/40">Step {index + 1}</div>
+                  <div className="mt-2 text-lg font-medium">{label}</div>
+                  <p className="mt-3 text-sm leading-relaxed text-white/60">{index === 0 ? "Starts work and reviews outcomes." : index === 1 ? "Blocks sensitive release until approved." : index === 2 ? "Loads memory, delegates, and produces drafts." : "Runs scoped calls inside configured boundaries."}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              <div className="rounded-2xl border border-green-400/25 bg-green-400/10 p-4 text-sm text-green-100">Inside workspace: memory, prompts, drafts, run logs, approval decisions, and scoped credentials.</div>
+              <div className="rounded-2xl border border-amber-300/25 bg-amber-300/10 p-4 text-sm text-amber-100">Outside boundary: emails, client messages, data writes, exports, webhooks, and third-party API changes.</div>
+            </div>
           </div>
         </section>
 
