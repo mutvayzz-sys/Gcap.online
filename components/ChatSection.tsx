@@ -26,22 +26,6 @@ export default function ChatSection() {
               Sensitive actions pause for approval. Nothing leaves the workspace until a human confirms it.
             </p>
           </div>
-          <div className="mt-8 rounded-3xl border border-[var(--border)] bg-[var(--bg-elevated)] p-5 shadow-sm">
-            <div className="rounded-2xl bg-white p-4 text-[15px] text-[var(--text)]">
-              "Write the Q3 client report using last month's data and our format."
-            </div>
-            <div className="mt-4 space-y-3 font-mono text-[12px] text-[var(--text-muted)]">
-              <div className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
-                <span>Loading memory</span><span>12 context items</span>
-              </div>
-              <div className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
-                <span>Selecting tools</span><span>Drive · email draft</span>
-              </div>
-              <div className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
-                <span>Queued for approval</span><span>1 client-facing report</span>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div data-reveal>

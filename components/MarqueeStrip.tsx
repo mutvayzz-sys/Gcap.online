@@ -6,8 +6,10 @@ import {
   SiSlack, SiGmail, SiGithub, SiNotion, SiZoom,
   SiLinear, SiGoogledrive, SiGooglecalendar, SiConfluence,
   SiOpenai, SiGoogle, SiMeta, SiClaude, SiGooglemeet,
-  SiTelegram, SiWhatsapp, SiDiscord,
+  SiTelegram, SiWhatsapp, SiDiscord, SiWechat, SiSignal,
+  SiQq, SiAndroid, SiWorkplace,
 } from "react-icons/si";
+import { MessageSquare, Mic, Globe } from "lucide-react";
 import type { IconType } from "react-icons";
 
 import { allPlatforms, type PlatformCategory, type PlatformItem } from "@/src/data/platforms";
@@ -30,6 +32,16 @@ const ICONS: Record<string, IconType> = {
   telegram: SiTelegram,
   whatsapp: SiWhatsapp,
   discord: SiDiscord,
+  wechat: SiWechat,
+  wecom: SiWechat,
+  qqbot: SiQq,
+  imessage: SiAndroid, // using SiAndroid; iMessage icon not distinct in react-icons
+  signal: SiSignal,
+  workplace: SiWorkplace,
+  android: SiAndroid,
+  sms: MessageSquare as unknown as IconType,
+  voice: Mic as unknown as IconType,
+  webapi: Globe as unknown as IconType,
 };
 
 export interface MarqueeItem extends PlatformItem {
@@ -85,7 +97,7 @@ function fill(items: MarqueeItem[], min = 14): MarqueeItem[] {
 
 export default function MarqueeStrip({ rows, duration = 34, inverse = false }: MarqueeStripProps) {
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
-  const [paused, setPaused] = useState(false);
+  const [hovering, setHovering] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(() =>
     typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
   );
@@ -116,10 +128,17 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
   };
 
   const Row = ({ set, reverse, dur }: { set: MarqueeItem[]; reverse: boolean; dur: number }) => {
-    // Render the set twice; translate -50% lands exactly on the second copy → seamless.
     const seq = [...set, ...set];
     return (
-      <div className="marquee-row flex w-max" style={{ animation: reducedMotion ? "none" : `marquee ${dur}s linear infinite`, animationDirection: reverse ? "reverse" : "normal", animationPlayState: reducedMotion ? "running" : paused ? "paused" : "running" }}>
+      <div
+        className="marquee-row flex w-max"
+        style={{
+          animation: reducedMotion ? "none" : `marquee ${dur}s linear infinite`,
+          animationDirection: reverse ? "reverse" : "normal",
+          animationPlayState: reducedMotion ? "running" : hovering ? "paused" : "running",
+          transition: "animation-play-state 0.4s ease",
+        }}
+      >
         {seq.map((item, i) => (
           <button
             key={i}
@@ -151,13 +170,18 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
   };
 
   return (
-    <div ref={containerRef} className="relative overflow-hidden py-2 group" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <div
+      ref={containerRef}
+      className="relative overflow-visible py-2"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => { setHovering(false); setTooltip(null); }}
+    >
       <button
         className="sr-only focus:not-sr-only fixed bottom-4 right-4 z-40 px-4 py-2 bg-[var(--text)] text-[var(--bg)] rounded-full text-sm font-medium"
-        onClick={() => setPaused(p => !p)}
-        aria-label={paused ? 'Resume integration ticker' : 'Pause integration ticker'}
+        onClick={() => setHovering(p => !p)}
+        aria-label={hovering ? 'Resume integration ticker' : 'Pause integration ticker'}
       >
-        {paused ? 'Resume' : 'Pause'}
+        {hovering ? 'Resume' : 'Pause'}
       </button>
       <div className="flex flex-col gap-9">
         {rows.map((row, idx) => {
@@ -180,7 +204,7 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
 
       {tooltip && (
         <div
-          className="absolute z-30 pointer-events-none"
+          className="absolute z-50 pointer-events-none"
           style={{ left: tooltip.x, top: tooltip.y - 10, transform: "translate(-50%, -100%)" }}
         >
           <div className="bg-white rounded-2xl shadow-[0_4px_14px_rgba(0,0,0,0.10)] p-4 w-[220px]">

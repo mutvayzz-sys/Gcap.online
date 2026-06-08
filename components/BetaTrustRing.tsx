@@ -34,21 +34,21 @@ export default function BetaTrustRing() {
       data-label="Trust"
       className="relative border-b border-[var(--border)]"
     >
-      {/* Security badges strip */}
+      {/* Security badges strip — 200% bigger */}
       <div className="bg-[var(--bg-elevated)] border-b border-[var(--border)]">
-        <div className="max-w-[1120px] mx-auto px-8 py-6">
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+        <div className="max-w-[1120px] mx-auto px-8 py-12">
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
             {securityBadges.map(({ icon: Icon, label, sub }) => (
               <div
                 key={label}
-                className="flex items-center gap-2.5 text-[var(--text-muted)]"
+                className="flex items-center gap-4 text-[var(--text-muted)]"
               >
-                <div className="w-8 h-8 rounded-lg bg-[var(--bg)] border border-[var(--border)] flex items-center justify-center">
-                  <Icon size={15} strokeWidth={1.8} className="text-[var(--text)]" />
+                <div className="w-16 h-16 rounded-2xl bg-[var(--bg)] border border-[var(--border)] flex items-center justify-center">
+                  <Icon size={28} strokeWidth={1.8} className="text-[var(--text)]" />
                 </div>
                 <div className="leading-tight">
-                  <div className="text-[13px] font-medium text-[var(--text)] tracking-tight">{label}</div>
-                  <div className="text-[11px] text-[var(--text-muted)]">{sub}</div>
+                  <div className="text-[18px] font-medium text-[var(--text)] tracking-tight">{label}</div>
+                  <div className="text-[13px] text-[var(--text-muted)]">{sub}</div>
                 </div>
               </div>
             ))}

@@ -263,8 +263,6 @@ export default function IntegrationsPage() {
       <footer className="border-t border-[var(--border)] py-9 text-xs text-[var(--text-muted)] px-8 flex flex-col md:flex-row gap-y-2 md:items-center justify-between max-w-6xl mx-auto">
         <div>© 2026 GCAP Labs. Headmaster — persistent AI agents for organizations.</div>
         <div className="flex gap-6 flex-wrap">
-          <a href="https://x.com/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--text)] transition-colors">X</a>
-          <a href="https://linkedin.com/company/gcaplabs" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--text)] transition-colors">LinkedIn</a>
           <a href="/security" className="hover:text-[var(--text)] transition-colors">Security</a>
           <a href="/changelog" className="hover:text-[var(--text)] transition-colors">Changelog</a>
           <a href="/privacy" className="hover:text-[var(--text)] transition-colors">Privacy</a>
