@@ -111,13 +111,13 @@ export const productScreenshots: readonly ProductScreenshot[] = [
   },
   {
     id: "integrations",
-    eyebrow: "Integrations / Channels / MCP",
-    title: "Connect channels, tools, connectors, MCP servers, webhooks, and API keys.",
+    eyebrow: "Integrations / Channels / Tool Servers",
+    title: "Connect channels, tools, connectors, tool servers, webhooks, and API keys.",
     src: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/10-integrations-channels-mcp.png",
-    alt: "Integrations page showing channels, tools, connectors, MCP servers, webhooks, and API keys.",
+    alt: "Integrations page showing channels, tools, connectors, tool servers, webhooks, and API keys.",
     description:
-      "The deeper integrations layer belongs on the product page: channels, tools, connectors, MCP servers, webhooks, API keys, and provider configuration.",
-    bullets: ["Connect the channels where teams already work", "Attach tools and connectors to the workflows that need them", "Manage MCP servers, webhooks, and API keys from one surface"],
+      "The deeper integrations layer belongs on the product page: channels, tools, connectors, tool servers, webhooks, API keys, and provider configuration.",
+    bullets: ["Connect the channels where teams already work", "Attach tools and connectors to the workflows that need them", "Manage tool servers, webhooks, and API keys from one surface"],
   },
   {
     id: "model-stack",

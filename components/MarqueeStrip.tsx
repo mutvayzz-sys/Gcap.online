@@ -6,8 +6,8 @@ import {
   SiSlack, SiGmail, SiGithub, SiNotion, SiZoom,
   SiLinear, SiGoogledrive, SiGooglecalendar, SiConfluence,
   SiOpenai, SiGoogle, SiMeta, SiClaude, SiGooglemeet,
-  SiTelegram, SiWhatsapp, SiDiscord, SiWechat, SiSignal,
-  SiQq, SiAndroid, SiWorkplace,
+  SiTelegram, SiWhatsapp, SiDiscord, SiSignal,
+  SiAndroid, SiWorkplace,
 } from "react-icons/si";
 import { MessageSquare, Mic, Globe } from "lucide-react";
 import type { IconType } from "react-icons";
@@ -32,9 +32,6 @@ const ICONS: Record<string, IconType> = {
   telegram: SiTelegram,
   whatsapp: SiWhatsapp,
   discord: SiDiscord,
-  wechat: SiWechat,
-  wecom: SiWechat,
-  qqbot: SiQq,
   imessage: SiAndroid, // using SiAndroid; iMessage icon not distinct in react-icons
   signal: SiSignal,
   workplace: SiWorkplace,

@@ -37,7 +37,7 @@ app/
   security/             # Enterprise security page
   privacy/              # Privacy policy (GDPR/CCPA)
   terms/                # Terms of service
-  changelog/            # Release notes (v0.8.0 → v0.16.0)
+  changelog/            # Release notes (white-labeled, no version numbers)
   docs/                 # Documentation landing
   integrations/         # Integration showcase
   use-cases/            # Use cases hub + dynamic vertical pages

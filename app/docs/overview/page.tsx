@@ -82,9 +82,9 @@ export default function OverviewPage() {
       <h2>Internal Architecture</h2>
       <p>Headmaster is organized around four internal components that keep execution, permissions, memory, and context management separate.</p>
       <ul>
-        <li><strong>Hermes</strong>: handles agent execution, tool dispatch, run state, and workflow coordination.</li>
-        <li><strong>Paperclip</strong>: manages permissions, approved tools, role-based access, and approval boundaries.</li>
-        <li><strong>Memento</strong>: provides persistent, searchable, pluggable memory for workspace context and prior decisions.</li>
+        <li><strong>Executor</strong>: handles agent execution, tool dispatch, run state, and workflow coordination.</li>
+        <li><strong>Gatekeeper</strong>: manages permissions, approved tools, role-based access, and approval boundaries.</li>
+        <li><strong>Memory</strong>: provides persistent, searchable, pluggable memory for workspace context and prior decisions.</li>
         <li><strong>Lens</strong>: compresses and selects context so long-running workflows stay inside model token limits.</li>
       </ul>
       <p><strong>Audit-ready:</strong> every tool call, cost event, approval decision, operator edit, and final output is logged and searchable.</p>

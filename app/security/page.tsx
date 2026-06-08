@@ -93,9 +93,9 @@ const infrastructureItems = [
   },
   {
     label: "Agent runtime engine",
-    value: "Hermes Agent",
+    value: "Headmaster Runtime",
     detail:
-      "Headmaster agents run on the Hermes Agent engine, which provides sandboxed execution, structured tool calling, memory persistence, and real-heartbeat monitoring. Engine updates are rolled out with zero-downtime deployments.",
+      "Headmaster agents run on a purpose-built runtime engine that provides sandboxed execution, structured tool calling, memory persistence, and real-heartbeat monitoring. Engine updates are rolled out with zero-downtime deployments.",
   },
   {
     label: "Encryption in transit",

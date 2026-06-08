@@ -20,11 +20,11 @@ const STORY_SECTIONS = [
   },
   {
     id: "platforms",
-    title: "17 Messaging Platforms",
+    title: "14 Messaging Platforms",
     description: "Slack, Teams, Discord, WhatsApp, Telegram, email, and other channels become entry points into the same persistent workspace instead of separate disconnected bots.",
     shot: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/10-integrations-channels-mcp.png",
-    alt: "Integrations screen showing channels, connectors, MCP servers, webhooks, and API keys.",
-    stat: "17+",
+    alt: "Integrations screen showing channels, connectors, tool servers, webhooks, and API keys.",
+    stat: "14+",
     statLabel: "Platforms supported",
   },
   {

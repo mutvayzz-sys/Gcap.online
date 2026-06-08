@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const STATS = [
   {
-    number: "17",
+    number: "14",
     label: "Communication platforms supported",
   },
   {
@@ -135,7 +135,7 @@ export default function StatsReveal() {
 
         <div className="mt-20 pt-20 border-t border-[var(--border)]">
           <p className="text-[17px] text-[var(--text-muted)] max-w-[70ch] leading-relaxed">
-            Headmaster&apos;s release cadence is paired with operational controls: 17 platforms, 300+ model routes, and workflows that expand while approvals and audit logs stay consistent.
+            Headmaster&apos;s release cadence is paired with operational controls: 14 platforms, 300+ model routes, and workflows that expand while approvals and audit logs stay consistent.
           </p>
         </div>
       </div>

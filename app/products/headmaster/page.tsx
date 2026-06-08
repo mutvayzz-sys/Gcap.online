@@ -25,7 +25,7 @@ const overview = [
   },
   {
     title: "Channels and model routing",
-    description: "Headmaster connects communication channels, connectors, MCP servers, webhooks, API keys, and model providers. Work can start anywhere while using the same memory, permissions, and approval policy.",
+    description: "Headmaster connects communication channels, connectors, tool servers, webhooks, API keys, and model providers. Work can start anywhere while using the same memory, permissions, and approval policy.",
   },
 ];
 
@@ -177,9 +177,9 @@ export default function HeadmasterProductPage() {
 
           <div className="grid gap-8 md:grid-cols-2">
             <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-8">
-              <h3 className="text-[22px] font-semibold tracking-tight mb-3">17 messaging platforms</h3>
+              <h3 className="text-[22px] font-semibold tracking-tight mb-3">14 messaging platforms</h3>
               <p className="text-[15px] text-[var(--text-muted)] leading-relaxed mb-4">
-                Telegram, Discord, Slack, WhatsApp, Signal, iMessage (BlueBubbles), WeChat, WeCom, QQBot, Matrix, Email, SMS, DingTalk, Feishu, Mattermost, Home Assistant, Webhooks. One agent. Every surface.
+                Telegram, Discord, Slack, WhatsApp, Signal, iMessage, Matrix, Email, SMS, Feishu, Mattermost, Home Assistant, Webhooks, and more. One agent. Every surface.
               </p>
               <p className="text-[13px] text-[var(--text-muted)]">Grouped as: Messaging, Enterprise, Dev & Infra</p>
             </div>

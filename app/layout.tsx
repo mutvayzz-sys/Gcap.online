@@ -7,7 +7,7 @@ import CinematicLayer from "@/components/CinematicLayer";
 export const metadata: Metadata = {
   title: "GCAP | Headmaster",
   description:
-    "Headmaster is a persistent AI agent for organizations. Persistent memory, 17 messaging platforms, 300+ models, subagent delegation, and human approval gates. By GCAP Labs.",
+    "Headmaster is a persistent AI agent for organizations. Persistent memory, 14 messaging platforms, 300+ models, subagent delegation, and human approval gates. By GCAP Labs.",
   metadataBase: new URL("https://gcap.online"),
   alternates: {
     canonical: "https://gcap.online",
