@@ -32,7 +32,7 @@ const ICONS: Record<string, IconType> = {
   telegram: SiTelegram,
   whatsapp: SiWhatsapp,
   discord: SiDiscord,
-  imessage: SiAndroid, // using SiAndroid; iMessage icon not distinct in react-icons
+  imessage: SiAndroid,
   signal: SiSignal,
   workplace: SiWorkplace,
   android: SiAndroid,
@@ -71,16 +71,12 @@ interface TooltipState {
 
 export interface RowConfig {
   filter: MarqueeItem["category"];
-  /** label shown to the left of the row */
   label: string;
 }
 
 interface MarqueeStripProps {
-  /** one row per category — each row shows the full distinct set */
   rows: RowConfig[];
-  /** seconds for a full loop — lower = faster */
   duration?: number;
-  /** dark background variant */
   inverse?: boolean;
 }
 
@@ -98,16 +94,19 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
   const [reducedMotion, setReducedMotion] = useState(() =>
     typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
   );
+  const [isTouch, setIsTouch] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
     mq.addEventListener("change", handler);
+    setIsTouch(window.matchMedia("(hover: none) and (pointer: coarse)").matches);
     return () => mq.removeEventListener("change", handler);
   }, []);
 
   const handleEnter = (item: MarqueeItem, e: React.MouseEvent | React.FocusEvent) => {
+    if (isTouch) return; // no tooltips on touch
     const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
     const cRect = containerRef.current?.getBoundingClientRect();
     if (!cRect) return;
@@ -132,32 +131,31 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
         style={{
           animation: reducedMotion ? "none" : `marquee ${dur}s linear infinite`,
           animationDirection: reverse ? "reverse" : "normal",
-          animationPlayState: reducedMotion ? "running" : hovering ? "paused" : "running",
-          transition: "animation-play-state 0.4s ease",
+          animationPlayState: reducedMotion ? "running" : hovering && !isTouch ? "paused" : "running",
         }}
       >
         {seq.map((item, i) => (
           <button
             key={i}
             type="button"
-            onMouseEnter={(e) => handleEnter(item, e)}
-            onMouseLeave={() => setTooltip(null)}
-            onFocus={(e) => handleEnter(item, e)}
-            onBlur={() => setTooltip(null)}
-            className="flex flex-col items-center gap-2.5 group cursor-default focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] mr-9 flex-shrink-0 rounded-md"
+            onMouseEnter={!isTouch ? (e) => handleEnter(item, e) : undefined}
+            onMouseLeave={!isTouch ? () => setTooltip(null) : undefined}
+            onFocus={!isTouch ? (e) => handleEnter(item, e) : undefined}
+            onBlur={!isTouch ? () => setTooltip(null) : undefined}
+            className="flex flex-col items-center gap-2.5 group cursor-default focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] mr-5 md:mr-9 flex-shrink-0 rounded-md"
             tabIndex={i < set.length ? 0 : -1}
             aria-label={item.name}
           >
             <div
-              className={`w-14 h-14 rounded-2xl border flex items-center justify-center transition-all duration-200 ${styles.iconBg} ${styles.hoverShadow} hover-lift`}
+              className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl border flex items-center justify-center transition-colors duration-200 ${styles.iconBg}`}
             >
               {item.Icon ? (
-                <item.Icon size={28} className={`transition-colors ${styles.iconColor}`} />
+                <item.Icon size={24} className={`transition-colors ${styles.iconColor}`} />
               ) : item.img ? (
-                <Image src={item.img} alt={item.name} width={28} height={28} className={`rounded-sm transition-opacity ${styles.imgOpacity}`} />
+                <Image src={item.img} alt={item.name} width={24} height={24} className={`rounded-sm transition-opacity ${styles.imgOpacity}`} />
               ) : null}
             </div>
-            <span className={`text-[11px] font-medium tracking-tight transition-colors ${styles.labelColor}`}>
+            <span className={`text-[10px] md:text-[11px] font-medium tracking-tight transition-colors ${styles.labelColor}`}>
               {item.name}
             </span>
           </button>
@@ -169,39 +167,43 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
   return (
     <div
       ref={containerRef}
-      className="relative overflow-visible py-2"
-      onMouseEnter={() => setHovering(true)}
+      className="relative overflow-hidden md:overflow-visible py-2"
+      onMouseEnter={() => !isTouch && setHovering(true)}
       onMouseLeave={() => { setHovering(false); setTooltip(null); }}
     >
-      <button
-        className="sr-only focus:not-sr-only fixed bottom-4 right-4 z-40 px-4 py-2 bg-[var(--text)] text-[var(--bg)] rounded-full text-sm font-medium"
-        onClick={() => setHovering(p => !p)}
-        aria-label={hovering ? 'Resume integration ticker' : 'Pause integration ticker'}
-      >
-        {hovering ? 'Resume' : 'Pause'}
-      </button>
-      <div className="flex flex-col gap-9">
+      {/* Pause button — hidden on mobile, visible on desktop */}
+      {!isTouch && (
+        <button
+          className="sr-only focus:not-sr-only fixed bottom-4 right-4 z-40 px-4 py-2 bg-[var(--text)] text-[var(--bg)] rounded-full text-sm font-medium"
+          onClick={() => setHovering(p => !p)}
+          aria-label={hovering ? "Resume integration ticker" : "Pause integration ticker"}
+        >
+          {hovering ? "Resume" : "Pause"}
+        </button>
+      )}
+      <div className="flex flex-col gap-6 md:gap-9">
         {rows.map((row, idx) => {
           const set = fill(ALL_ITEMS.filter((i) => i.category === row.filter));
           return (
             <div key={row.filter}>
-              <div className={`px-8 max-w-[1280px] mx-auto mb-3 text-[10px] tracking-[2.5px] uppercase font-medium ${styles.rowLabel}`}>
+              <div className={`px-4 md:px-8 max-w-[1280px] mx-auto mb-2 md:mb-3 text-[9px] md:text-[10px] tracking-[2.5px] uppercase font-medium ${styles.rowLabel}`}>
                 {row.label}
               </div>
               <div className="relative overflow-hidden">
                 <Row set={set} reverse={idx % 2 === 1} dur={duration + idx * 5} />
                 {/* edge fades */}
-                <div className={`pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r ${styles.fadeFrom} to-transparent`} />
-                <div className={`pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l ${styles.fadeFrom} to-transparent`} />
+                <div className={`pointer-events-none absolute inset-y-0 left-0 w-8 md:w-16 bg-gradient-to-r ${styles.fadeFrom} to-transparent`} />
+                <div className={`pointer-events-none absolute inset-y-0 right-0 w-8 md:w-16 bg-gradient-to-l ${styles.fadeFrom} to-transparent`} />
               </div>
             </div>
           );
         })}
       </div>
 
-      {tooltip && (
+      {/* Tooltip — desktop only */}
+      {!isTouch && tooltip && (
         <div
-          className="absolute z-50 pointer-events-none"
+          className="absolute z-50 pointer-events-none hidden md:block"
           style={{ left: tooltip.x, top: tooltip.y - 10, transform: "translate(-50%, -100%)" }}
         >
           <div className="bg-white rounded-2xl shadow-[0_4px_14px_rgba(0,0,0,0.10)] p-4 w-[220px]">
