@@ -71,13 +71,18 @@ export default function UseCasesPage() {
                     <p className="text-[16px] text-[var(--text-muted)] leading-relaxed mb-6">
                       {uc.description}
                     </p>
-                    <div className="mb-6 flex flex-wrap gap-2">
-                      <span className="rounded-full border border-[var(--border)] bg-[var(--bg)] px-3 py-1 text-[12px] font-medium text-[var(--text)]">
-                        Saves {uc.savings}
-                      </span>
-                      <span className="rounded-full border border-[var(--border)] bg-[var(--bg)] px-3 py-1 text-[12px] font-medium text-[var(--text-muted)]">
-                        {uc.workflowCount} workflows automated
-                      </span>
+                    <div className="mb-6">
+                      <div className="flex flex-wrap gap-2">
+                        <span className="rounded-full border border-[var(--border)] bg-[var(--bg)] px-3 py-1 text-[12px] font-medium text-[var(--text)]">
+                          Saves {uc.savings}
+                        </span>
+                        <span className="rounded-full border border-[var(--border)] bg-[var(--bg)] px-3 py-1 text-[12px] font-medium text-[var(--text-muted)]">
+                          {uc.workflowCount} workflows automated
+                        </span>
+                      </div>
+                      <p className="mt-2 text-[12px] leading-snug text-[var(--text-muted)]">
+                        {uc.savingsSource}
+                      </p>
                     </div>
                     <div className="inline-flex items-center gap-2 text-[14px] font-medium text-[var(--text)] group-hover:gap-3 transition-all">
                       Explore workflows

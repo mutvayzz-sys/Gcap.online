@@ -51,24 +51,24 @@ export default function DeploymentSection() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                 <div className="rounded-xl bg-white/5 p-4">
-                  <div className="text-white/50 text-xs mb-1">Memory &amp; Skills</div>
-                  <div className="text-white">14 custom workflows • Brand voice memory • Client reporting formats</div>
+                  <div className="text-white/50 text-xs mb-1 max-w-none">Memory &amp; Skills</div>
+                  <div className="text-white max-w-none">14 custom workflows • Brand voice memory • Client reporting formats</div>
                 </div>
                 <div className="rounded-xl bg-white/5 p-4">
-                  <div className="text-white/50 text-xs mb-1">Connected Tools</div>
-                  <div className="text-white">Google Workspace • CRM • Email • Calendar • Internal Drive</div>
+                  <div className="text-white/50 text-xs mb-1 max-w-none">Connected Tools</div>
+                  <div className="text-white max-w-none">Google Workspace • CRM • Email • Calendar • Internal Drive</div>
                 </div>
                 <div className="rounded-xl bg-white/5 p-4">
-                  <div className="text-white/50 text-xs mb-1">Access &amp; Roles</div>
-                  <div className="text-white">Team roles • Managers approve external communications • IT config</div>
+                  <div className="text-white/50 text-xs mb-1 max-w-none">Access &amp; Roles</div>
+                  <div className="text-white max-w-none">Team roles • Managers approve external communications • IT config</div>
                 </div>
                 <div className="rounded-xl bg-white/5 p-4">
-                  <div className="text-white/50 text-xs mb-1">Approval Gates</div>
-                  <div className="text-white">External communications • Data edits • Client-facing exports</div>
+                  <div className="text-white/50 text-xs mb-1 max-w-none">Approval Gates</div>
+                  <div className="text-white max-w-none">External communications • Data edits • Client-facing exports</div>
                 </div>
               </div>
 
-              <div className="mt-6 text-xs text-white/50 border-t border-white/10 pt-4">
+              <div className="mt-6 text-xs text-white/50 border-t border-white/10 pt-4 max-w-none">
                 Approved tools enabled • 3 scheduled automations active • Full audit trail retained
               </div>
             </div>

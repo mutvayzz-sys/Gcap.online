@@ -119,7 +119,7 @@ export default function PinnedSplitSection() {
                 How Headmaster works
               </h2>
               <p className="text-[17px] text-[var(--text-muted)] max-w-[55ch]">
-                A seamless workflow from intent to execution, with humans in control every step of the way.
+                Four steps from a plain-language request to a reviewed, approved output. Context loads automatically. Nothing ships until you confirm it.
               </p>
             </div>
           </div>

@@ -21,6 +21,7 @@ export default function UseCases() {
             <a
               key={uc.slug}
               href={`/use-cases/${uc.slug}`}
+              aria-label={`Explore ${uc.title} workflows — saves ${uc.savings}`}
               className="grid md:grid-cols-[280px_1fr_auto] gap-6 py-8 border-b border-[var(--border)] group transition-colors hover:bg-white/35 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)]"
             >
               <div>
@@ -28,6 +29,9 @@ export default function UseCases() {
                 <div className="mt-3 inline-flex rounded-full border border-[var(--border)] bg-[var(--bg)] px-3 py-1 text-[12px] font-medium text-[var(--text)]">
                   Saves {uc.savings}
                 </div>
+                <p className="mt-2 text-[12px] leading-snug text-[var(--text-muted)]">
+                  {uc.savingsSource}
+                </p>
               </div>
               <p className="text-[16px] text-[var(--text-muted)] leading-relaxed">{uc.description}</p>
               <div className="flex items-center gap-2 self-start text-[14px] font-medium text-[var(--text)] transition-all group-hover:gap-3">

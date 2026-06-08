@@ -26,17 +26,22 @@ export default function ApprovalsSection() {
           { icon: Eye, title: "Review", description: "Routes to a second approver before release. No output leaves with a single point of failure." },
         ].map((item) => {
           const Icon = item.icon;
+          const isApprove = item.title === "Approve";
           return (
             <div
               key={item.title}
               data-reveal-item
-              className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-6 text-center transition hover:border-[var(--border-strong)]"
+              className={
+                isApprove
+                  ? "rounded-2xl border border-[#111111] bg-[#111111] text-[#F9F7F3] p-6 text-center"
+                  : "rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-6 text-center transition [@media(hover:hover)_and_(pointer:fine)]:hover:border-[var(--border-strong)]"
+              }
             >
-              <div className="w-10 h-10 rounded-xl bg-[#111111] text-[#F9F7F3] flex items-center justify-center mx-auto mb-4">
+              <div className={isApprove ? "w-10 h-10 rounded-xl bg-white/15 text-[#F9F7F3] flex items-center justify-center mx-auto mb-4" : "w-10 h-10 rounded-xl bg-[#111111] text-[#F9F7F3] flex items-center justify-center mx-auto mb-4"}>
                 <Icon size={18} strokeWidth={1.8} />
               </div>
-              <h3 className="text-[15px] font-medium tracking-tight mb-1">{item.title}</h3>
-              <p className="text-[14px] text-[var(--text-muted)] leading-relaxed">{item.description}</p>
+              <h3 className={isApprove ? "text-[15px] font-medium tracking-tight mb-1 text-[#F9F7F3]" : "text-[15px] font-medium tracking-tight mb-1"}>{item.title}</h3>
+              <p className={isApprove ? "text-[14px] text-white/65 leading-relaxed" : "text-[14px] text-[var(--text-muted)] leading-relaxed"}>{item.description}</p>
             </div>
           );
         })}

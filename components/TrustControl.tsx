@@ -42,26 +42,26 @@ export default function TrustControl() {
             })}
           </div>
 
-          <div className="rounded-3xl border border-black/10 bg-[#0D0D0D] p-6 text-[#F9F7F3] shadow-sm" data-reveal>
+          <div className="rounded-3xl border border-black/10 bg-[#0D0D0D] p-6 text-[#F9F7F3] shadow-sm" data-reveal aria-labelledby="workspace-roles-heading">
             <div className="mb-5 flex items-center justify-between">
               <div>
                 <p className="text-[11px] uppercase tracking-[0.22em] text-white/40">Permission policy</p>
-                <h3 className="mt-1 text-xl font-medium tracking-tight">Acme workspace roles</h3>
+                <h3 id="workspace-roles-heading" className="mt-1 text-xl font-medium tracking-tight">Acme workspace roles</h3>
               </div>
               <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/60">Live</span>
             </div>
-            <div className="space-y-3">
+            <ul role="list" className="space-y-3" aria-label="Workspace roles">
               {roles.map((role) => (
-                <div key={role.name} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                <li key={role.name} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                   <div className="flex items-center justify-between gap-4">
                     <div className="font-medium">{role.name}</div>
                     <div className="text-xs text-white/45">{role.tools}</div>
                   </div>
-                  <div className="mt-2 text-sm text-white/60">{role.scope}</div>
-                </div>
+                  <div className="mt-2 text-sm text-white/60 max-w-none">{role.scope}</div>
+                </li>
               ))}
-            </div>
-            <div className="mt-5 rounded-2xl bg-white/[0.04] p-4 text-sm text-white/60">
+            </ul>
+            <div className="mt-5 rounded-2xl bg-white/[0.04] p-4 text-sm text-white/60 max-w-none">
               External emails, data writes, and client-facing exports require an approver before release.
             </div>
           </div>

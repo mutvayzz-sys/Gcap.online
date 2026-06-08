@@ -26,7 +26,6 @@ export const trustControls: readonly TrustControl[] = [
   },
   {
     title: "Configurable Risk Levels",
-    description:
-      "Low-risk internal drafts can run automatically while sensitive workflows require explicit approval before release. Risk levels can be set per workflow, per tool, per channel, or per agent profile. This lets teams automate routine work without weakening controls around external messages, data writes, or regulated actions.",
+    description: "Low-risk internal drafts run automatically. Sensitive workflows stop at the approval queue before release. Risk thresholds are configured per workflow, tool, channel, or agent profile — so routine work is unblocked while external messages, data writes, and regulated actions stay gated. Changes to risk policy are logged with the workspace configuration.",
   },
 ] as const;

@@ -47,8 +47,9 @@ export default function ProductPillars() {
                   <Icon size={featured ? 23 : 20} strokeWidth={1.8} />
                 </div>
                 {featured && (
-                  <div className="text-[64px] font-semibold leading-tight">
-                    100%
+                  <div>
+                    <div className="text-[64px] font-semibold leading-tight">100%</div>
+                    <div className="text-[13px] text-[var(--text-muted)] mt-1 tracking-tight">context retained across sessions</div>
                   </div>
                 )}
                 <div>

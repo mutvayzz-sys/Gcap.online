@@ -82,12 +82,11 @@ export default function PinnedScrollSection() {
       const sections = contentRef.current?.querySelectorAll(".story-section");
       if (!sections) return;
 
-      gsap.set(sections, { opacity: 0 });
 
       sections.forEach((section) => {
         gsap.fromTo(
           section,
-          { opacity: 0, y: 60 },
+          { opacity: 0.15, y: 60 },
           {
             opacity: 1,
             y: 0,
@@ -134,10 +133,10 @@ export default function PinnedScrollSection() {
             viewport={{ once: false, margin: "-100px" }}
           >
             <h2 className="text-[clamp(1.5rem,3vw,2.5rem)] tracking-[-0.02em] font-semibold text-[var(--text)] mb-4 text-balance">
-              Built for what matters
+              Five decisions that change how work gets done
             </h2>
             <p className="text-[17px] text-[var(--text-muted)] max-w-[65ch]">
-              Every system choice reflects a commitment to reliability, control, and human partnership at scale.
+              Memory that persists. Platforms that unify. Models that route. Agents that delegate. Approvals that hold.
             </p>
           </motion.div>
         </div>

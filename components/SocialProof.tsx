@@ -80,7 +80,7 @@ export default function SocialProof() {
 
             <div className="rounded-3xl border border-[var(--border-strong)] bg-[#111111] p-6 text-[#F9F7F3]">
               <h3 className="mb-4 text-[15px] font-medium tracking-tight">Repeated beta feedback themes</h3>
-              <ul className="grid gap-3 text-[14px] text-white/70 md:grid-cols-3">
+              <ul className="grid gap-3 text-[14px] text-white/70 md:grid-cols-3" role="list">
                 {feedbackSignals.map((signal) => (
                   <li key={signal} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                     {signal}

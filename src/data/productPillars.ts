@@ -11,8 +11,7 @@ export const productPillars: readonly ProductPillar[] = [
   },
   {
     title: "Skills",
-    description:
-      "Repeated workflows become reusable procedures with named steps, preferred tools, and approval rules. Headmaster learns the way a team wants recurring work handled, then applies that process the next time the same request appears. The result is consistency across reports, summaries, updates, and operational checklists.",
+    description: "Repeated workflows become reusable procedures with named steps, preferred tools, and approval rules. Headmaster stores the way a team wants recurring work handled and applies that procedure consistently — the same format, the same review checkpoint, every time. The result is reliability across reports, summaries, updates, and operational checklists.",
   },
   {
     title: "Automations",

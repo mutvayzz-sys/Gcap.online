@@ -2,7 +2,7 @@ import SectionHeader from "./SectionHeader";
 import ProductShot from "./ProductShot";
 
 const steps = [
-  "Loads workspace context, memory, documents, and previous formats. Workspace memory, past formats, relevant files, and prior decisions load automatically — no re-briefing required.",
+  "Loads workspace memory, past formats, prior decisions, and relevant files automatically — no re-briefing required.",
   "Selects the right tools, channels, and specialist agents for the workflow. It can choose from 17+ channels and 300+ models, assign specialist subagents per task, and build the output before asking for sign-off.",
   "Builds a review-ready output with a clear approval checkpoint. Edit, approve, reject, or request a second review — nothing leaves until confirmed.",
 ];
@@ -22,9 +22,9 @@ export default function GuidedWorkflowSection() {
             title="Watch Headmaster turn context into reviewed work."
             body="The strongest proof is the run itself: steps, context, tools, output preview, and the approval checkpoint are visible before anything important leaves the workspace."
           />
-          <div className="space-y-3" data-reveal-group>
+          <ol className="space-y-3 list-none" data-reveal-group>
             {steps.map((step, index) => (
-              <div
+              <li
                 key={step}
                 data-reveal-item
                 className="flex gap-4 rounded-2xl border border-[var(--border)] bg-white p-4"
@@ -33,9 +33,9 @@ export default function GuidedWorkflowSection() {
                   {index + 1}
                 </div>
                 <p className="text-[15px] leading-relaxed text-[var(--text-muted)]">{step}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
           <a
             href="/products/headmaster#guided-run"
             className="mt-7 inline-flex items-center justify-center rounded-full border border-[var(--border-strong)] px-7 py-3 text-[15px] font-medium transition-all hover:bg-white"

@@ -19,7 +19,7 @@ export default function ModelAgnostic() {
           inverse
         />
 
-        <div className="mt-10 grid md:grid-cols-2 gap-x-16 gap-y-0 border-t border-white/10" data-reveal>
+        <div className="mt-10 grid md:grid-cols-2 gap-x-16 border-t border-white/10" data-reveal>
           {[
             {
               title: "Cloud models",
