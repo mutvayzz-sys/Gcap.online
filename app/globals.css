@@ -50,6 +50,15 @@
   border-color: var(--color-ink, #1a1916);
 }
 
+/* Blinking typewriter cursor */
+@keyframes hero-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.hero-cursor {
+  animation: hero-blink 0.7s ease-in-out infinite;
+}
+
 /* ── Existing palette ────────────────────────────────────────── */
 :root {
   --font-sans: var(--font-geist-sans);
