@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -13,13 +12,12 @@ const STATS = [
     label: "Communication platforms supported",
   },
   {
-    number: "1,289",
-    label: "Merged PRs across the last two releases",
-    href: "/changelog",
+    number: "300+",
+    label: "AI models through built-in routing",
   },
   {
-    number: "100%",
-    label: "High-stakes actions gated before release",
+    number: "6",
+    label: "Execution backends for any infra",
   },
 ];
 
@@ -107,7 +105,7 @@ export default function StatsReveal() {
             Release velocity with controls
           </h2>
           <p className="text-[17px] text-[var(--text-muted)] max-w-[60ch]">
-            Headmaster ships fast — 1,289 merged PRs across the last two releases alone — but every high-stakes action stops at a human approval gate before it leaves the workspace.
+            Headmaster ships fast — but speed without control is chaos. Every deployment runs on your infrastructure, through your model choices, with approvals and audit logs built in.
           </p>
         </div>
 
@@ -115,16 +113,10 @@ export default function StatsReveal() {
           {STATS.map((stat, idx) => (
             <div
               key={idx}
-              className={`stat-item flex flex-col items-start gap-4${stat.href ? " group cursor-pointer" : ""}`}
+              className="stat-item flex flex-col items-start gap-4"
             >
               <div className="stat-number text-[clamp(3rem,5vw,4.5rem)] leading-none font-bold text-[var(--text)]">
-                {stat.href ? (
-                  <Link href={stat.href} className="hover:underline decoration-[var(--text-muted)] underline-offset-4">
-                    {stat.number}
-                  </Link>
-                ) : (
-                  stat.number
-                )}
+                {stat.number}
               </div>
               <div className="stat-label text-[16px] text-[var(--text-muted)] max-w-[30ch] leading-relaxed">
                 {stat.label}
@@ -135,7 +127,7 @@ export default function StatsReveal() {
 
         <div className="mt-20 pt-20 border-t border-[var(--border)]">
           <p className="text-[17px] text-[var(--text-muted)] max-w-[70ch] leading-relaxed">
-            Headmaster&apos;s release cadence is paired with operational controls: 14 platforms, 300+ model routes, and workflows that expand while approvals and audit logs stay consistent.
+            Headmaster runs on your terms: 14 platforms, 300+ model routes, and six execution environments — from a local laptop to serverless cloud. Workflows expand while approvals and audit logs stay consistent.
           </p>
         </div>
       </div>
