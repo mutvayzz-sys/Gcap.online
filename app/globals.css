@@ -1,5 +1,56 @@
 @import "tailwindcss";
 
+/* ── Hero / warm-editorial palette ──────────────────────────── */
+:root {
+  --font-heading: 'HelveticaNowDisplay-Medium', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'HelveticaNowDisplayW01-Rg', 'Helvetica Neue', Arial, sans-serif;
+  --color-bg: #e8e3d9;
+  --color-ink: #1a1916;
+  --color-ink-muted: #6b6860;
+  --color-surface: #f0ece4;
+}
+
+/* Hero grain overlay */
+.hero-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-size: 300px 300px;
+}
+
+/* Hero button styles */
+.hero-btn-primary {
+  background-color: var(--color-ink, #1a1916);
+  color: var(--color-bg, #e8e3d9);
+  font-family: var(--font-body);
+}
+.hero-btn-primary:hover { opacity: 0.85; }
+
+.hero-btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--color-ink, #1a1916);
+  color: var(--color-ink, #1a1916);
+  font-family: var(--font-body);
+}
+.hero-btn-secondary:hover {
+  background-color: var(--color-ink, #1a1916);
+  color: var(--color-bg, #e8e3d9);
+}
+
+.hero-btn-ghost {
+  background-color: transparent;
+  border: 1px solid rgba(26,25,22,0.3);
+  color: var(--color-ink, #1a1916);
+  font-family: var(--font-body);
+}
+.hero-btn-ghost:hover {
+  border-color: var(--color-ink, #1a1916);
+}
+
+/* ── Existing palette ────────────────────────────────────────── */
 :root {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

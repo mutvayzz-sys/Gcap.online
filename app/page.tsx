@@ -15,6 +15,9 @@ import TayX from "@/components/TayX";
 import SpecialistFleet from "@/components/SpecialistFleet";
 import CapabilitiesGrid from "@/components/CapabilitiesGrid";
 import AgencyOrchestration from "@/components/AgencyOrchestration";
+import HeroNav from "@/components/Hero/HeroNav";
+import HeroSection from "@/components/Hero/HeroSection";
+import GrainOverlay from "@/components/Hero/GrainOverlay";
 
 function MemoryViz() {
   const ROWS = 7, COLS = 12;
@@ -69,10 +72,8 @@ function FocusAnimation() {
 
 export default function GCAPLabs() {
   const [submitted, setSubmitted] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const scrollTo = (id: string) => {
-    setMobileMenuOpen(false);
     setTimeout(() => {
       const el = document.getElementById(id);
       if (!el) return;
@@ -91,44 +92,11 @@ export default function GCAPLabs() {
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] selection:bg-[#111111] selection:text-white">
 
-      {/* ─── Nav ─────────────────────────────────────────────────────────── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/95 backdrop-blur-xl border-b border-[var(--border)]">
-        <div className="max-w-6xl mx-auto px-8 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} />
-            <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
-          </div>
-          <div className="hidden md:flex items-center gap-9 text-[15px]">
-            <a href="#headmaster" className="hover:text-[var(--text-muted)] transition-colors">Headmaster</a>
-            <a href="#orchestrator" className="hover:text-[var(--text-muted)] transition-colors">How It Works</a>
-            <a href="#memory" className="hover:text-[var(--text-muted)] transition-colors">Memory</a>
-            <a href="#tayx" className="hover:text-[var(--text-muted)] transition-colors">TayX</a>
-            <button onClick={() => scrollTo("waitlist")} className="px-6 py-[10px] rounded-full bg-[#111111] text-[#F9F7F3] text-sm hover:bg-black transition-colors" aria-label="Join the waitlist">
-              Join the waitlist
-            </button>
-          </div>
-          <button onClick={() => setMobileMenuOpen((p) => !p)} className="md:hidden z-50 relative flex flex-col gap-[5px] p-2" aria-label="Toggle navigation menu" aria-expanded={mobileMenuOpen}>
-            <span className={`block w-5 h-[1.5px] bg-[var(--text)] transition-all duration-200 ${mobileMenuOpen ? "rotate-45 translate-y-[6.5px]" : ""}`} />
-            <span className={`block w-5 h-[1.5px] bg-[var(--text)] transition-all duration-200 ${mobileMenuOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-5 h-[1.5px] bg-[var(--text)] transition-all duration-200 ${mobileMenuOpen ? "-rotate-45 -translate-y-[6.5px]" : ""}`} />
-          </button>
-        </div>
-      </nav>
+      {/* ─── Grain overlay ───────────────────────────────────────────────── */}
+      <GrainOverlay />
 
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }} className="fixed inset-0 z-40 bg-[var(--bg)] pt-24 px-8 flex flex-col">
-            <nav className="flex flex-col gap-7" aria-label="Mobile navigation">
-              {[{ href: "#headmaster", label: "Headmaster" }, { href: "#orchestrator", label: "How It Works" }, { href: "#memory", label: "Memory" }, { href: "#tayx", label: "TayX" }].map(({ href, label }) => (
-                <a key={href} href={href} onClick={() => setMobileMenuOpen(false)} className="text-3xl tracking-tight font-medium hover:text-[var(--text-muted)] transition-colors">{label}</a>
-              ))}
-            </nav>
-            <button onClick={() => scrollTo("waitlist")} className="mt-10 w-full py-4 rounded-full bg-[#111111] text-[#F9F7F3] text-lg font-medium">
-              Join the waitlist
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* ─── Nav ─────────────────────────────────────────────────────────── */}
+      <HeroNav />
 
       {/* ═══════════════════════════════════════════════════════════════════
           ACT I — GCAP LABS
@@ -136,33 +104,7 @@ export default function GCAPLabs() {
       ═══════════════════════════════════════════════════════════════════ */}
 
       {/* ─── Hero ────────────────────────────────────────────────────────── */}
-      <section data-chapter="top" data-label="Start" data-theme="dark" className="relative h-[100dvh] min-h-[720px] flex items-center justify-center overflow-hidden bg-black">
-        <video autoPlay muted loop playsInline poster="/images/hero-poster.jpg" className="absolute inset-0 w-full h-full object-cover" src="/videos/hero.mp4" aria-hidden="true">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] to-[#1a1a1a]" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/82" />
-        <div data-hero-copy className="relative z-10 max-w-6xl mx-auto px-8 text-center text-white">
-          <h1 className="text-[44px] sm:text-[60px] md:text-[clamp(60px,10vw,132px)] leading-[0.88] tracking-[-3px] md:tracking-[-5px] font-semibold mb-6 drop-shadow-2xl">
-            One prompt.
-            <br />
-            Headmaster handles the rest.
-          </h1>
-          <p className="text-2xl md:text-[34px] tracking-[-1px] mb-14 text-white/85 drop-shadow-xl max-w-2xl mx-auto leading-tight">
-            Research. Code. Emails. Decisions.
-            <br />
-            Your entire workforce — inside your laptop.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button onClick={() => scrollTo("waitlist")} className="px-14 py-4 rounded-full bg-white text-black text-xl font-medium hover:bg-white/90 active:scale-[0.985] transition-all shadow-xl text-center" data-magnet>
-              Join the waitlist
-            </button>
-            <a href="#how-it-works" className="px-14 py-4 rounded-full border-2 border-white/80 text-xl hover:bg-white/10 transition-all text-center">
-              See it in action
-            </a>
-          </div>
-        </div>
-        <div className="absolute bottom-7 left-1/2 -translate-x-1/2 text-white/50 text-[11px] tracking-[0.24em] uppercase z-10">Scroll</div>
-      </section>
+      <HeroSection />
 
       {/* ─── Integrations marquee — social proof, right after hero ───────── */}
       <WorksWith />
