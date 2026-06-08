@@ -118,7 +118,7 @@ export default function StatsReveal() {
               <div className="stat-number text-[clamp(3rem,5vw,4.5rem)] leading-none font-bold text-[var(--text)]">
                 {stat.number}
               </div>
-              <div className="stat-label text-[16px] text-[var(--text-muted)] max-w-[30ch] leading-relaxed opacity-0">
+              <div className="stat-label text-[16px] text-[var(--text-muted)] max-w-[30ch] leading-relaxed">
                 {stat.label}
               </div>
             </div>

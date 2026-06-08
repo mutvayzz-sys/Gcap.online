@@ -51,7 +51,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <CinematicLayer />
-        <div id="main-content" className="contents">
+        <div id="main-content" className="flex flex-col flex-1">
           {children}
         </div>
         <Analytics />

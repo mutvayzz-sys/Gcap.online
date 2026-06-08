@@ -144,6 +144,7 @@ export default function UseCasePage() {
   const params = useParams();
   const verticalKey = params.vertical as string;
   const details = verticalDetails[verticalKey];
+  const useCase = useCases.find((uc) => uc.slug === verticalKey);
 
   if (!details) {
     notFound();
@@ -280,7 +281,7 @@ export default function UseCasePage() {
               That&apos;s time freed up for strategic work instead of repetitive tasks.
             </p>
             <p className="text-[14px] text-white/55 mb-8 max-w-2xl mx-auto">
-              {details.sourceContext}
+              {useCase?.savingsSource ?? details.sourceContext}
             </p>
             <Link
               href="/contact"

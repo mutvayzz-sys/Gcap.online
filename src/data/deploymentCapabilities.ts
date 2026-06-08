@@ -31,7 +31,6 @@ export const deploymentCapabilities: readonly DeploymentCapability[] = [
   },
   {
     title: "Branded Interface",
-    description:
-      "Professional deployments can match the organization with custom logo placement, theme tokens, workspace naming, and deployment-specific entry points. The brand layer changes the client-facing shell without changing the underlying agent runtime.",
+    description: "Custom workspace name, domain, and color theme can be configured per deployment. Client-facing interfaces use the organization's own branding rather than GCAP defaults.",
   },
 ] as const;

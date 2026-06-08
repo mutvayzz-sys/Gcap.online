@@ -28,7 +28,7 @@ export default function SectionHeader({
         </div>
       )}
       <h2
-        className={`text-[36px] md:text-[52px] tracking-[-1.4px] md:tracking-[-2.2px] font-medium leading-[1.05] text-balance ${
+        className={`text-[36px] md:text-[52px] tracking-[-0.03em] font-medium leading-[1.05] text-balance ${
           inverse ? "text-white" : "text-[var(--text)]"
         }`}
       >

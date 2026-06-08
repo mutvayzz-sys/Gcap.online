@@ -7,6 +7,8 @@ export interface UseCase {
   slug: string;
   /** Buyer-facing savings hook surfaced on list and homepage cards. */
   savings: string;
+  /** Attribution context for the savings estimate. */
+  savingsSource: string;
   /** Number of workflows covered on the detail page. */
   workflowCount: number;
 }
@@ -19,6 +21,7 @@ export const useCases: readonly UseCase[] = [
     vertical: "Education",
     slug: "education",
     savings: "15–20 hrs/week per teacher",
+    savingsSource: "Estimated from automating progress reports, parent updates, and scheduling in beta.",
     workflowCount: 6,
   },
   {
@@ -28,6 +31,7 @@ export const useCases: readonly UseCase[] = [
     vertical: "Business",
     slug: "business",
     savings: "20–30 hrs/week per team",
+    savingsSource: "Estimated from automating client updates, checklists, and reporting in beta.",
     workflowCount: 6,
   },
   {
@@ -37,6 +41,7 @@ export const useCases: readonly UseCase[] = [
     vertical: "Agencies",
     slug: "agencies",
     savings: "25–35 hrs/week per team",
+    savingsSource: "Estimated from automating research, drafts, and client reports in beta.",
     workflowCount: 6,
   },
   {
@@ -46,6 +51,7 @@ export const useCases: readonly UseCase[] = [
     vertical: "Engineering",
     slug: "engineering",
     savings: "10–15 hrs/week per team",
+    savingsSource: "Estimated from automating release notes, documentation, and repo summaries in beta.",
     workflowCount: 6,
   },
   {
@@ -55,6 +61,7 @@ export const useCases: readonly UseCase[] = [
     vertical: "Services",
     slug: "services",
     savings: "15–25 hrs/week per agent",
+    savingsSource: "Estimated from automating follow-ups, listing copy, and document summaries in beta.",
     workflowCount: 6,
   },
   {
@@ -64,6 +71,7 @@ export const useCases: readonly UseCase[] = [
     vertical: "Healthcare",
     slug: "healthcare",
     savings: "12–18 hrs/week per provider",
+    savingsSource: "Estimated from automating intake summaries, appointment prep, and internal notes in beta.",
     workflowCount: 6,
   },
 ] as const;

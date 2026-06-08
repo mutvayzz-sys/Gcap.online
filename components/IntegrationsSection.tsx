@@ -23,7 +23,7 @@ export default function IntegrationsSection() {
       <WorksWith />
       <div className="mx-auto mt-10 max-w-[1280px] px-8">
         <Link
-          href="/products/headmaster#integrations"
+          href="/integrations"
           className="inline-flex rounded-full border border-[var(--border-strong)] px-6 py-3 text-[14px] font-medium transition-all hover:bg-[var(--bg)]"
         >
           Explore deeper integrations on the Headmaster page

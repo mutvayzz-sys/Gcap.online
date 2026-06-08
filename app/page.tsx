@@ -33,8 +33,8 @@ export default function GCAPLabs() {
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] selection:bg-[#111] selection:text-white">
       {/* Floating premium nav */}
-      <nav className="fixed left-0 right-0 top-4 z-50 px-4" aria-label="Primary navigation">
-        <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between rounded-full border border-white/60 bg-[var(--bg)]/78 px-4 pl-5 shadow-[0_18px_60px_rgba(17,17,17,0.10)] backdrop-blur-2xl ring-1 ring-black/5 md:px-5">
+      <nav className="fixed left-0 right-0 top-4 z-50 px-4 pointer-events-none" aria-label="Primary navigation">
+        <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between rounded-full border border-white/60 bg-[var(--bg)]/78 px-4 pl-5 shadow-[0_18px_60px_rgba(17,17,17,0.10)] backdrop-blur-2xl ring-1 ring-black/5 md:px-5 pointer-events-auto">
           <a href="#top" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">
             <Image src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} priority />
             <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
@@ -73,7 +73,7 @@ export default function GCAPLabs() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.2, ease: [0.4, 0, 1, 1] }}
             className="fixed inset-0 z-40 bg-[var(--bg)] pt-24 px-8 flex flex-col"
           >
             <nav className="flex flex-col gap-7" aria-label="Mobile navigation">
@@ -111,11 +111,11 @@ export default function GCAPLabs() {
       {/* HOW IT WORKS — pinned left title, steps scroll right */}
       <PinnedSplitSection />
 
-      {/* PINNED SCROLL SECTION — product story with parallax and reveal */}
-      <PinnedScrollSection />
-
       {/* GUIDED WORKFLOW — strongest product proof */}
       <GuidedWorkflowSection />
+
+      {/* PINNED SCROLL SECTION — product story with parallax and reveal */}
+      <PinnedScrollSection />
 
       {/* INTEGRATIONS — visual proof only on the homepage */}
       <IntegrationsSection />
