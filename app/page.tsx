@@ -6,15 +6,15 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import HeroSection from "@/components/HeroSection";
 import ProductPillars from "@/components/ProductPillars";
-import ChatSection from "@/components/ChatSection";
-import PinnedScrollSection from "@/components/PinnedScrollSection";
+import ChatSection, { CHAT_IMAGE } from "@/components/ChatSection";
+import PinnedScrollSection, { STORY_SECTIONS } from "@/components/PinnedScrollSection";
 import WorkEvidenceTrack from "@/components/WorkEvidenceTrack";
-import ApprovalsSection from "@/components/ApprovalsSection";
+import ApprovalsSection, { APPROVALS_IMAGE } from "@/components/ApprovalsSection";
 import IntegrationsSection from "@/components/IntegrationsSection";
 import DeploymentSection from "@/components/DeploymentSection";
 import TrustControl from "@/components/TrustControl";
 import UseCases from "@/components/UseCases";
-import ModelAgnostic from "@/components/ModelAgnostic";
+import ModelAgnostic, { MODEL_AGNOSTIC_IMAGE } from "@/components/ModelAgnostic";
 import FinalCTA from "@/components/FinalCTA";
 import StatsReveal from "@/components/StatsReveal";
 import PinnedSplitSection, { HEADMASTER_STEPS } from "@/components/PinnedSplitSection";
@@ -146,12 +146,35 @@ export default function GCAPLabs() {
       {/* CTA */}
       <FinalCTA />
 
+      {/* Lightbox for Chat Section */}
+      <ProductLightbox
+        images={[CHAT_IMAGE]}
+      />
+
       {/* Lightbox for How It Works images */}
       <ProductLightbox
         images={HEADMASTER_STEPS.map((step) => ({
           src: step.shot,
           alt: step.alt,
         }))}
+      />
+
+      {/* Lightbox for Approvals Section */}
+      <ProductLightbox
+        images={[APPROVALS_IMAGE]}
+      />
+
+      {/* Lightbox for Pinned Scroll Section */}
+      <ProductLightbox
+        images={STORY_SECTIONS.map((section) => ({
+          src: section.shot,
+          alt: section.alt,
+        }))}
+      />
+
+      {/* Lightbox for Model Agnostic Section */}
+      <ProductLightbox
+        images={[MODEL_AGNOSTIC_IMAGE]}
       />
 
       {/* Footer */}

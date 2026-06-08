@@ -3,6 +3,11 @@
 import SectionHeader from "./SectionHeader";
 import ProductShot from "./ProductShot";
 
+export const CHAT_IMAGE = {
+  src: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/02-chat-ask-headmaster.png",
+  alt: "Headmaster chat view generating a product launch plan from workspace context.",
+};
+
 export default function ChatSection() {
   return (
     <section
@@ -30,9 +35,10 @@ export default function ChatSection() {
 
         <div data-reveal>
           <ProductShot
-            src="https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/02-chat-ask-headmaster.png"
-            alt="Headmaster chat view generating a product launch plan from workspace context."
+            src={CHAT_IMAGE.src}
+            alt={CHAT_IMAGE.alt}
             aspect="aspect-[16/10]"
+            data-lightbox="0"
           />
         </div>
       </div>

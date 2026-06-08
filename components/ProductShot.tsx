@@ -21,7 +21,7 @@ export default function ProductShot({
   return (
     <div
       data-lightbox={dataLightbox}
-      className={`group relative overflow-hidden rounded-[24px] border border-[rgba(17,17,17,0.08)] bg-white shadow-lg ${aspect} ${className} ${
+      className={`group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-white shadow-md ${aspect} ${className} ${
         isClickable ? "cursor-zoom-in" : ""
       }`}
     >

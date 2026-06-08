@@ -8,7 +8,7 @@ import ProductShot from "./ProductShot";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const STORY_SECTIONS = [
+export const STORY_SECTIONS = [
   {
     id: "memory",
     title: "Persistent Memory",
@@ -172,6 +172,7 @@ export default function PinnedScrollSection() {
                   src={section.shot}
                   alt={section.alt}
                   aspect="aspect-[16/10]"
+                  data-lightbox={String(idx)}
                 />
               </div>
             </div>

@@ -4,6 +4,17 @@ import { BookOpen, Lock } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import ProductShot from "./ProductShot";
 
+export const MEMORY_IMAGES = [
+  {
+    src: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/06-memory-providers.png",
+    alt: "Memory page showing agent memory, user profile, providers, and persona tabs.",
+  },
+  {
+    src: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/05-documents-knowledge-base.png",
+    alt: "Documents page showing approved workspace files and knowledge sources.",
+  },
+];
+
 export default function MemorySection() {
   return (
     <section
@@ -55,17 +66,19 @@ export default function MemorySection() {
         <div>
           <div className="text-[10px] tracking-[2.5px] uppercase text-[var(--text-muted)] mb-3">Memory providers</div>
           <ProductShot
-            src="https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/06-memory-providers.png"
-            alt="Memory page showing agent memory, user profile, providers, and persona tabs."
+            src={MEMORY_IMAGES[0].src}
+            alt={MEMORY_IMAGES[0].alt}
             aspect="aspect-[16/10]"
+            data-lightbox="0"
           />
         </div>
         <div>
           <div className="text-[10px] tracking-[2.5px] uppercase text-[var(--text-muted)] mb-3">Knowledge base</div>
           <ProductShot
-            src="https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/05-documents-knowledge-base.png"
-            alt="Documents page showing approved workspace files and knowledge sources."
+            src={MEMORY_IMAGES[1].src}
+            alt={MEMORY_IMAGES[1].alt}
             aspect="aspect-[16/10]"
+            data-lightbox="1"
           />
         </div>
       </div>

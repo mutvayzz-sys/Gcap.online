@@ -3,6 +3,11 @@
 import SectionHeader from "./SectionHeader";
 import ProductShot from "./ProductShot";
 
+export const MODEL_AGNOSTIC_IMAGE = {
+  src: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/11-model-stack-providers-tayx.png",
+  alt: "Model stack page showing TayX, cloud models, coding models, local models, and enterprise endpoints.",
+};
+
 export default function ModelAgnostic() {
   return (
     <section
@@ -52,10 +57,11 @@ export default function ModelAgnostic() {
 
       <div className="mt-10 max-w-[1120px] mx-auto px-8" data-reveal>
         <ProductShot
-          src="https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/11-model-stack-providers-tayx.png"
-          alt="Model stack page showing TayX, cloud models, coding models, local models, and enterprise endpoints."
+          src={MODEL_AGNOSTIC_IMAGE.src}
+          alt={MODEL_AGNOSTIC_IMAGE.alt}
           aspect="aspect-[16/10]"
           className="border-white/10"
+          data-lightbox="0"
         />
       </div>
     </section>

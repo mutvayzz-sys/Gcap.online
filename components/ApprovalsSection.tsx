@@ -4,6 +4,11 @@ import { ShieldCheck, X, PencilLine, Eye } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import ProductShot from "./ProductShot";
 
+export const APPROVALS_IMAGE = {
+  src: "https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/04-approvals-queue.png",
+  alt: "Approvals queue showing product launch documents awaiting human review.",
+};
+
 export default function ApprovalsSection() {
   return (
     <section
@@ -49,9 +54,10 @@ export default function ApprovalsSection() {
 
       <div className="mt-14" data-reveal>
         <ProductShot
-          src="https://5e9r2bdnqbomlbee.public.blob.vercel-storage.com/04-approvals-queue.png"
-          alt="Approvals queue showing product launch documents awaiting human review."
+          src={APPROVALS_IMAGE.src}
+          alt={APPROVALS_IMAGE.alt}
           aspect="aspect-[16/10]"
+          data-lightbox="1"
         />
       </div>
     </section>
