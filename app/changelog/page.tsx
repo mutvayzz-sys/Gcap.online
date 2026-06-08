@@ -8,6 +8,31 @@ const EASE = [0.23, 1, 0.32, 1] as const;
 
 const releases = [
   {
+    version: "0.16.0",
+    date: "June 5, 2026",
+    tagline: "The Surface release",
+    highlights: [
+      "Headmaster Desktop App — native Electron app for macOS, Linux, and Windows with one-click install, in-app updates, drag-and-drop files, and Cmd+K command palette",
+      "Web Dashboard → Full Admin Panel — browser-based MCP catalog, messaging channels, credentials, webhooks, memory, and gateway controls",
+      "Quick Setup via Nous Portal — sign in, pick a model, start chatting immediately",
+      "Fuzzy Model Picker everywhere — Desktop, Web, TUI, and CLI: type \"v4fl\" → deepseek-v4-flash",
+      "/undo [N] — back up N turns, edit last message, soft-delete in between",
+      "Simplified Chinese (简体中文) translation across Desktop and Dashboard",
+      "205 issues closed, 170 community contributors",
+    ],
+  },
+  {
+    version: "0.15.0",
+    date: "May 28, 2026",
+    tagline: "The Velocity release",
+    highlights: [
+      "The Big Refactor — run_agent.py reduced from 16,083 → 3,821 lines (−76%). Code redistributed across 14 cohesive agent modules",
+      "Kanban → Multi-Agent Platform — triage auto-decomposition, swarm graphs, per-task model overrides, drag-to-delete trash zone (104 PRs)",
+      "Cold-Start Perf — another second shaved off launch. cold start: 701ms → 258ms. Termux cold start: 2.9s → 0.8s",
+      "1,302 commits, 747 merged PRs, 321 community contributors",
+    ],
+  },
+  {
     version: "0.11.0",
     date: "April 23, 2026",
     tagline: "The Interface release",
@@ -44,7 +69,7 @@ const releases = [
       "Fast Mode (/fast) — priority processing for OpenAI and Anthropic models",
       "Background process monitoring with real-time pattern matching",
       "Pluggable context engine via plugin system",
-      "hermes backup + hermes import — full state backup and restore",
+      "headmaster backup + headmaster import — full state backup and restore",
       "16 supported platforms total",
       "Comprehensive security hardening pass",
     ],

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -14,6 +15,7 @@ const STATS = [
   {
     number: "1,289",
     label: "Merged PRs across the last two releases",
+    href: "/changelog",
   },
   {
     number: "100%",
@@ -113,10 +115,16 @@ export default function StatsReveal() {
           {STATS.map((stat, idx) => (
             <div
               key={idx}
-              className="stat-item flex flex-col items-start gap-4"
+              className={`stat-item flex flex-col items-start gap-4${stat.href ? " group cursor-pointer" : ""}`}
             >
               <div className="stat-number text-[clamp(3rem,5vw,4.5rem)] leading-none font-bold text-[var(--text)]">
-                {stat.number}
+                {stat.href ? (
+                  <Link href={stat.href} className="hover:underline decoration-[var(--text-muted)] underline-offset-4">
+                    {stat.number}
+                  </Link>
+                ) : (
+                  stat.number
+                )}
               </div>
               <div className="stat-label text-[16px] text-[var(--text-muted)] max-w-[30ch] leading-relaxed">
                 {stat.label}
