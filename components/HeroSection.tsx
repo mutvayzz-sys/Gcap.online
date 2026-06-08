@@ -56,13 +56,13 @@ export default function HeroSection() {
               className="inline-flex items-center justify-center px-9 py-3.5 rounded-full bg-[#111111] text-[#F9F7F3] text-[15px] font-medium hover:bg-black hover:shadow-[0_0_30px_rgba(17,17,17,0.3)] active:scale-[0.97] transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F7F3]"
               data-magnet
             >
-              See Headmaster in action
+              Book a Demo
             </a>
             <a
-              href="#product"
+              href="#how-it-works"
               className="inline-flex items-center justify-center px-9 py-3.5 rounded-full border border-[var(--border-strong)] text-[var(--text)] text-[15px] font-medium hover:bg-white hover:shadow-[0_0_40px_rgba(17,17,17,0.25)] hover:text-[var(--accent)] transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)]"
             >
-              Walk through a live run
+              Learn More
             </a>
           </motion.div>
 

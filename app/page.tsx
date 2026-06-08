@@ -17,8 +17,9 @@ import UseCases from "@/components/UseCases";
 import ModelAgnostic from "@/components/ModelAgnostic";
 import FinalCTA from "@/components/FinalCTA";
 import StatsReveal from "@/components/StatsReveal";
-import PinnedSplitSection from "@/components/PinnedSplitSection";
+import PinnedSplitSection, { HEADMASTER_STEPS } from "@/components/PinnedSplitSection";
 import BetaTrustRing from "@/components/BetaTrustRing";
+import ProductLightbox from "@/components/ProductLightbox";
 
 export default function GCAPLabs() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -144,6 +145,14 @@ export default function GCAPLabs() {
 
       {/* CTA */}
       <FinalCTA />
+
+      {/* Lightbox for How It Works images */}
+      <ProductLightbox
+        images={HEADMASTER_STEPS.map((step) => ({
+          src: step.shot,
+          alt: step.alt,
+        }))}
+      />
 
       {/* Footer */}
       <footer className="border-t border-[var(--border)] py-9 text-xs text-[var(--text-muted)] px-8 flex flex-col md:flex-row gap-y-2 md:items-center justify-between max-w-6xl mx-auto">
