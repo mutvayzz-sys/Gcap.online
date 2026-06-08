@@ -46,7 +46,7 @@ export default function TrustControl() {
             <div className="mb-5 flex items-center justify-between">
               <div>
                 <p className="text-[11px] uppercase tracking-[0.22em] text-white/40">Permission policy</p>
-                <h3 id="workspace-roles-heading" className="mt-1 text-xl font-medium tracking-tight">Acme workspace roles</h3>
+                <h3 id="workspace-roles-heading" className="mt-1 text-xl font-medium tracking-tight">Workspace roles</h3>
               </div>
               <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/60">Live</span>
             </div>

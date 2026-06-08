@@ -101,7 +101,7 @@ export default function StatsReveal() {
     >
       <div className="max-w-[1280px] mx-auto px-8">
         <div className="mb-20">
-          <h2 className="text-[clamp(1.8rem,3.5vw,3rem)] tracking-[-0.02em] font-semibold text-[var(--text)] mb-4">
+          <h2 className="text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.02em] font-semibold text-[var(--text)] mb-4 text-balance">
             Release velocity with controls
           </h2>
           <p className="text-[17px] text-[var(--text-muted)] max-w-[60ch]">

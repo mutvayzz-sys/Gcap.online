@@ -48,7 +48,7 @@ function PageNav() {
       <div className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-8">
         <Link href="/" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">
           <Image src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} priority />
-          <span className="text-[21px] font-medium tracking-[-0.8px]">GCAP</span>
+          <span className="text-[21px] font-medium tracking-[-0.6px]">GCAP</span>
         </Link>
         <div className="hidden items-center gap-8 text-[15px] md:flex">
           <Link href="/products/headmaster" className="text-[var(--text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">Headmaster</Link>

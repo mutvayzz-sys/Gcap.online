@@ -8,7 +8,7 @@ import HeroSection from "@/components/HeroSection";
 import ProductPillars from "@/components/ProductPillars";
 import ChatSection from "@/components/ChatSection";
 import PinnedScrollSection from "@/components/PinnedScrollSection";
-import GuidedWorkflowSection from "@/components/GuidedWorkflowSection";
+import WorkEvidenceTrack from "@/components/WorkEvidenceTrack";
 import ApprovalsSection from "@/components/ApprovalsSection";
 import IntegrationsSection from "@/components/IntegrationsSection";
 import DeploymentSection from "@/components/DeploymentSection";
@@ -18,6 +18,7 @@ import ModelAgnostic from "@/components/ModelAgnostic";
 import FinalCTA from "@/components/FinalCTA";
 import StatsReveal from "@/components/StatsReveal";
 import PinnedSplitSection from "@/components/PinnedSplitSection";
+import BetaTrustRing from "@/components/BetaTrustRing";
 
 export default function GCAPLabs() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -37,7 +38,7 @@ export default function GCAPLabs() {
         <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between rounded-full border border-white/60 bg-[var(--bg)]/78 px-4 pl-5 shadow-[0_18px_60px_rgba(17,17,17,0.10)] backdrop-blur-2xl ring-1 ring-black/5 md:px-5 pointer-events-auto">
           <a href="#top" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">
             <Image src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} priority />
-            <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
+            <span className="text-[21px] tracking-[-0.6px] font-medium">GCAP</span>
           </a>
 
           <div className="hidden md:flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/55 p-1 text-[14px] shadow-inner shadow-white/60">
@@ -111,8 +112,8 @@ export default function GCAPLabs() {
       {/* HOW IT WORKS — pinned left title, steps scroll right */}
       <PinnedSplitSection />
 
-      {/* GUIDED WORKFLOW — strongest product proof */}
-      <GuidedWorkflowSection />
+      {/* EVIDENCE — outcome cards, not process walkthrough */}
+      <WorkEvidenceTrack />
 
       {/* PINNED SCROLL SECTION — product story with parallax and reveal */}
       <PinnedScrollSection />
@@ -135,6 +136,9 @@ export default function GCAPLabs() {
 
       {/* STATS REVEAL — text animation on scroll */}
       <StatsReveal />
+
+      {/* TRUST — beta testimonials + security badges */}
+      <BetaTrustRing />
 
       {/* CTA */}
       <FinalCTA />

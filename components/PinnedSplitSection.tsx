@@ -115,7 +115,7 @@ export default function PinnedSplitSection() {
             className="flex flex-col gap-6"
           >
             <div>
-              <h2 className="text-[clamp(1.5rem,3vw,2.5rem)] tracking-[-0.02em] font-semibold text-[var(--text)] mb-4 text-balance">
+              <h2 className="text-[clamp(1.75rem,2.8vw,2.75rem)] tracking-[-0.02em] font-semibold text-[var(--text)] mb-4 text-balance">
                 How Headmaster works
               </h2>
               <p className="text-[17px] text-[var(--text-muted)] max-w-[55ch]">

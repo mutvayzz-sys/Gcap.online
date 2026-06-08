@@ -8,10 +8,10 @@
   --bg-elevated: #FFFFFF;
   --text: #111111;
   --ink: #111111;
-  --text-muted: #5C5C5A;
+  --text-muted: #767670;
   --border: #E8E7E2;
   --border-strong: #C8C7C2;
-  --accent: #111111;
+  --accent: #1A4D2E;
   --success: #16a34a;
   --on-dark: #F9F7F3;
 
@@ -89,11 +89,11 @@ body {
 }
 
 ::selection { background: #111111; color: #F9F7F3; }
-a { color: inherit; text-decoration: none; }
+a { color: var(--text); text-decoration: none; }
 button { font-family: inherit; }
 
 *:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid var(--text);
   outline-offset: 3px;
 }
 *:focus:not(:focus-visible) {
@@ -125,6 +125,7 @@ button { font-family: inherit; }
 h1, h2, h3 {
   font-feature-settings: "tnum" 1;
   letter-spacing: -0.02em;
+  font-variation-settings: 'wght' 500;
 }
 
 .prose p, .prose li, .text-measure p, .text-measure li { max-width: var(--measure-copy); }
@@ -157,7 +158,7 @@ h1, h2, h3 {
 button, a[role="button"], a[href] {
   cursor: pointer;
   touch-action: manipulation;
-  transition: transform var(--dur-fast) var(--ease-confident);
+  transition: transform var(--dur-fast) var(--ease-confident), all 280ms var(--ease-confident);
 }
 button:active, a[role="button"]:active {
   transform: scale(0.97);
@@ -176,7 +177,7 @@ a[href]:focus-visible {
 .btn:hover { transition-duration: var(--dur-fast); }
 .btn:active { transform: scale(.97); }
 .btn-dark { background: #111; color: var(--on-dark); padding: 10px 24px; font-size: 14px; }
-.btn-dark:hover { background: #000; }
+.btn-dark:hover { background: #0a2618; }
 .btn-white { background: #fff; color: #000; padding: 15px 44px; font-size: 19px; box-shadow: 0 24px 60px rgba(0,0,0,.30); }
 .btn-white:hover { background: rgba(255,255,255,.88); }
 .btn-ghost { background: transparent; color: #111; border: 2px solid var(--border-strong); padding: 13px 42px; font-size: 19px; }
@@ -198,7 +199,7 @@ a[href]:focus-visible {
 }
 body.has-cursor, body.has-cursor * { cursor: none !important; }
 
-.grain { position: fixed; inset: 0; z-index: var(--z-grain); pointer-events: none; opacity: .045; mix-blend-mode: multiply; }
+.grain { position: fixed; inset: 0; z-index: var(--z-grain); pointer-events: none; opacity: .06; mix-blend-mode: multiply; }
 
 .chapters {
   position: fixed; right: 26px; top: 50%; transform: translateY(-50%);
@@ -268,21 +269,23 @@ body.has-cursor, body.has-cursor * { cursor: none !important; }
   }
 }
 
-[data-reveal] {
+/* Reveal animations only activate when JS has hydrated.
+   Without JS, content is visible by default — no invisible sections. */
+html.js [data-reveal] {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.6s var(--ease-confident), transform 0.6s var(--ease-confident);
 }
-[data-reveal].is-visible {
+html.js [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);
 }
-[data-reveal-item] {
+html.js [data-reveal-item] {
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 0.5s var(--ease-confident), transform 0.5s var(--ease-confident);
 }
-[data-reveal-item].is-visible {
+html.js [data-reveal-item].is-visible {
   opacity: 1;
   transform: translateY(0);
 }

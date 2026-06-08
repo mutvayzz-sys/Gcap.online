@@ -40,13 +40,13 @@ export default function ModelAgnostic() {
           ].map((item) => (
             <div key={item.title} className="py-7 border-b border-white/10">
               <div className="text-[17px] font-medium tracking-tight mb-1.5">{item.title}</div>
-              <p className="text-[15px] text-white/55 leading-relaxed">{item.description}</p>
+              <p className="text-[15px] text-white/70 leading-relaxed">{item.description}</p>
             </div>
           ))}
         </div>
 
-        <p className="mt-8 text-[15px] text-white/55 leading-relaxed max-w-2xl" data-reveal>
-          TayX is GCAP’s own tuned model layer — optimized for long-running workflows, tool use, and multi-step reasoning. <a href="/products/tayx" className="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">Coming soon.</a>
+        <p className="mt-8 text-[15px] text-white/70 leading-relaxed max-w-2xl" data-reveal>
+          TayX is GCAP’s own tuned model layer — optimized for long-running workflows, tool use, and multi-step reasoning. <a href="/products/tayx" className="text-white underline decoration-white/50 underline-offset-4 hover:decoration-white">Coming soon.</a>
         </p>
       </div>
 

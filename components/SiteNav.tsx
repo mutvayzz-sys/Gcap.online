@@ -21,7 +21,7 @@ export default function SiteNav() {
       <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between rounded-full border border-white/60 bg-[var(--bg)]/78 px-4 pl-5 shadow-[0_18px_60px_rgba(17,17,17,0.10)] backdrop-blur-2xl ring-1 ring-black/5 md:px-5">
         <Link href="/" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text)] rounded">
           <Image src="/images/logo.svg" alt="GCAP Labs" className="h-8 w-auto" width={32} height={32} priority />
-          <span className="text-[21px] tracking-[-0.8px] font-medium">GCAP</span>
+          <span className="text-[21px] tracking-[-0.6px] font-medium">GCAP</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/55 p-1 text-[14px] shadow-inner shadow-white/60">

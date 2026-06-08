@@ -45,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`h-full antialiased ${GeistSans.variable}`}>
+    <html lang="en" className={`h-full antialiased js ${GeistSans.variable}`}>
       <body className="min-h-screen flex flex-col overflow-x-hidden">
         <a href="#main-content" className="skip-link">
           Skip to main content

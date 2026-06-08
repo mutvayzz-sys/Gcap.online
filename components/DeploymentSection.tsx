@@ -44,7 +44,7 @@ export default function DeploymentSection() {
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <div className="text-xs uppercase tracking-[2px] text-white/40">Private Deployment</div>
-                  <div className="text-xl font-medium tracking-tight mt-1">Acme Operations Workspace — Prod</div>
+                  <div className="text-xl font-medium tracking-tight mt-1">Your Operations Workspace — Prod</div>
                 </div>
                 <div className="text-xs px-3 py-1 border border-white/20 text-white/70">Isolated</div>
               </div>

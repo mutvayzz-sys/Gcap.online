@@ -28,7 +28,7 @@ export default function ChatSection() {
           </div>
           <div className="mt-8 rounded-3xl border border-[var(--border)] bg-[var(--bg-elevated)] p-5 shadow-sm">
             <div className="rounded-2xl bg-white p-4 text-[15px] text-[var(--text)]">
-              “Write the Q3 client report for Acme using last month’s data and our format.”
+              "Write the Q3 client report using last month's data and our format."
             </div>
             <div className="mt-4 space-y-3 font-mono text-[12px] text-[var(--text-muted)]">
               <div className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
