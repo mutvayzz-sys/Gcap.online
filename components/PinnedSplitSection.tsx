@@ -7,7 +7,7 @@ import ProductShot from "./ProductShot";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const HEADMASTER_STEPS = [
+export const HEADMASTER_STEPS = [
   {
     id: "mission",
     title: "You give the mission",
@@ -45,20 +45,32 @@ export default function PinnedSplitSection() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() =>
     typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
   );
+  const [isLargeScreen, setIsLargeScreen] = useState(() =>
+    typeof window !== "undefined" ? window.matchMedia("(min-width: 1024px)").matches : false
+  );
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const screenQuery = window.matchMedia("(min-width: 1024px)");
 
-    const handleChange = (e: MediaQueryListEvent) => {
+    const handleMotionChange = (e: MediaQueryListEvent) => {
       setPrefersReducedMotion(e.matches);
     };
 
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
+    const handleScreenChange = (e: MediaQueryListEvent) => {
+      setIsLargeScreen(e.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleMotionChange);
+    screenQuery.addEventListener("change", handleScreenChange);
+    return () => {
+      mediaQuery.removeEventListener("change", handleMotionChange);
+      screenQuery.removeEventListener("change", handleScreenChange);
+    };
   }, []);
 
   useEffect(() => {
-    if (prefersReducedMotion || !containerRef.current || !leftColRef.current) return;
+    if (prefersReducedMotion || !containerRef.current || !leftColRef.current || !isLargeScreen) return;
 
     const ctx = gsap.context(() => {
       // Pin the left column
@@ -99,7 +111,7 @@ export default function PinnedSplitSection() {
     }, containerRef);
 
     return () => ctx.revert();
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, isLargeScreen]);
 
   return (
     <section
@@ -126,7 +138,7 @@ export default function PinnedSplitSection() {
 
           {/* Right column: scrolling items */}
           <div ref={rightColRef} className="space-y-24">
-            {HEADMASTER_STEPS.map((step) => (
+            {HEADMASTER_STEPS.map((step, index) => (
               <div key={step.id} className="right-item">
                 <div className="space-y-3">
                   <h3 className="text-[clamp(1.1rem,2vw,1.5rem)] font-semibold text-[var(--text)]">
@@ -140,6 +152,7 @@ export default function PinnedSplitSection() {
                     alt={step.alt}
                     aspect="aspect-[16/10]"
                     className="mt-8"
+                    data-lightbox={String(index)}
                   />
                 </div>
               </div>
