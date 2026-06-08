@@ -40,9 +40,14 @@ export default function ContactPage() {
     if (!formData.name.trim()) newErrors.name = "Name is required";
     if (!formData.organization.trim()) newErrors.organization = "Organization is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Please enter a valid email";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) newErrors.email = "Please enter a valid email address";
 
-    return Object.keys(newErrors).length === 0;
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return false;
+    }
+
+    return true;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -127,9 +132,14 @@ export default function ContactPage() {
               </motion.div>
             )}
 
-            {status === "error" && !validateForm() && (
+            {status === "error" && Object.keys(errors).length > 0 && (
               <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="p-4 rounded-xl bg-[#f8d7da] border border-[#f5c6cb] text-[#721c24] text-[14px]">
-                Please fill in all required fields correctly.
+                <p className="font-medium mb-2">Please fix the following:</p>
+                <ul className="list-disc list-inside space-y-1">
+                  {Object.entries(errors).map(([field, message]) => (
+                    <li key={field}>{message}</li>
+                  ))}
+                </ul>
               </motion.div>
             )}
 
@@ -256,14 +266,27 @@ export default function ContactPage() {
               />
             </div>
 
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={status === "loading" || status === "success"}
-              className="w-full py-3 rounded-full bg-[#111111] text-[#F9F7F3] text-[15px] font-medium hover:bg-black active:scale-[0.97] transition-all disabled:opacity-50"
-            >
-              {status === "loading" ? "Sending..." : status === "success" ? "Sent!" : "Request a deployment call"}
-            </button>
+            {/* Buttons */}
+            <div className="space-y-3">
+              <button
+                type="submit"
+                disabled={status === "loading" || status === "success"}
+                className="w-full py-3 rounded-full bg-[#111111] text-[#F9F7F3] text-[15px] font-medium hover:bg-black active:scale-[0.97] transition-all disabled:opacity-50"
+              >
+                {status === "loading" ? "Sending..." : status === "success" ? "Sent!" : "Send Email"}
+              </button>
+
+              <div className="relative">
+                <button
+                  type="button"
+                  disabled
+                  className="w-full py-3 rounded-full border border-[var(--border-strong)] text-[var(--text-muted)] text-[15px] font-medium opacity-50 cursor-not-allowed"
+                >
+                  Chat with us
+                </button>
+                <span className="absolute right-6 top-1/2 -translate-y-1/2 text-[12px] text-[var(--text-muted)] font-medium">Coming soon</span>
+              </div>
+            </div>
           </motion.form>
         </motion.div>
       </main>
