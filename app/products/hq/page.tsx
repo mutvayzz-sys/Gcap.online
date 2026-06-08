@@ -111,7 +111,7 @@ export default function HQPage() {
                   className="p-8 rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] group hover:border-[var(--border-strong)] transition-colors"
                   data-reveal-item
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-[#111111] text-[#F9F7F3] flex items-center justify-center mb-6 group-hover:scale-[1.05] transition-transform">
+                  <div className="w-12 h-12 rounded-2xl bg-[#111111] text-[#F9F7F3] flex items-center justify-center mb-6 hover-scale-sm">
                     <Icon size={20} strokeWidth={1.8} />
                   </div>
                   <h3 className="text-[19px] font-medium tracking-tight mb-3">{feature.title}</h3>

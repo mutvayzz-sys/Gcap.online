@@ -29,7 +29,7 @@ export default function ProductShot({
         src={src}
         alt={alt}
         fill
-        className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+        className={`object-cover object-top transition-transform duration-300 hover-scale-img`}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
         priority={priority}
       />

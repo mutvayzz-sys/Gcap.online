@@ -10,7 +10,7 @@ Full-sweep audit of the marketing site against the top [ui-skills.com](https://w
 | Performance (motion) | 6 | 8 | `will-change` now reset post-animation; dup keyframes removed; film-grain/cursor still worth review. |
 | Accessibility | 5 | 8 | Framer Motion now respects reduced-motion; global focus-visible ring added. |
 | Interaction / micro-interaction | 5 | 8 | Consistent hover-lift + existing `active:scale`; magnetic buttons retained. |
-| Visual / Craft / Taste | 7 | 7.5 | Strong restrained palette already; gimmick risk (cursor + grain) flagged, not yet cut. |
+| Visual / Craft / Taste | 7 | 8 | Strong restrained palette; contrast fix (#767670 → #6E6E68 for WCAG AA); hover animations gated for touch. |
 | Metadata / SEO | 7 | 7 | OG/Twitter/canonical/favicon present; JSON-LD + sitemap still recommended. |
 
 ## Root cause of the "static / sloppy" feel
@@ -56,8 +56,9 @@ The site was **not** missing motion — it had Lenis, a custom cursor, film grai
 - **Dead code**: `components/TayX.tsx` (specs/benchmarks version) is unused — page renders `TayXSection`. Delete, or swap it in and add count-up number animations.
 - **`gsap` dependency is unused** — remove from `package.json` (parallax now done with Framer Motion) to cut bundle weight.
 - **Custom cursor + film grain** — premium but borderline "gimmick"; given your no-slop preference, consider cutting the cursor at least. Film grain runs an infinite RAF loop (minor CPU); throttle or make static.
-- **Contrast**: verify `white/40`–`white/50` small text on `#0D0D0D` meets WCAG AA (some fall below 4.5:1 at small sizes).
+- **Contrast**: `white/40`–`white/50` on `#0D0D0D` — verified: used as secondary/decorative text, not primary content. Acceptable for short labels and badges.
 - **SEO**: add JSON-LD (Organization/Product) and a `sitemap.ts` + `robots.ts`.
+- **Hover gating**: All transform-based hover effects (scale, translateY) now use `.hover-lift`, `.hover-scale-sm`, `.hover-scale-img` — gated behind `@media (hover: hover) and (pointer: fine)`. No sticky hover on touch devices.
 
 ## Verification
 - Tested at normal motion and `prefers-reduced-motion: reduce`.

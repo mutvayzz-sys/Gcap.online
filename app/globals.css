@@ -8,7 +8,7 @@
   --bg-elevated: #FFFFFF;
   --text: #111111;
   --ink: #111111;
-  --text-muted: #767670;
+  --text-muted: #6E6E68;
   --border: #E8E7E2;
   --border-strong: #C8C7C2;
   --accent: #1A4D2E;
@@ -358,4 +358,24 @@ html.js [data-reveal-item].is-visible {
     transform: translateY(-4px);
     box-shadow: 0 4px 14px rgba(0,0,0,0.08);
   }
+}
+
+/* Hover-lift and hover-scale: pointer devices only (avoids false hover on touch) */
+.hover-lift {
+  transition: transform 300ms var(--ease-confident);
+}
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift:hover { transform: translateY(-4px); }
+}
+.hover-scale-sm {
+  transition: transform 300ms var(--ease-confident);
+}
+@media (hover: hover) and (pointer: fine) {
+  .hover-scale-sm:hover { transform: scale(1.05); }
+}
+.hover-scale-img {
+  transition: transform 300ms var(--ease-confident);
+}
+@media (hover: hover) and (pointer: fine) {
+  .hover-scale-img:hover { transform: scale(1.02); }
 }

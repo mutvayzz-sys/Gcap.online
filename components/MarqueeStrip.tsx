@@ -152,7 +152,7 @@ export default function MarqueeStrip({ rows, duration = 34, inverse = false }: M
             aria-label={item.name}
           >
             <div
-              className={`w-14 h-14 rounded-2xl border flex items-center justify-center transition-all duration-200 ${styles.iconBg} ${styles.hoverShadow} group-hover:-translate-y-1`}
+              className={`w-14 h-14 rounded-2xl border flex items-center justify-center transition-all duration-200 ${styles.iconBg} ${styles.hoverShadow} hover-lift`}
             >
               {item.Icon ? (
                 <item.Icon size={28} className={`transition-colors ${styles.iconColor}`} />

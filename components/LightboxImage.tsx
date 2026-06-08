@@ -30,7 +30,7 @@ export default function LightboxImage({
         <img
           src={src}
           alt={alt}
-          className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02] w-full h-full"
+          className={`object-cover object-top transition-transform duration-300 hover-scale-img w-full h-full`}
           loading={priority ? "eager" : "lazy"}
         />
         <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-200 group-hover:bg-black/10 group-hover:opacity-100">
