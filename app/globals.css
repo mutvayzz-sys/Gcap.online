@@ -89,7 +89,7 @@ body {
 }
 
 ::selection { background: #111111; color: #F9F7F3; }
-a { color: var(--text); text-decoration: none; }
+a { text-decoration: none; }
 button { font-family: inherit; }
 
 *:focus-visible {

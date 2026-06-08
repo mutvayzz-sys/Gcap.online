@@ -8,12 +8,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 const STATS = [
   {
-    number: "5",
-    label: "Product releases shipped in 20 days",
-  },
-  {
     number: "17",
     label: "Communication platforms supported",
+  },
+  {
+    number: "1,289",
+    label: "Merged PRs across the last two releases",
   },
   {
     number: "100%",
@@ -105,7 +105,7 @@ export default function StatsReveal() {
             Release velocity with controls
           </h2>
           <p className="text-[17px] text-[var(--text-muted)] max-w-[60ch]">
-            Headmaster is moving quickly without weakening review. The product expands platform coverage while keeping sensitive actions behind approval gates.
+            Headmaster ships fast — 1,289 merged PRs across the last two releases alone — but every high-stakes action stops at a human approval gate before it leaves the workspace.
           </p>
         </div>
 
@@ -127,7 +127,7 @@ export default function StatsReveal() {
 
         <div className="mt-20 pt-20 border-t border-[var(--border)]">
           <p className="text-[17px] text-[var(--text-muted)] max-w-[70ch] leading-relaxed">
-            Headmaster&apos;s release cadence is paired with operational controls: new platforms, model routes, and workflow surfaces can be added while approvals and audit logs stay consistent.
+            Headmaster&apos;s release cadence is paired with operational controls: 17 platforms, 300+ model routes, and workflows that expand while approvals and audit logs stay consistent.
           </p>
         </div>
       </div>
