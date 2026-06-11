@@ -1,6 +1,5 @@
 const STATS = [
   { value: "20+", label: "tools" },
-  { value: "Runs overnight", label: "while you sleep" },
   { value: "Persistent memory", label: "across every session" },
 ];
 
