@@ -37,7 +37,7 @@ export default function HeroSection() {
             {...t(0.05)}
             className="text-wrap balance text-[clamp(2.8rem,4.5vw,5.5rem)] leading-[0.94] tracking-[-0.03em] font-semibold mb-6 text-[var(--text)]"
           >
-            The AI agent that runs your organization. While you sleep.
+            The AI agent that runs your organization.
           </motion.h1>
 
           <motion.p
